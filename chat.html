@@ -20,7 +20,22 @@
   padding: 8px 10px;
   font-size: 14px;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
+
+#chatHeader .backBtn {
+  cursor: pointer;
+  font-size: 18px;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+#chatHeader .backBtn:hover {
+  background: rgba(255,255,255,.2);
+}
+
 #inputArea {
   display: flex;
   border-top: 1px solid #ddd;
@@ -71,7 +86,15 @@
   align-self: flex-start;
 }
 @media(max-width:600px){
-  #chatbox { width: 90%; height: 60vh; right: 5%; bottom: 70px; display: none; }
+  #chatbox {
+    width: calc(100% - 20px);
+    height: calc(100% - 100px);
+    right: 10px;
+    bottom: 10px;
+    border-radius: 14px;
+    display: none; /* ← 今まで通り */
+  }
+
   #chatToggleBtn {
     display: block;
     position: fixed;
@@ -88,6 +111,7 @@
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   }
 }
+
 @media(min-width:601px){
   #chatToggleBtn { display: none; }
 }
@@ -95,7 +119,10 @@
 
 <button id="chatToggleBtn">取チャット</button>
 <div id="chatbox">
-  <div id="chatHeader">セントラルホテルQ&Aチャットです。<br>下記直接入力、スマホ音声入力対応です。</div>
+  <div id="chatHeader">
+  <span class="backBtn" title="ホテルへ戻る">←</span>
+  セントラルホテルQ&Aチャットです。<br>
+  下記直接入力、スマホ音声入力対応です。 </div>
   <div id="messages"></div>
   <div id="inputArea">
     <input type="text" id="userInput" placeholder="ご質問をどうぞ..." />
@@ -509,88 +536,15 @@ function cyclePlaceholder(){
 }
 setInterval(cyclePlaceholder,5000);
 cyclePlaceholder(); // 
-</script>
-
-<!-- ===== Back Launcher（Chat専用・完全統一） ===== -->
-<style>
-#back-launcher {
-  position: fixed;
-  left: 24px;   /* 左下配置（チャットと対称） */
-  bottom: 24px;
-  width: 56px;
-  height: 56px;
-  background: #2e7d32;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0,0,0,.25);
-  transition: transform .2s ease, box-shadow .2s ease;
-}
-
-#back-launcher:hover {
-  transform: scale(1.06);
-  box-shadow: 0 6px 18px rgba(0,0,0,.35);
-}
-
-#back-launcher svg {
-  width: 36px;
-  height: 36px;
-}
-
-/* ラベル（常時表示） */
-#back-launcher .label {
-  position: absolute;
-  bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0,0,0,.85);
-  color: #fff;
-  padding: 4px 9px;
-  border-radius: 6px;
-  font-size: 9pt;
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-@media (max-width: 600px) {
-  #back-launcher {
-    left: 20px;
-    bottom: 20px;
-  }
-}
-</style>
-
-<div id="back-launcher" aria-label="ホテルサイトへ戻る">
-  <span class="label">ホテルへ戻る</span>
-
-  <!-- 戻る矢印（SVG） -->
-  <svg viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M14 5l-7 7 7 7"
-          fill="none"
-          stroke="white"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"/>
-    <line x1="7" y1="12" x2="20" y2="12"
-          stroke="white"
-          stroke-width="2"
-          stroke-linecap="round"/>
-  </svg>
-</div>
 
 <script>
-(function(){
-  const back = document.getElementById("back-launcher");
-  if(!back) return;
+document.addEventListener("DOMContentLoaded", function () {
+  const backBtn = document.querySelector("#chatHeader .backBtn");
+  if (!backBtn) return;
 
-  back.addEventListener("click", function(){
+  backBtn.addEventListener("click", function () {
     window.location.href = "https://www.centralhoteltoride.com/";
   });
-})();
+});
 </script>
-<!-- ===== /Back Launcher ===== -->
-
 
