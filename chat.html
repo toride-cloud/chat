@@ -95,7 +95,7 @@
 /* ===== スマホ ===== */
 @media (max-width:none;) {
   #chatbox {
-    width: 100vw;     /* 横幅を大きく */
+    width: 200vw;     /* 横幅を大きく */
     max-width: none;  /* ← これがないと絶対に変わらない */
   }
 }
@@ -415,7 +415,7 @@ answer:`お掃除は毎朝10：00より開始となります。要・不要に�
 
 /* ===== QAロジック ===== */
 function findAnswer(query){
-  query = query.toLowerCase();
+  query=query.toLowerCase();
   for(const item of faq){
     for(const kw of item.keywords){
       if(query.includes(kw.toLowerCase())) return item.answer;
@@ -424,108 +424,79 @@ function findAnswer(query){
   return "申し訳ありません。その質問にはまだ対応していません。0297-72-1123までお問い合わせください。";
 }
 
-/* ===== メッセージ表示 ===== */
+/* ===== DOM ===== */
 const messages = document.getElementById("messages");
 const userInput = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
 const micBtn = document.getElementById("micBtn");
 
-function typeWriter(text, element, speed=20){
-  element.textContent = "";
-  let i = 0;
-  function typing(){
-    if(i < text.length){
-      element.textContent += text.charAt(i);
-      i++;
-      setTimeout(typing, speed);
+/* ===== 表示 ===== */
+function typeWriter(text, el, speed=20){
+  el.textContent="";
+  let i=0;
+  (function t(){
+    if(i<text.length){
+      el.textContent+=text[i++];
+      setTimeout(t,speed);
     }
-  }
-  typing();
+  })();
 }
 
-function addMessage(msg, isUser=false){
-  const div = document.createElement("div");
-  div.className = "msg " + (isUser ? "user" : "bot");
+function addMessage(msg,isUser=false){
+  const div=document.createElement("div");
+  div.className="msg "+(isUser?"user":"bot");
   messages.appendChild(div);
-  messages.scrollTop = messages.scrollHeight;
-
-  if(isUser){
-    div.textContent = msg;
-  } else {
-    typeWriter(msg, div, 20);
-  }
+  messages.scrollTop=messages.scrollHeight;
+  isUser ? div.textContent=msg : typeWriter(msg,div);
 }
 
 /* ===== 送信 ===== */
-sendBtn.onclick = ()=>{
-  const msg = userInput.value.trim();
-  if(msg==="") return;
+sendBtn.onclick=()=>{
+  const msg=userInput.value.trim();
+  if(!msg) return;
   addMessage(msg,true);
-  const ans = findAnswer(msg);
-  setTimeout(()=>addMessage(ans),100);
+  setTimeout(()=>addMessage(findAnswer(msg)),100);
   userInput.value="";
 };
 
-userInput.addEventListener("keypress", (e)=>{
+userInput.addEventListener("keypress",e=>{
   if(e.key==="Enter") sendBtn.click();
 });
 
-/* ===== プレースホルダー回転 ===== */
-const placeholders=[
-  "ご質問を入力ください",
-  "音声入力はマイクをPush！",
-  "チェックイン時の不明点や、",
-  "駐車場、食事などお尋ねください",
-  "お電話なら0297-72-1123まで.."
-];
-let phIndex=0;
-function rotatePlaceholder(){
-  userInput.placeholder = placeholders[phIndex];
-  phIndex=(phIndex+1)%placeholders.length;
-}
-setInterval(rotatePlaceholder,3000);
-rotatePlaceholder();
-
 /* ===== 音声入力 ===== */
-let recognition = null;
+let recognition=null;
 
-if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  recognition = new SpeechRecognition();
-  recognition.lang = "ja-JP";
-  recognition.continuous = false;
-  recognition.interimResults = false;
+if("SpeechRecognition" in window || "webkitSpeechRecognition" in window){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  recognition=new SR();
+  recognition.lang="ja-JP";
 
-  recognition.onstart = () => {
-    micBtn.classList.add("recording"); // 🔴表示
+  recognition.onstart=()=>{
+    micBtn.classList.add("recording");
   };
 
-  recognition.onend = () => {
-    micBtn.classList.remove("recording"); // 🎤に戻る
-  };
-
-  recognition.onerror = () => {
+  recognition.onend=()=>{
     micBtn.classList.remove("recording");
   };
 
-  recognition.onresult = (event) => {
-    const transcript = event.results[0][0].transcript;
-    userInput.value = transcript;
+  recognition.onerror=()=>{
+    micBtn.classList.remove("recording");
+  };
+
+  recognition.onresult=e=>{
+    userInput.value=e.results[0][0].transcript;
     sendBtn.click();
   };
 }
 
-micBtn.onclick = () => {
-  if(recognition){
-    recognition.start(); // ← ユーザー操作直結（重要）
-  } else {
-    alert("このブラウザでは音声入力に対応していません。");
-  }
+micBtn.onclick=()=>{
+  if(recognition) recognition.start();
 };
 </script>
 
 </body>
 </html>
+
 
 
 
