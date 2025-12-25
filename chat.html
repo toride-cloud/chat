@@ -424,78 +424,92 @@ function findAnswer(query){
   return "申し訳ありません。その質問にはまだ対応していません。0297-72-1123までお問い合わせください。";
 }
 
-/* ===== DOM ===== */
+/* ===== メッセージ表示 ===== */
 const messages = document.getElementById("messages");
 const userInput = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
 const micBtn = document.getElementById("micBtn");
 
-/* ===== 表示 ===== */
-function typeWriter(text, el, speed=20){
-  el.textContent="";
-  let i=0;
-  (function t(){
-    if(i<text.length){
-      el.textContent+=text[i++];
-      setTimeout(t,speed);
+function typeWriter(text, element, speed=20){
+  element.textContent = "";
+  let i = 0;
+  function typing(){
+    if(i < text.length){
+      element.textContent += text.charAt(i);
+      i++;
+      setTimeout(typing, speed);
     }
-  })();
+  }
+  typing();
 }
 
-function addMessage(msg,isUser=false){
-  const div=document.createElement("div");
-  div.className="msg "+(isUser?"user":"bot");
+function addMessage(msg, isUser=false){
+  const div = document.createElement("div");
+  div.className = "msg " + (isUser ? "user" : "bot");
   messages.appendChild(div);
-  messages.scrollTop=messages.scrollHeight;
-  isUser ? div.textContent=msg : typeWriter(msg,div);
+  messages.scrollTop = messages.scrollHeight;
+
+  if(isUser){
+    div.textContent = msg;
+  } else {
+    typeWriter(msg, div, 20);
+  }
 }
 
 /* ===== 送信 ===== */
-sendBtn.onclick=()=>{
-  const msg=userInput.value.trim();
-  if(!msg) return;
+sendBtn.onclick = ()=>{
+  const msg = userInput.value.trim();
+  if(msg==="") return;
   addMessage(msg,true);
-  setTimeout(()=>addMessage(findAnswer(msg)),100);
+  const ans = findAnswer(msg);
+  setTimeout(()=>addMessage(ans),100);
   userInput.value="";
-};
+}
 
-userInput.addEventListener("keypress",e=>{
+userInput.addEventListener("keypress", (e)=>{
   if(e.key==="Enter") sendBtn.click();
 });
 
 /* ===== 音声入力 ===== */
-let recognition=null;
+let recognition = null;
 
-if("SpeechRecognition" in window || "webkitSpeechRecognition" in window){
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  recognition=new SR();
+if('SpeechRecognition' in window || 'webkitSpeechRecognition' in window){
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SpeechRecognition();
   recognition.lang="ja-JP";
+  recognition.continuous=false;
+  recognition.interimResults=false;
 
-  recognition.onstart=()=>{
-    micBtn.classList.add("recording");
+  recognition.onstart = ()=>{
+    micBtn.classList.add("recording");   // 🔴
   };
 
-  recognition.onend=()=>{
+  recognition.onend = ()=>{
+    micBtn.classList.remove("recording"); // 🎤
+  };
+
+  recognition.onerror = ()=>{
     micBtn.classList.remove("recording");
   };
 
-  recognition.onerror=()=>{
-    micBtn.classList.remove("recording");
-  };
-
-  recognition.onresult=e=>{
-    userInput.value=e.results[0][0].transcript;
+  recognition.onresult = (event)=>{
+    const transcript = event.results[0][0].transcript;
+    userInput.value = transcript;
     sendBtn.click();
-  };
+  }
 }
 
 micBtn.onclick=()=>{
-  if(recognition) recognition.start();
-};
+  if(recognition){
+    recognition.start();   // ← ここは最初のまま
+  } else {
+    alert("このブラウザでは音声入力に対応していません。");
+  }
+}
 </script>
-
 </body>
 </html>
+
 
 
 
