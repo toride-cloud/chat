@@ -6,153 +6,101 @@
 
 <style>
   #chatbox {
-  width: 350px;
-  height: 50vh;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  z-index: 9999;
-}
-#chatHeader {
-  background: #2e7d32;
-  color: white;
-  padding: 8px 10px;
-  font-size: 14px;
-  font-weight: bold;
-}
-#inputArea {
-  display: flex;
-  border-top: 1px solid #ddd;
-  padding: 5px 10px;
-}
-#userInput {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  outline: none;
-  font-size: 14px;
-  transition: opacity 0.5s ease; /**/
-}
-#sendBtn, #micBtn {
-  padding: 8px 12px;
-  margin-left: 5px;
-  border: none;
-  border-radius: 8px;
-  background: #0078d7;
-  color: white;
-  cursor: pointer;
-  font-size: 14px;
-}
-#sendBtn:hover, #micBtn:hover {
-  background: #005fa3;
-}
-#messages {
-  flex: 1;
-  overflow-y: auto;
-  padding: 10px;
-  background: #fafafa;
-}
-.msg {
-  margin: 6px 0;
-  padding: 8px 10px;
-  border-radius: 10px;
-  max-width: 80%;
-  word-wrap: break-word;
-  font-size: 14px;
-}
-.user {
-  background: #d1f0d1;
-  align-self: flex-end;
-}
-.bot {
-  background: #f0f0f0;
-  align-self: flex-start;
-}
-@media(max-width:600px){
-  #chatbox { width: 90%; height: 60vh; right: 5%; bottom: 70px; display: none; }
-  #chatToggleBtn {
-    display: block;
+    width: 350px;
+    height: 50vh;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     position: fixed;
     bottom: 20px;
     right: 20px;
-    z-index: 10000;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 9999;
+  }
+  #chatHeader {
     background: #2e7d32;
     color: white;
+    padding: 8px 10px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  #inputArea {
+    display: flex;
+    border-top: 1px solid #ddd;
+    padding: 5px 10px;
+  }
+  #userInput {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+  }
+  #sendBtn, #micBtn {
+    padding: 8px 12px;
+    margin-left: 5px;
     border: none;
-    padding: 12px 16px;
-    border-radius: 50px;
-    font-size: 16px;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  }
-}
-@media(min-width:601px){
-  #chatToggleBtn { display: none; }
-}
-
-/* 共通スタイル */
-#chatbox {
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  z-index: 9999;
-}
-
-/* PC: 画面中央表示 */
-@media(min-width:601px){
-  #chatbox {
-    width: 400px;
-    height: 60vh;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-}
-
-/* スマホ: フィット表示 */
-@media(max-width:600px){
-  #chatbox {
-    width: 95%;
-    height: 70vh;
-    position: fixed;
-    top: 5%;
-    left: 2.5%;
-    transform: none;
-  }
-
-  #chatToggleBtn {
-    display: block;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 10000;
-    background: #2e7d32;
+    border-radius: 8px;
+    background: #0078d7;
     color: white;
-    border: none;
-    padding: 12px 16px;
-    border-radius: 50px;
-    font-size: 16px;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    font-size: 14px;
   }
-}
+  #sendBtn:hover, #micBtn:hover {
+    background: #005fa3;
+  }
+  #messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    background: #fafafa;
+  }
+  .msg {
+    margin: 6px 0;
+    padding: 8px 10px;
+    border-radius: 10px;
+    max-width: 80%;
+    word-wrap: break-word;
+    font-size: 14px;
+  }
+  .user { background: #d1f0d1; align-self: flex-end; }
+  .bot { background: #f0f0f0; align-self: flex-start; }
 
-@media(min-width:601px){
-  #chatToggleBtn { display: none; }
-}
+  @media(max-width:600px){
+    #chatbox { width: 90%; height: 60vh; right: 5%; bottom: 70px; display: none; }
+    #chatToggleBtn {
+      display: block;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 10000;
+      background: #2e7d32;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50px;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+  }
+  @media(min-width:601px){
+    #chatToggleBtn { display: none; }
+  }
+
+  /* PC中央表示 */
+  @media(min-width:601px){
+    #chatbox { width: 400px; height: 60vh; top:50%; left:50%; transform:translate(-50%,-50%); }
+  }
+
+  /* スマホフィット */
+  @media(max-width:600px){
+    #chatbox { width:95%; height:70vh; top:5%; left:2.5%; transform:none; }
+  }
 </style>
 </head>
 
@@ -178,13 +126,9 @@
 </div>
 
 <script>
-/* ===== 戻る（必ず別ウィンドウ） ===== */
+/* ===== 戻る ===== */
 document.querySelector(".backBtn").onclick=()=>{
-  window.open(
-    "https://www.centralhoteltoride.com/",
-    "_blank",
-    "noopener"
-  );
+  window.open("https://www.centralhoteltoride.com/","_blank","noopener");
 };
 
 /* ===== FAQ（例：ここに全文入れてOK） ===== */
@@ -456,90 +400,43 @@ answer:`お掃除は毎朝10：00より開始となります。要・不要に�
 ];
 
 /* ===== QAロジック ===== */
-function getAnswer(msg){
-  msg=msg.toLowerCase();
-  for(const f of faq){
-    if(f.keywords.some(k=>msg.includes(k))) return f.answer;
-  }
-  return "申し訳ありません。その質問にはまだ対応していません。0297-72-1123までお問い合わせください。";
-}
-
-/* ===== 表示 ===== */
-function add(text,cls){
-  const d=document.createElement("div");
-  d.className="msg "+cls;
-  d.textContent=text;
-  messages.appendChild(d);
-  d.scrollIntoView({behavior:"smooth"});
-}
-
-sendBtn.onclick=()=>{
-  if(!userInput.value.trim())return;
-  add(userInput.value,"user");
-  const a=getAnswer(userInput.value);
-  userInput.value="";
-  setTimeout(()=>add(a,"bot"),150);
-};
-
-userInput.onkeydown=e=>{
-  if(e.key==="Enter"){e.preventDefault();sendBtn.click();}
-};
-
-// タイプライター
-function typeWriter(text, element, speed=20){
-  element.textContent="";
-  let i=0;
-  function typing(){
-    if(i<text.length){
-      element.textContent+=text.charAt(i);
-      i++;
-      setTimeout(typing, speed);
-    }
-  }
-  typing();
-}
-
-// FAQ検索
 function findAnswer(query){
   query=query.toLowerCase();
   for(const item of faq){
     for(const kw of item.keywords){
-      if(query.includes(kw.toLowerCase())){
-        return item.answer;
-      }
+      if(query.includes(kw.toLowerCase())) return item.answer;
     }
   }
-  return "申し訳ありません。ご質問内容を理解できませんでした。";
+  return "申し訳ありません。その質問にはまだ対応していません。0297-72-1123までお問い合わせください。";
 }
 
-const chatOutput=document.getElementById("chatOutput");
-const userInput=document.getElementById("userInput");
-const sendBtn=document.getElementById("sendBtn");
-const micBtn=document.getElementById("micBtn");
+/* ===== メッセージ表示 ===== */
+const messages = document.getElementById("messages");
+const userInput = document.getElementById("userInput");
+const sendBtn = document.getElementById("sendBtn");
+const micBtn = document.getElementById("micBtn");
 
 function addMessage(msg,isUser=false){
-  const div=document.createElement("div");
-  div.className=isUser?"userMsg":"botMsg";
-  chatOutput.appendChild(div);
-  if(isUser){ div.textContent=msg; }
-  else { typeWriter(msg, div); }
-  chatOutput.scrollTop=chatOutput.scrollHeight;
+  const div = document.createElement("div");
+  div.className = "msg " + (isUser?"user":"bot");
+  div.textContent = msg;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
 }
 
-// 送信
-sendBtn.onclick=()=>{
-  const msg=userInput.value.trim();
+/* ===== 送信 ===== */
+sendBtn.onclick = ()=>{
+  const msg = userInput.value.trim();
   if(msg==="") return;
   addMessage(msg,true);
-  const ans=findAnswer(msg);
+  const ans = findAnswer(msg);
   setTimeout(()=>addMessage(ans),100);
   userInput.value="";
 }
 
-// Enterキー対応
-userInput.addEventListener("keypress",(e)=>{ if(e.key==="Enter") sendBtn.click(); });
+userInput.addEventListener("keypress", (e)=>{ if(e.key==="Enter") sendBtn.click(); });
 
-// プレースホルダー流れるコメント
+/* ===== プレースホルダー回転 ===== */
 const placeholders=[
   "ご質問を入力ください",
   "音声入力はマイクをPush！",
@@ -549,37 +446,33 @@ const placeholders=[
 ];
 let phIndex=0;
 function rotatePlaceholder(){
-  userInput.placeholder=placeholders[phIndex];
+  userInput.placeholder = placeholders[phIndex];
   phIndex=(phIndex+1)%placeholders.length;
 }
 setInterval(rotatePlaceholder,3000);
 rotatePlaceholder();
 
-// 音声入力（Web Speech API）対応
-let recognition=null;
-if('webkitSpeechRecognition' in window){
-  recognition=new webkitSpeechRecognition();
+/* ===== 音声入力 ===== */
+let recognition = null;
+if('SpeechRecognition' in window || 'webkitSpeechRecognition' in window){
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SpeechRecognition();
   recognition.lang="ja-JP";
   recognition.continuous=false;
   recognition.interimResults=false;
-}
-micBtn.onclick=()=>{
-  if(recognition){
-    recognition.start();
-  } else {
-    alert("このブラウザでは音声入力に対応していません。");
-  }
-}
-if(recognition){
-  recognition.onresult=(event)=>{
-    const transcript=event.results[0][0].transcript;
-    userInput.value=transcript;
+
+  recognition.onresult = (event)=>{
+    const transcript = event.results[0][0].transcript;
+    userInput.value = transcript;
     sendBtn.click();
   }
+}
+
+micBtn.onclick=()=>{
+  if(recognition){ recognition.start(); }
+  else { alert("このブラウザでは音声入力に対応していません。"); }
 }
 </script>
 
 </body>
 </html>
-
-
