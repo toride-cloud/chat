@@ -537,12 +537,17 @@ function cyclePlaceholder(){
 setInterval(cyclePlaceholder,5000);
 cyclePlaceholder(); // 
 
-document.addEventListener("DOMContentLoaded", function () {
+<script>
+window.addEventListener("load", function () {
   const backBtn = document.querySelector("#chatHeader .backBtn");
-  if (!backBtn) return;
+  if (!backBtn) {
+    console.warn("backBtn が見つかりません");
+    return;
+  }
 
-  backBtn.addEventListener("click", function () {
+  backBtn.onclick = function () {
     window.location.href = "https://www.centralhoteltoride.com/";
-  });
+  };
 });
+</script>
 
