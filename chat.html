@@ -7,44 +7,34 @@
 <style>
 /* ===== 共通 ===== */
 #chatbox {
+  position: fixed;
   width: 360px;
   height: 520px;
-  max-height: 70dvh;
-  border: 1px solid #ccc;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-  position: fixed;
   background: #fff;
+  box-shadow: 0 4px 15px rgba(0,0,0,.3);
   display: flex;
   flex-direction: column;
   overflow: hidden;
   z-index: 9999;
 }
 
-/* ===== PC ===== */
+/* ===== PC：右下 ===== */
 @media (min-width: 601px) {
   #chatbox {
-    width: 420px;
-    height: 520px;
-    right: 20px;      /* ← 右下 */
+    right: 20px;
     bottom: 20px;
-    left: auto;
-    top: auto;
-    transform: none;
   }
 }
 
-/* ===== スマホ ===== */
+/* ===== スマホ：中央下 ===== */
 @media (max-width: 600px) {
   #chatbox {
-    width: 468px;     /* ← 360px × 1.3 = 明確に30%増 */
-    max-width: 95vw;  /* 画面からはみ出さない保険 */
-    height: 32dvh;    /* ← 現状維持 */
-    bottom: 80px;
+    width: 95vw;       /* ← 確実に大きくなる */
+    height: 32dvh;     /* ← あなたが「正解」と言った高さ */
     left: 50%;
-    right: auto;
+    bottom: 80px;
     transform: translateX(-50%);
-    display: none;
   }
 }
 </style>
@@ -442,6 +432,7 @@ micBtn.onclick=()=>{
 
 </body>
 </html>
+
 
 
 
