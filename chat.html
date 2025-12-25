@@ -125,8 +125,8 @@
     <span class="backBtn" title="公式サイトへ戻る">←</span>
     <div>
       矢印クリックで公式サイトへ..<br>
-       --☆ セントラルホテル取手Q&Aチャットです。 ☆--<br>
-       --☆ 下記直接入力、スマホ音声入力対応です。　☆--
+       -☆セントラルホテル取手Q&Aチャットです。 ☆-<br>
+       -☆下記直接入力、スマホ音声入力対応です。☆-
     </div>
   </div>
 
@@ -452,10 +452,9 @@ function addMessage(msg, isUser=false){
   if(isUser){
     div.textContent = msg;
   } else {
-    typeWriter(msg, div, 20); // ボット回答をタイプライター風に
+    typeWriter(msg, div, 20);
   }
 }
-
 
 /* ===== 送信 ===== */
 sendBtn.onclick = ()=>{
@@ -467,7 +466,9 @@ sendBtn.onclick = ()=>{
   userInput.value="";
 }
 
-userInput.addEventListener("keypress", (e)=>{ if(e.key==="Enter") sendBtn.click(); });
+userInput.addEventListener("keypress", (e)=>{
+  if(e.key==="Enter") sendBtn.click();
+});
 
 /* ===== プレースホルダー回転 ===== */
 const placeholders=[
@@ -494,49 +495,37 @@ if('SpeechRecognition' in window || 'webkitSpeechRecognition' in window){
   recognition.continuous=false;
   recognition.interimResults=false;
 
+  /* ★ 追加：開始時に赤丸 */
+  recognition.onstart = ()=>{
+    micBtn.classList.add("recording");
+  };
+
+  /* ★ 追加：終了時に元へ */
+  recognition.onend = ()=>{
+    micBtn.classList.remove("recording");
+  };
+
+  /* ★ 追加：エラー時も元へ */
+  recognition.onerror = ()=>{
+    micBtn.classList.remove("recording");
+  };
+
   recognition.onresult = (event)=>{
     const transcript = event.results[0][0].transcript;
     userInput.value = transcript;
     sendBtn.click();
-  }
+  };
 }
 
 micBtn.onclick=()=>{
-  if(recognition){ recognition.start(); }
-  else { alert("このブラウザでは音声入力に対応していません。"); }
-}
+  if(recognition){
+    recognition.start();
+  } else {
+    alert("このブラウザでは音声入力に対応していません。");
+  }
+};
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
