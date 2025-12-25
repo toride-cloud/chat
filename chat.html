@@ -97,10 +97,19 @@
     #chatbox { width: 400px; height:70vh; top: 40%; left:50%; transform:translate(-50%,-50%); }
   }
 
-  /* スマホフィット */
-  @media(max-width:600px){
-    #chatbox { width:95%; height:70vh; top:5%; left:2.5%; transform:none; }
+ /* スマホ: フィット表示調整 */
+@media(max-width:600px){
+  #chatbox {
+    width: 90%;        /* 横幅を画面にフィット */
+    max-width: 400px;  /* PCサイズと同程度まで拡大可能 */
+    height: auto;      /* 高さを内容に応じて自動調整 */
+    max-height: 60vh;  /* 高さは画面の60%以内に制限 */
+    position: fixed;
+    top: 10%;          /* 上から10%に配置 */
+    left: 50%;
+    transform: translateX(-50%); /* 横中央寄せ */
   }
+}
 </style>
 </head>
 
@@ -495,6 +504,7 @@ micBtn.onclick=()=>{
 
 </body>
 </html>
+
 
 
 
