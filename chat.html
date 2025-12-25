@@ -95,7 +95,7 @@
 /* ===== スマホ ===== */
 @media (max-width: 600px) {
   #chatbox {
-    width: 120vw;        /* ← 横幅を確実に大きく（約30%増） */
+    width: 100vw;        /* ← ここだけ変更 */
     height: 65dvh;
     max-height: 420px;
     bottom: 80px;
@@ -109,11 +109,11 @@
   #chatbox {
     width: 420px;
     height: 70vh;
-    top: auto;           /* ← 修正 */
-    left: auto;          /* ← 修正 */
-    right: 20px;         /* ← 修正 */
-    bottom: 20px;        /* ← 修正 */
-    transform: none;     /* ← 修正 */
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    transform: translate(-50%, -50%);
   }
 
   #chatToggleBtn {
@@ -515,6 +515,7 @@ micBtn.onclick=()=>{
 
 </body>
 </html>
+
 
 
 
