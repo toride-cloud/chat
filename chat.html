@@ -3,48 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <title>セントラルホテルQ&Aチャット</title>
+
 <style>
-html, body{margin:0;padding:0;font-family:sans-serif;height:100%;width:100%;background:#f5f5f5;}
 #chatbox{
-  width:450px; height:65vh;
-  position:fixed; top:50%; left:50%;
-  transform:translate(-50%,-50%);
+  width:350px;height:50vh;
+  position:fixed;bottom:20px;right:20px;
   background:#fff;border:1px solid #ccc;
-  border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,.3);
-  display:flex; flex-direction:column;
-  z-index:9999; overflow:hidden;
+  border-radius:12px;
+  box-shadow:0 4px 15px rgba(0,0,0,.3);
+  display:flex;flex-direction:column;
+  z-index:9999;
 }
 #chatHeader{
   background:#2e7d32;color:#fff;
-  padding:10px; font-size:16px; font-weight:bold;
-  display:flex; gap:8px; align-items:flex-start;
+  padding:8px 10px;
+  font-size:14px;font-weight:bold;
+  display:flex;gap:8px;align-items:flex-start;
 }
-.backBtn{cursor:pointer;font-size:18px;padding:2px 6px;border-radius:6px;}
+.backBtn{
+  cursor:pointer;font-size:18px;
+  padding:2px 6px;border-radius:6px;
+}
 .backBtn:hover{background:rgba(255,255,255,.2);}
 #messages{flex:1;overflow-y:auto;padding:10px;background:#fafafa;}
-.msg{margin:6px 0;padding:8px 10px;border-radius:10px;max-width:80%;word-wrap:break-word;font-size:14px;}
+.msg{margin:6px 0;padding:8px 10px;border-radius:10px;max-width:80%;}
 .user{background:#d1f0d1;align-self:flex-end;}
 .bot{background:#f0f0f0;align-self:flex-start;}
 #inputArea{display:flex;border-top:1px solid #ddd;padding:5px 10px;}
-#userInput{flex:1;padding:8px;border-radius:8px;border:1px solid #ccc;outline:none;font-size:14px;}
-#sendBtn,#micBtn{margin-left:5px;padding:8px 12px;border:none;border-radius:8px;background:#0078d7;color:#fff;cursor:pointer;font-size:14px;}
-#sendBtn:hover,#micBtn:hover{background:#005fa3;}
-@media(max-width:600px){
-  #chatbox{
-    width:95%; height:90vh;
-    top:50%; left:50%;
-    transform:translate(-50%,-50%);
-    border-radius:12px;
-  }
+#userInput{flex:1;padding:8px;border-radius:8px;border:1px solid #ccc;}
+#sendBtn,#micBtn{
+  margin-left:5px;padding:8px 12px;
+  border:none;border-radius:8px;
+  background:#0078d7;color:#fff;
 }
 </style>
 </head>
+
 <body>
 
 <div id="chatbox">
   <div id="chatHeader">
     <span class="backBtn" title="公式サイトへ戻る">←</span>
     <div>
+      矢印でボタンで公式サイトへ..<br>
       セントラルホテルQ&Aチャットです。<br>
       下記直接入力、スマホ音声入力対応です。
     </div>
@@ -53,21 +54,25 @@ html, body{margin:0;padding:0;font-family:sans-serif;height:100%;width:100%;back
   <div id="messages"></div>
 
   <div id="inputArea">
-    <input id="userInput" placeholder="ご質問をどうぞ...">
+    <input id="userInput" placeholder="ご質問をどうぞ…">
     <button id="micBtn">🎤</button>
     <button id="sendBtn">送信</button>
   </div>
 </div>
 
 <script>
-/* ===== 戻るボタン ===== */
+/* ===== 戻る（必ず別ウィンドウ） ===== */
 document.querySelector(".backBtn").onclick=()=>{
-  window.open("https://www.centralhoteltoride.com/","_blank","noopener");
+  window.open(
+    "https://www.centralhoteltoride.com/",
+    "_blank",
+    "noopener"
+  );
 };
 
-/* ===== FAQ全文（抜粋ではなく元のまま入れること） ===== */
+/* ===== FAQ（例：ここに全文入れてOK） ===== */
 const faq=[
-{
+ {
 keywords:["チェックイン","ちぇっくいん","チェックイン時間"],
 answer:`チェックイン時間は宿泊当日15:00〜です。早めのチェックインをご希望の際は有償によるご対応が可能です。フロントスタッフまたは、事前に 0297-72-1123 までお問合わせください。お待ちいただく際にはウエルカムドリンクコーナーもございますのでご利用ください。`
 },
@@ -331,75 +336,131 @@ answer:`空調は一括制御になりますのでお部屋毎の温度設定は
 keywords:["掃除","清掃","そうじ","せいそう","時間","始まる","終わる","始め","終了","しない","赤札","白札"],
 answer:`お掃除は毎朝10：00より開始となります。要・不要に関しましてドア内側にあるプラスティック札を外側にご提示いただく事でお伝えいただく事も可能です。お時間を変更してのお掃除ご依頼は13：00までになります。フロントに直接ご依頼ください。`
 }
-/* ここに残りの全文FAQをすべて入れる */
 ];
 
-/* ===== タイプライター表示関数 ===== */
-function addMessageTypewriter(text,sender){
-  const msgDiv=document.createElement("div");
-  msgDiv.className="msg "+sender;
-  document.getElementById("messages").appendChild(msgDiv);
-  let i=0;
-  const interval=setInterval(()=>{
-    if(i<text.length){
-      msgDiv.textContent+=text.charAt(i);
-      i++;
-      msgDiv.scrollIntoView({behavior:"smooth"});
-    } else { clearInterval(interval); }
-  },20);
+/* ===== QAロジック ===== */
+function getAnswer(msg){
+  msg=msg.toLowerCase();
+  for(const f of faq){
+    if(f.keywords.some(k=>msg.includes(k))) return f.answer;
+  }
+  return "申し訳ありません。その質問にはまだ対応していません。0297-72-1123までお問い合わせください。";
 }
 
-/* ===== QA検索ロジック ===== */
-function localResponse(rawMsg){
-  if(!rawMsg) return "";
-  const norm=rawMsg.normalize("NFKC").toLowerCase();
-  for(let item of faq){
-    for(let kw of item.keywords){
-      if(norm.includes(kw.toLowerCase())) return item.answer;
+/* ===== 表示 ===== */
+function add(text,cls){
+  const d=document.createElement("div");
+  d.className="msg "+cls;
+  d.textContent=text;
+  messages.appendChild(d);
+  d.scrollIntoView({behavior:"smooth"});
+}
+
+sendBtn.onclick=()=>{
+  if(!userInput.value.trim())return;
+  add(userInput.value,"user");
+  const a=getAnswer(userInput.value);
+  userInput.value="";
+  setTimeout(()=>add(a,"bot"),150);
+};
+
+userInput.onkeydown=e=>{
+  if(e.key==="Enter"){e.preventDefault();sendBtn.click();}
+};
+
+// タイプライター
+function typeWriter(text, element, speed=20){
+  element.textContent="";
+  let i=0;
+  function typing(){
+    if(i<text.length){
+      element.textContent+=text.charAt(i);
+      i++;
+      setTimeout(typing, speed);
     }
   }
-  return "すみません、そのご質問にはまだ対応していません。0297-72-1123までお問い合わせお願いします。";
+  typing();
 }
 
-/* ===== メッセージ送信 ===== */
-function sendMessage(){
-  const input=document.getElementById("userInput");
-  const raw=input.value.trim();
-  if(!raw) return;
-  const userDiv=document.createElement("div");
-  userDiv.className="msg user";
-  userDiv.textContent=raw;
-  document.getElementById("messages").appendChild(userDiv);
-  userDiv.scrollIntoView({behavior:"smooth"});
-  input.value="";
-  const answer=localResponse(raw);
-  setTimeout(()=>{ addMessageTypewriter(answer,"bot"); },120);
+// FAQ検索
+function findAnswer(query){
+  query=query.toLowerCase();
+  for(const item of faq){
+    for(const kw of item.keywords){
+      if(query.includes(kw.toLowerCase())){
+        return item.answer;
+      }
+    }
+  }
+  return "申し訳ありません。ご質問内容を理解できませんでした。";
 }
-document.getElementById("sendBtn").addEventListener("click",sendMessage);
-document.getElementById("userInput").addEventListener("keydown",function(e){
-  if(e.key==="Enter"){ e.preventDefault(); sendMessage(); }
-});
 
-/* ===== 音声入力 ===== */
-let recognition;
+const chatOutput=document.getElementById("chatOutput");
+const userInput=document.getElementById("userInput");
+const sendBtn=document.getElementById("sendBtn");
 const micBtn=document.getElementById("micBtn");
+
+function addMessage(msg,isUser=false){
+  const div=document.createElement("div");
+  div.className=isUser?"userMsg":"botMsg";
+  chatOutput.appendChild(div);
+  if(isUser){ div.textContent=msg; }
+  else { typeWriter(msg, div); }
+  chatOutput.scrollTop=chatOutput.scrollHeight;
+}
+
+// 送信
+sendBtn.onclick=()=>{
+  const msg=userInput.value.trim();
+  if(msg==="") return;
+  addMessage(msg,true);
+  const ans=findAnswer(msg);
+  setTimeout(()=>addMessage(ans),100);
+  userInput.value="";
+}
+
+// Enterキー対応
+userInput.addEventListener("keypress",(e)=>{ if(e.key==="Enter") sendBtn.click(); });
+
+// プレースホルダー流れるコメント
+const placeholders=[
+  "ご質問を入力ください",
+  "音声入力はマイクをPush！",
+  "チェックイン時の不明点や、",
+  "駐車場、食事などお尋ねください",
+  "お電話なら0297-72-1123まで.."
+];
+let phIndex=0;
+function rotatePlaceholder(){
+  userInput.placeholder=placeholders[phIndex];
+  phIndex=(phIndex+1)%placeholders.length;
+}
+setInterval(rotatePlaceholder,3000);
+rotatePlaceholder();
+
+// 音声入力（Web Speech API）対応
+let recognition=null;
 if('webkitSpeechRecognition' in window){
   recognition=new webkitSpeechRecognition();
   recognition.lang="ja-JP";
   recognition.continuous=false;
   recognition.interimResults=false;
-  recognition.onstart=function(){ micBtn.textContent="🔴"; }
-  recognition.onend=function(){ micBtn.textContent="🎤"; }
-  recognition.onresult=function(event){
-    let transcript=event.results[0][0].transcript.trim().replace(/[。．]/g,"");
-    document.getElementById("userInput").value=transcript;
-    sendMessage();
-  };
-  recognition.onerror=function(event){ micBtn.textContent="🎤"; console.error(event.error); }
-  micBtn.addEventListener("click",()=>{ try{recognition.start();}catch(e){console.warn(e);} });
-}else{ micBtn.style.display="none"; }
+}
+micBtn.onclick=()=>{
+  if(recognition){
+    recognition.start();
+  } else {
+    alert("このブラウザでは音声入力に対応していません。");
+  }
+}
+if(recognition){
+  recognition.onresult=(event)=>{
+    const transcript=event.results[0][0].transcript;
+    userInput.value=transcript;
+    sendBtn.click();
+  }
+}
 </script>
 
 </body>
 </html>
-
