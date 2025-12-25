@@ -416,13 +416,32 @@ const userInput = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
 const micBtn = document.getElementById("micBtn");
 
-function addMessage(msg,isUser=false){
+function typeWriter(text, element, speed=20){
+  element.textContent = "";
+  let i = 0;
+  function typing(){
+    if(i < text.length){
+      element.textContent += text.charAt(i);
+      i++;
+      setTimeout(typing, speed);
+    }
+  }
+  typing();
+}
+
+function addMessage(msg, isUser=false){
   const div = document.createElement("div");
-  div.className = "msg " + (isUser?"user":"bot");
-  div.textContent = msg;
+  div.className = "msg " + (isUser ? "user" : "bot");
   messages.appendChild(div);
   messages.scrollTop = messages.scrollHeight;
+
+  if(isUser){
+    div.textContent = msg;
+  } else {
+    typeWriter(msg, div, 20); // ボット回答をタイプライター風に
+  }
 }
+
 
 /* ===== 送信 ===== */
 sendBtn.onclick = ()=>{
@@ -476,4 +495,5 @@ micBtn.onclick=()=>{
 
 </body>
 </html>
+
 
