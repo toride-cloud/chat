@@ -5,6 +5,99 @@
 <title>セントラルホテルQ&Aチャット</title>
 
 <style>
+  #chatbox {
+  width: 350px;
+  height: 50vh;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 9999;
+}
+#chatHeader {
+  background: #2e7d32;
+  color: white;
+  padding: 8px 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+#inputArea {
+  display: flex;
+  border-top: 1px solid #ddd;
+  padding: 5px 10px;
+}
+#userInput {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  transition: opacity 0.5s ease; /**/
+}
+#sendBtn, #micBtn {
+  padding: 8px 12px;
+  margin-left: 5px;
+  border: none;
+  border-radius: 8px;
+  background: #0078d7;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+#sendBtn:hover, #micBtn:hover {
+  background: #005fa3;
+}
+#messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  background: #fafafa;
+}
+.msg {
+  margin: 6px 0;
+  padding: 8px 10px;
+  border-radius: 10px;
+  max-width: 80%;
+  word-wrap: break-word;
+  font-size: 14px;
+}
+.user {
+  background: #d1f0d1;
+  align-self: flex-end;
+}
+.bot {
+  background: #f0f0f0;
+  align-self: flex-start;
+}
+@media(max-width:600px){
+  #chatbox { width: 90%; height: 60vh; right: 5%; bottom: 70px; display: none; }
+  #chatToggleBtn {
+    display: block;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10000;
+    background: #2e7d32;
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+}
+@media(min-width:601px){
+  #chatToggleBtn { display: none; }
+}
+
 /* 共通スタイル */
 #chatbox {
   border: 1px solid #ccc;
@@ -488,4 +581,5 @@ if(recognition){
 
 </body>
 </html>
+
 
