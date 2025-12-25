@@ -126,7 +126,7 @@
     <div>
       矢印クリックで公式サイトへ..<br>
        -☆セントラルホテル取手Q&Aチャットです。 ☆-<br>
-       -☆下記直接入力、スマホ音声入力対応です。☆-
+       -☆下記直接入力、スマホ音声入力対応です。　☆-
     </div>
   </div>
 
@@ -430,6 +430,9 @@ const userInput = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
 const micBtn = document.getElementById("micBtn");
 
+/* ★ 追加：元のアイコンを保持 */
+const micIconDefault = micBtn.innerHTML;
+
 function typeWriter(text, element, speed=20){
   element.textContent = "";
   let i = 0;
@@ -464,7 +467,7 @@ sendBtn.onclick = ()=>{
   const ans = findAnswer(msg);
   setTimeout(()=>addMessage(ans),100);
   userInput.value="";
-}
+};
 
 userInput.addEventListener("keypress", (e)=>{
   if(e.key==="Enter") sendBtn.click();
@@ -495,19 +498,22 @@ if('SpeechRecognition' in window || 'webkitSpeechRecognition' in window){
   recognition.continuous=false;
   recognition.interimResults=false;
 
-  /* ★ 追加：開始時に赤丸 */
+  /* ★ 入力開始：赤丸アイコンに変更 */
   recognition.onstart = ()=>{
     micBtn.classList.add("recording");
+    micBtn.innerHTML = "●";
   };
 
-  /* ★ 追加：終了時に元へ */
+  /* ★ 入力終了：マイクに戻す */
   recognition.onend = ()=>{
     micBtn.classList.remove("recording");
+    micBtn.innerHTML = micIconDefault;
   };
 
-  /* ★ 追加：エラー時も元へ */
+  /* ★ エラー時も必ず戻す */
   recognition.onerror = ()=>{
     micBtn.classList.remove("recording");
+    micBtn.innerHTML = micIconDefault;
   };
 
   recognition.onresult = (event)=>{
@@ -528,4 +534,5 @@ micBtn.onclick=()=>{
 
 </body>
 </html>
+
 
