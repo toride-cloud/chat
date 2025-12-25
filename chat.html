@@ -95,12 +95,8 @@
 /* ===== スマホ ===== */
 @media (max-width: 600px) {
   #chatbox {
-    width: 100vw;        /* ← ここだけ変更 */
-    height: 65dvh;
-    max-height: 420px;
-    bottom: 80px;
-    right: 4vw;
-    display: none;
+    width: 95vw;
+    max-width: none;   /* ← これが必要だった */
   }
 }
 
@@ -515,6 +511,7 @@ micBtn.onclick=()=>{
 
 </body>
 </html>
+
 
 
 
