@@ -125,8 +125,8 @@
     <span class="backBtn" title="公式サイトへ戻る">←</span>
     <div>
       矢印クリックで公式サイトへ..<br>
-       -☆セントラルホテル取手Q&Aチャットです。 ☆-<br>
-       -☆下記直接入力、スマホ音声入力対応です。　☆-
+       -☆セントラルホテル取手Q&Aチャットです。☆-<br>
+       -☆下記直接入力、スマホ音声入力対応です。 ☆-
     </div>
   </div>
 
@@ -415,7 +415,7 @@ answer:`お掃除は毎朝10：00より開始となります。要・不要に�
 
 /* ===== QAロジック ===== */
 function findAnswer(query){
-  query=query.toLowerCase();
+  query = query.toLowerCase();
   for(const item of faq){
     for(const kw of item.keywords){
       if(query.includes(kw.toLowerCase())) return item.answer;
@@ -429,9 +429,6 @@ const messages = document.getElementById("messages");
 const userInput = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
 const micBtn = document.getElementById("micBtn");
-
-/* ★ 追加：元のアイコンを保持 */
-const micIconDefault = micBtn.innerHTML;
 
 function typeWriter(text, element, speed=20){
   element.textContent = "";
@@ -491,41 +488,36 @@ rotatePlaceholder();
 
 /* ===== 音声入力 ===== */
 let recognition = null;
-if('SpeechRecognition' in window || 'webkitSpeechRecognition' in window){
+
+if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   recognition = new SpeechRecognition();
-  recognition.lang="ja-JP";
-  recognition.continuous=false;
-  recognition.interimResults=false;
+  recognition.lang = "ja-JP";
+  recognition.continuous = false;
+  recognition.interimResults = false;
 
-  /* ★ 入力開始：赤丸アイコンに変更 */
-  recognition.onstart = ()=>{
-    micBtn.classList.add("recording");
-    micBtn.innerHTML = "●";
+  recognition.onstart = () => {
+    micBtn.classList.add("recording"); // 🔴表示
   };
 
-  /* ★ 入力終了：マイクに戻す */
-  recognition.onend = ()=>{
+  recognition.onend = () => {
+    micBtn.classList.remove("recording"); // 🎤に戻る
+  };
+
+  recognition.onerror = () => {
     micBtn.classList.remove("recording");
-    micBtn.innerHTML = micIconDefault;
   };
 
-  /* ★ エラー時も必ず戻す */
-  recognition.onerror = ()=>{
-    micBtn.classList.remove("recording");
-    micBtn.innerHTML = micIconDefault;
-  };
-
-  recognition.onresult = (event)=>{
+  recognition.onresult = (event) => {
     const transcript = event.results[0][0].transcript;
     userInput.value = transcript;
     sendBtn.click();
   };
 }
 
-micBtn.onclick=()=>{
+micBtn.onclick = () => {
   if(recognition){
-    recognition.start();
+    recognition.start(); // ← ユーザー操作直結（重要）
   } else {
     alert("このブラウザでは音声入力に対応していません。");
   }
@@ -534,5 +526,6 @@ micBtn.onclick=()=>{
 
 </body>
 </html>
+
 
 
