@@ -7,34 +7,117 @@
 <style>
 /* ===== 共通 ===== */
 #chatbox {
-  position: fixed;
   width: 360px;
+  max-width: 95vw;
   height: 520px;
+  max-height: 75dvh;
+  border: 1px solid #ccc;
   border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
   background: #fff;
-  box-shadow: 0 4px 15px rgba(0,0,0,.3);
   display: flex;
   flex-direction: column;
   overflow: hidden;
   z-index: 9999;
 }
 
-/* ===== PC：右下 ===== */
-@media (min-width: 601px) {
+#chatHeader {
+  background: #2e7d32;
+  color: white;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  background: #fafafa;
+}
+
+.msg {
+  margin: 6px 0;
+  padding: 8px 10px;
+  border-radius: 10px;
+  max-width: 80%;
+  word-wrap: break-word;
+  font-size: 14px;
+}
+
+.user { background: #d1f0d1; align-self: flex-end; }
+.bot  { background: #f0f0f0; align-self: flex-start; }
+
+#inputArea {
+  display: flex;
+  border-top: 1px solid #ddd;
+  padding: 6px;
+}
+
+#userInput {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+#sendBtn, #micBtn {
+  margin-left: 5px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  background: #0078d7;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* ===== トグルボタン ===== */
+#chatToggleBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10000;
+  background: #2e7d32;
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 50px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* ===== スマホ ===== */
+@media (max-width: 600px) {
   #chatbox {
-    right: 20px;
-    bottom: 20px;
+    width: 120vw;        /* ← 横幅を確実に大きく（約30%増） */
+    height: 65dvh;
+    max-height: 420px;
+    bottom: 80px;
+    right: 4vw;
+    display: none;
   }
 }
 
-/* ===== スマホ：中央下 ===== */
-@media (max-width: 600px) {
+/* ===== PC ===== */
+@media (min-width: 601px) {
   #chatbox {
-    width: 95vw;       /* ← 確実に大きくなる */
-    height: 32dvh;     /* ← あなたが「正解」と言った高さ */
-    left: 50%;
-    bottom: 80px;
-    transform: translateX(-50%);
+    width: 420px;
+    height: 70vh;
+    top: auto;           /* ← 修正 */
+    left: auto;          /* ← 修正 */
+    right: 20px;         /* ← 修正 */
+    bottom: 20px;        /* ← 修正 */
+    transform: none;     /* ← 修正 */
+  }
+
+  #chatToggleBtn {
+    display: none;
   }
 }
 </style>
@@ -432,6 +515,7 @@ micBtn.onclick=()=>{
 
 </body>
 </html>
+
 
 
 
