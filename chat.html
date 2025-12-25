@@ -510,3 +510,87 @@ function cyclePlaceholder(){
 setInterval(cyclePlaceholder,5000);
 cyclePlaceholder(); // 
 </script>
+
+<!-- ===== Back Launcher（Chat専用・完全統一） ===== -->
+<style>
+#back-launcher {
+  position: fixed;
+  left: 24px;   /* 左下配置（チャットと対称） */
+  bottom: 24px;
+  width: 56px;
+  height: 56px;
+  background: #2e7d32;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+#back-launcher:hover {
+  transform: scale(1.06);
+  box-shadow: 0 6px 18px rgba(0,0,0,.35);
+}
+
+#back-launcher svg {
+  width: 36px;
+  height: 36px;
+}
+
+/* ラベル（常時表示） */
+#back-launcher .label {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,.85);
+  color: #fff;
+  padding: 4px 9px;
+  border-radius: 6px;
+  font-size: 9pt;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  #back-launcher {
+    left: 20px;
+    bottom: 20px;
+  }
+}
+</style>
+
+<div id="back-launcher" aria-label="ホテルサイトへ戻る">
+  <span class="label">ホテルへ戻る</span>
+
+  <!-- 戻る矢印（SVG） -->
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M14 5l-7 7 7 7"
+          fill="none"
+          stroke="white"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"/>
+    <line x1="7" y1="12" x2="20" y2="12"
+          stroke="white"
+          stroke-width="2"
+          stroke-linecap="round"/>
+  </svg>
+</div>
+
+<script>
+(function(){
+  const back = document.getElementById("back-launcher");
+  if(!back) return;
+
+  back.addEventListener("click", function(){
+    window.location.href = "https://www.centralhoteltoride.com/";
+  });
+})();
+</script>
+<!-- ===== /Back Launcher ===== -->
+
+
