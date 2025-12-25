@@ -8,16 +8,13 @@
 /* ===== 共通 ===== */
 #chatbox {
   width: 360px;
-  max-width: 96vw;
+  max-width: 95vw;
   height: 520px;
   max-height: 70dvh;
   border: 1px solid #ccc;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.3);
   position: fixed;
-  left: 50%;
-  bottom: 24px;                 /* ← 画面下寄り中央 */
-  transform: translateX(-50%);
   background: #fff;
   display: flex;
   flex-direction: column;
@@ -25,6 +22,7 @@
   z-index: 9999;
 }
 
+/* ===== ヘッダー等（変更なし） ===== */
 #chatHeader {
   background: #2e7d32;
   color: white;
@@ -81,8 +79,7 @@
 #chatToggleBtn {
   position: fixed;
   bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+  right: 20px;
   z-index: 10000;
   background: #2e7d32;
   color: white;
@@ -97,9 +94,13 @@
 /* ===== スマホ ===== */
 @media (max-width: 600px) {
   #chatbox {
-    width: 96vw;          /* ← 横幅拡張（ほぼ全幅） */
-    height: 32dvh;        /* ← 縦は現状良好 */
+    width: 120vw;                /* ← 横幅30%増 */
+    height: 32dvh;
+    max-height: 340px;
     bottom: 80px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
     display: none;
   }
 }
@@ -110,6 +111,11 @@
     width: 420px;
     height: 65vh;
     max-height: 620px;
+    left: 20px;                  /* ← 左下寄り */
+    bottom: 20px;
+    right: auto;
+    top: auto;
+    transform: none;
   }
 
   #chatToggleBtn {
@@ -511,6 +517,7 @@ micBtn.onclick=()=>{
 
 </body>
 </html>
+
 
 
 
