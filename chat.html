@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta charset="UTF-8">
   <title>セントラルホテルQ&Aチャット</title>
 
@@ -73,6 +72,7 @@ html, body {
   display: flex;
   border-top: 1px solid #ddd;
   padding: 6px;
+  gap: 6px;
 }
 
 #userInput {
@@ -83,42 +83,28 @@ html, body {
   font-size: 14px;
 }
 
-#sendBtn, #micBtn {
-  margin-left: 5px;
-  padding: 8px 12px;
+/* ===== ボタンサイズ完全固定 ===== */
+#micBtn,
+#sendBtn {
+  width: 44px;
+  height: 44px;
+  padding: 0;
   border: none;
   border-radius: 8px;
   background: #0078d7;
   color: white;
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
-}
-
-/* ===== マイク：サイズ固定（レイアウトを絶対に変えない） ===== */
-#micBtn {
-  width: 44px;
-  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
+/* ===== 録音中：表示のみ切替（サイズ不変） ===== */
 #micBtn.recording {
+  background: #0078d7;
   color: #ff5252;
-}
-
-/* ===== スマホ ===== */
-@media screen and (max-width: 600px) {
-  #chatbox {
-    position: fixed;
-    left: env(safe-area-inset-left);
-    right: env(safe-area-inset-right);
-    bottom: env(safe-area-inset-bottom);
-    margin: 10px;
-    width: auto;
-    max-width: none;
-    transform: none;
-  }
 }
 </style>
 </head>
@@ -131,7 +117,7 @@ html, body {
     <div>
       矢印クリックで公式サイトへ..<br>
       セントラルホテル取手Q&Aチャットです<br>
-      下記直接入力、スマホ音声入力対応です<br>
+      下記直接入力、スマホ音声入力対応です
     </div>
   </div>
 
@@ -418,7 +404,7 @@ answer:`お掃除は毎朝10：00より開始となります。要・不要に�
 }
 ];
 
-/* ===== QAロジック（完全保持） ===== */
+/* ===== QAロジック ===== */
 function findAnswer(query){
   query = query.toLowerCase();
   for(const item of faq){
@@ -435,117 +421,56 @@ const userInput = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
 const micBtn = document.getElementById("micBtn");
 
-/* ===== タイプライター ===== */
-function typeWriter(text, element, speed=20){
-  element.textContent = "";
-  let i = 0;
-  function typing(){
-    if(i < text.length){
-      element.textContent += text.charAt(i);
-      i++;
-      setTimeout(typing, speed);
-    }
-  }
-  typing();
-}
-
-function addMessage(msg, isUser=false){
-  const div = document.createElement("div");
-  div.className = "msg " + (isUser ? "user" : "bot");
+/* ===== 表示 ===== */
+function addMessage(msg,isUser=false){
+  const div=document.createElement("div");
+  div.className="msg "+(isUser?"user":"bot");
+  div.textContent=msg;
   messages.appendChild(div);
-  messages.scrollTop = messages.scrollHeight;
-
-  if(isUser){
-    div.textContent = msg;
-  } else {
-    typeWriter(msg, div, 20);
-  }
+  messages.scrollTop=messages.scrollHeight;
 }
 
 /* ===== 送信 ===== */
-sendBtn.onclick = ()=>{
-  const msg = userInput.value.trim();
-  if(msg==="") return;
+sendBtn.onclick=()=>{
+  const msg=userInput.value.trim();
+  if(!msg)return;
   addMessage(msg,true);
   setTimeout(()=>addMessage(findAnswer(msg)),100);
   userInput.value="";
 };
 
-userInput.addEventListener("keypress", e=>{
-  if(e.key==="Enter") sendBtn.click();
-});
-
-/* ===== プレースホルダー回転 ===== */
-const placeholders=[
-  "ご質問を入力ください",
-  "音声入力はマイクをPush！",
-  "チェックイン時の不明点や、",
-  "駐車場、食事などお尋ねください",
-  "お電話なら0297-72-1123まで.."
-];
-
-let phIndex = 0;
-function rotatePlaceholder(){
-  userInput.placeholder = placeholders[phIndex];
-  phIndex = (phIndex + 1) % placeholders.length;
-}
-setInterval(rotatePlaceholder, 3000);
-rotatePlaceholder();
-
 /* ===== 音声入力（安定版） ===== */
-let recognition = null;
+let recognition=null;
 
-if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window){
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  recognition = new SR();
-  recognition.lang = "ja-JP";
+if(window.SpeechRecognition||window.webkitSpeechRecognition){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  recognition=new SR();
+  recognition.lang="ja-JP";
 
-  recognition.onstart = ()=>{
+  recognition.onstart=()=>{
     micBtn.classList.add("recording");
-    micBtn.textContent = "●";
+    micBtn.textContent="●";
   };
 
-  recognition.onend = ()=>{
+  recognition.onend=()=>{
     micBtn.classList.remove("recording");
-    micBtn.textContent = "🎤";
+    micBtn.textContent="🎤";
   };
 
-  recognition.onerror = ()=>{
+  recognition.onerror=()=>{
     micBtn.classList.remove("recording");
-    micBtn.textContent = "🎤";
+    micBtn.textContent="🎤";
   };
 
-  recognition.onresult = e=>{
-    userInput.value = e.results[0][0].transcript;
+  recognition.onresult=e=>{
+    userInput.value=e.results[0][0].transcript;
     sendBtn.click();
   };
 }
 
-micBtn.onclick = ()=>{
-  if(recognition){
-    recognition.start();
-  } else {
-    alert("このブラウザでは音声入力に対応していません。");
-  }
+micBtn.onclick=()=>{
+  if(recognition) recognition.start();
 };
-
-/* ===== 無操作時 自動クローズ ===== */
-const AUTO_CLOSE_TIME = 120000;
-let autoCloseTimer = null;
-
-function resetAutoCloseTimer(){
-  if(autoCloseTimer) clearTimeout(autoCloseTimer);
-  autoCloseTimer = setTimeout(()=>{
-    document.getElementById("chatbox").style.display = "none";
-    window.location.href = "https://www.centralhoteltoride.com/";
-  }, AUTO_CLOSE_TIME);
-}
-
-["click","keydown","mousemove","touchstart","scroll"].forEach(evt=>{
-  document.addEventListener(evt, resetAutoCloseTimer, { passive:true });
-});
-
-resetAutoCloseTimer();
 </script>
 
 </body>
