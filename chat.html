@@ -95,12 +95,14 @@ html, body { margin: 0; padding: 0; }
   flex-shrink: 0;
 }
 
-/* ===== 録音中 ===== */
+/* ===== 録音中：色のみ変更 ===== */
 #micBtn.recording {
+  background: #0078d7;
   color: #ff5252;
   position: relative;
 }
 
+/* ===== 赤丸 外側パルス（タップ非干渉） ===== */
 #micBtn.recording::after {
   content: "";
   position: absolute;
@@ -117,7 +119,7 @@ html, body { margin: 0; padding: 0; }
   100% { box-shadow: 0 0 0 0 rgba(255,82,82,0); }
 }
 
-/* ===== スマホ中央 ===== */
+/* ===== スマホ中央固定 ===== */
 @media screen and (max-width: 600px) {
   #chatbox {
     left: 50%;
@@ -134,7 +136,7 @@ html, body { margin: 0; padding: 0; }
 
 <div id="chatbox">
   <div id="chatHeader">
-    <span class="backBtn">←</span>
+    <span class="backBtn" title="公式サイトへ戻る">←</span>
     <div>
       矢印クリックで公式サイトへ..<br>
       セントラルホテル取手Q&Aチャットです<br>
@@ -154,7 +156,7 @@ html, body { margin: 0; padding: 0; }
 <script>
 /* ===== 戻る ===== */
 document.querySelector(".backBtn").onclick = ()=>{
-  window.location.href="https://www.centralhoteltoride.com/";
+  window.location.href = "https://www.centralhoteltoride.com/";
 };
 
   
@@ -443,7 +445,7 @@ const userInput = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
 const micBtn = document.getElementById("micBtn");
 
-/* ===== タイプライター ===== */
+/* ===== タイプライター表示（bot専用） ===== */
 function addBotMessageTypewriter(text){
   const div = document.createElement("div");
   div.className = "msg bot";
@@ -454,7 +456,7 @@ function addBotMessageTypewriter(text){
     i++;
     messages.scrollTop = messages.scrollHeight;
     if(i >= text.length) clearInterval(timer);
-  },25);
+  }, 25);
 }
 
 /* ===== メッセージ表示 ===== */
@@ -479,13 +481,27 @@ sendBtn.onclick=()=>{
   userInput.value="";
 };
 
-/* ===== 入力後タップで自動送信（追加） ===== */
-userInput.addEventListener("blur", ()=>{
-  const msg = userInput.value.trim();
-  if(msg){
+/* ===== Enterキー送信（PC） ===== */
+userInput.addEventListener("keydown", e => {
+  if (e.key === "Enter") {
+    e.preventDefault();
     sendBtn.click();
   }
 });
+
+/* ===== プレースホルダー回転 ===== */
+const placeholders=[
+  "ご質問を入力ください",
+  "音声入力はマイクをPush！",
+  "チェックイン時の不明点や、",
+  "駐車場、食事などお尋ねください",
+  "お電話なら0297-72-1123まで.."
+];
+let phIndex=0;
+setInterval(()=>{
+  userInput.placeholder=placeholders[phIndex];
+  phIndex=(phIndex+1)%placeholders.length;
+},3000);
 
 /* ===== 音声入力 ===== */
 let recognition=null;
@@ -523,7 +539,24 @@ micBtn.onclick=()=>{
     alert("このブラウザでは音声入力に対応していません。");
   }
 };
+
+/* ===== 無操作2分でホームへ ===== */
+const AUTO_CLOSE_TIME=120000;
+let autoTimer=null;
+
+function resetTimer(){
+  clearTimeout(autoTimer);
+  autoTimer=setTimeout(()=>{
+    window.location.href="https://www.centralhoteltoride.com/";
+  },AUTO_CLOSE_TIME);
+}
+
+["click","keydown","touchstart","mousemove","scroll"].forEach(e=>{
+  document.addEventListener(e,resetTimer,{passive:true});
+});
+resetTimer();
 </script>
 
 </body>
 </html>
+
