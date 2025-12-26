@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta charset="UTF-8">
 <title>セントラルホテルQ&Aチャット</title>
 
@@ -168,15 +168,22 @@
 
 /* ===== スマホ：左見切れを物理的に不可能にする ===== */
 @media screen and (max-width: 600px) {
+
   #chatbox {
-    left: 10px !important;
-    right: 10px !important;
+    position: fixed;
 
-    width: auto !important;
-    max-width: none !important;
+    left: env(safe-area-inset-left);
+    right: env(safe-area-inset-right);
+    bottom: env(safe-area-inset-bottom);
 
-    margin: 0 !important;
-    transform: none !important;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+
+    width: auto;
+    max-width: none;
+
+    transform: none;
   }
 }
   
@@ -617,6 +624,7 @@ resetAutoCloseTimer();
 
 </body>
 </html>
+
 
 
 
