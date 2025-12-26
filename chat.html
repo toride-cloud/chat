@@ -156,20 +156,25 @@
     opacity: 0;
   }
 
-/* ===== スマホ専用：サイズ過大＆タップ不良の最終修正 ===== */
+/* ===== スマホ専用：表示と音声入力を完全安定化 ===== */
 @media screen and (max-width: 600px) {
-  #chatbox {
-    position: fixed;
-    left: 12px;
-    right: 12px;      /* 左右均等に余白 */
-    bottom: 12px;
-    width: auto;      /* ← これが重要 */
-    max-width: none;
-    height: 65dvh;    /* 縦は今のまま */
-    transform: none; /* タップずれ防止 */
+
+  html, body {
+    overflow-x: hidden; /* 横ズレの根本対策 */
   }
 
-  /* タップを確実に拾う */
+  #chatbox {
+    position: relative;     /* ← fixed をやめる */
+    margin: 12px auto;      /* 中央寄せ */
+    width: calc(100% - 24px);
+    max-width: 100%;
+    height: 65dvh;          /* 縦は現状維持 */
+    right: auto;
+    left: auto;
+    bottom: auto;
+    transform: none;
+  }
+
   #inputArea,
   #userInput,
   #micBtn,
@@ -616,6 +621,7 @@ resetAutoCloseTimer();
 
 </body>
 </html>
+
 
 
 
