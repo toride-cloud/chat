@@ -1,19 +1,13 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta charset="UTF-8">
-  <title>セントラルホテルQ&Aチャット</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta charset="UTF-8">
+<title>セントラルホテルQ&Aチャット</title>
 
 <style>
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
 
 /* ===== 共通 ===== */
 #chatbox {
@@ -61,8 +55,8 @@ html, body {
   padding: 8px 10px;
   border-radius: 10px;
   max-width: 80%;
-  word-wrap: break-word;
   font-size: 14px;
+  word-wrap: break-word;
 }
 
 .user { background: #d1f0d1; align-self: flex-end; }
@@ -83,12 +77,11 @@ html, body {
   font-size: 14px;
 }
 
-/* ===== ボタンサイズ完全固定 ===== */
+/* ===== ボタン固定 ===== */
 #micBtn,
 #sendBtn {
   width: 44px;
   height: 44px;
-  padding: 0;
   border: none;
   border-radius: 8px;
   background: #0078d7;
@@ -101,22 +94,10 @@ html, body {
   flex-shrink: 0;
 }
 
-/* ===== 録音中：色のみ変更 ===== */
+/* ===== 録音中：赤丸＋安全パルス ===== */
 #micBtn.recording {
-  background: #0078d7;
   color: #ff5252;
-  position: relative;
-}
-
-/* ===== 赤丸 外側パルス（サイズ不変） ===== */
-#micBtn.recording::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  box-shadow: 0 0 0 0 rgba(255,82,82,0.6);
   animation: micPulse 1.5s infinite;
-  pointer-events: none;
 }
 
 @keyframes micPulse {
@@ -125,7 +106,7 @@ html, body {
   100% { box-shadow: 0 0 0 0 rgba(255,82,82,0); }
 }
 
-/* ===== スマホ中央固定 ===== */
+/* ===== スマホ中央 ===== */
 @media screen and (max-width: 600px) {
   #chatbox {
     left: 50%;
@@ -142,7 +123,7 @@ html, body {
 
 <div id="chatbox">
   <div id="chatHeader">
-    <span class="backBtn" title="公式サイトへ戻る">←</span>
+    <span class="backBtn">←</span>
     <div>
       矢印クリックで公式サイトへ..<br>
       セントラルホテル取手Q&Aチャットです<br>
@@ -162,8 +143,8 @@ html, body {
 <script>
 /* ===== 戻る ===== */
 document.querySelector(".backBtn").onclick = ()=>{
-  window.location.href = "https://www.centralhoteltoride.com/";
-};
+  window.location.href="https://www.centralhoteltoride.com/";
+};;
 
   
 /* ===== FAQ（例：ここに全文入れてOK） ===== */
@@ -539,3 +520,4 @@ resetTimer();
 
 </body>
 </html>
+
