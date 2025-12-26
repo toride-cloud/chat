@@ -159,35 +159,31 @@
 /* ===== スマホ専用：表示だけ修正（音声入力安全） ===== */
 @media screen and (max-width: 600px) {
 
-  html, body {
-    overflow-x: hidden;
-  }
-
-  #chatbox {
-    right: 10px;
-    left: 10px;              /* ← 両側指定が超重要 */
-    bottom: 10px;
-
-    width: auto;             /* vw を使わない */
-    max-width: none;
-    height: 65dvh;
-
-    transform: none;
-    margin: 0;
-  }
-
+  /* ヘッダー全体をはみ出させない */
   #chatHeader {
-    display: flex;
-    gap: 6px;
+    box-sizing: border-box;
+    width: 100%;
+    overflow: hidden;
   }
 
+  /* 問題の div を強制的に枠内へ */
   #chatHeader > div {
-    flex: 1;
-    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
     word-break: break-word;
     overflow-wrap: break-word;
+    white-space: normal;
+    font-size: 13px;      /* ← これ重要。少しだけ下げる */
+    line-height: 1.4;
+  }
+
+  /* ← アイコンが原因で押し出されるのを防ぐ */
+  .backBtn {
+    flex-shrink: 0;
+    margin-right: 6px;
   }
 }
+  
 </style>
 </head>
 
@@ -625,6 +621,7 @@ resetAutoCloseTimer();
 
 </body>
 </html>
+
 
 
 
