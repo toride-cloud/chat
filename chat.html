@@ -83,17 +83,77 @@
   cursor: pointer;
 }
 
-/* ===== 録音中：青背景＋赤丸のみ ===== */
+/* ===== 録音中：青背景＋赤丸（点滅＋パルス） ===== */
 #micBtn.recording {
   background: #0078d7 !important; /* 🎤と同じ青 */
-  color: transparent;            /* マイク文字を消す */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #ff5252;
+  position: relative;
+  overflow: visible;
 }
 
+/* マイク文字を完全に消す */
+#micBtn.recording::before {
+  content: "";
+}
+
+/* 赤丸本体（点滅） */
 #micBtn.recording::after {
   content: "●";
-  color: #ff5252;
-  font-size: 20px;
   line-height: 1;
+  animation: micBlink 1.2s infinite ease-in-out;
+  z-index: 2;
+}
+
+/* パルス波紋 */
+#micBtn.recording span {
+  display: none;
+}
+
+#micBtn.recording::marker {
+  display: none;
+}
+
+#micBtn.recording::selection {
+  background: transparent;
+}
+
+/* 外側パルス */
+#micBtn.recording::backdrop {
+  display: none;
+}
+
+/* 擬似要素でパルス生成 */
+#micBtn.recording::before {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,82,82,0.6);
+  animation: micPulse 1.5s infinite;
+  z-index: 1;
+}
+
+/* 点滅 */
+@keyframes micBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* パルス拡散 */
+@keyframes micPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
 }
 </style>
 </head>
@@ -492,10 +552,47 @@ micBtn.onclick = ()=>{
     alert("このブラウザでは音声入力に対応していません。");
   }
 };
+
+  /* ===== 無操作時 自動クローズ＋ホームへ ===== */
+
+/* 無操作時間（ミリ秒）
+   例：２分 = 180000
+*/
+const AUTO_CLOSE_TIME = 120000;
+
+let autoCloseTimer = null;
+
+/* タイマー開始／リセット */
+function resetAutoCloseTimer(){
+  if(autoCloseTimer) clearTimeout(autoCloseTimer);
+
+  autoCloseTimer = setTimeout(()=>{
+    // チャットを閉じる
+    document.getElementById("chatbox").style.display = "none";
+
+    // ホームへ戻る
+    window.location.href = "https://www.centralhoteltoride.com/";
+  }, AUTO_CLOSE_TIME);
+}
+
+/* 操作とみなすイベント */
+[
+  "click",
+  "keydown",
+  "mousemove",
+  "touchstart",
+  "scroll"
+].forEach(evt=>{
+  document.addEventListener(evt, resetAutoCloseTimer, { passive:true });
+});
+
+/* 初期起動 */
+resetAutoCloseTimer();
 </script>
 
 </body>
 </html>
+
 
 
 
