@@ -156,23 +156,25 @@
     opacity: 0;
   }
 
-/* ===== スマホ専用：表示と音声入力を完全安定化 ===== */
+/* ===== スマホ専用：表示だけを完全修正（音声入力は壊さない） ===== */
 @media screen and (max-width: 600px) {
 
   html, body {
-    overflow-x: hidden; /* 横ズレの根本対策 */
+    overflow-x: hidden;
   }
 
   #chatbox {
-    position: relative;     /* ← fixed をやめる */
-    margin: 12px auto;      /* 中央寄せ */
-    width: calc(100% - 24px);
-    max-width: 100%;
-    height: 65dvh;          /* 縦は現状維持 */
-    right: auto;
-    left: auto;
-    bottom: auto;
-    transform: none;
+    position: fixed !important;   /* ← ここ超重要 */
+    right: 10px !important;
+    left: auto !important;
+    bottom: 10px !important;
+
+    width: calc(100vw - 20px) !important;
+    max-width: calc(100vw - 20px) !important;
+    height: 65dvh;
+
+    transform: none !important;
+    margin: 0 !important;
   }
 
   #inputArea,
@@ -621,6 +623,7 @@ resetAutoCloseTimer();
 
 </body>
 </html>
+
 
 
 
