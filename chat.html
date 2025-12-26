@@ -156,31 +156,32 @@
     opacity: 0;
   }
 
-/* ===== スマホ専用：表示だけ修正（音声入力安全） ===== */
+/* ===== スマホ専用：ヘッダー構造を修正（決定版） ===== */
 @media screen and (max-width: 600px) {
 
-  /* ヘッダー全体をはみ出させない */
   #chatHeader {
+    display: flex;
+    flex-direction: column;   /* ← 横並びをやめる */
+    align-items: flex-start;
+    gap: 4px;
+    padding: 8px 10px;
     box-sizing: border-box;
-    width: 100%;
-    overflow: hidden;
   }
 
-  /* 問題の div を強制的に枠内へ */
+  .backBtn {
+    align-self: flex-start;
+    margin: 0;
+  }
+
   #chatHeader > div {
+    width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-    word-break: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
-    font-size: 13px;      /* ← これ重要。少しだけ下げる */
+    font-size: 13px;
     line-height: 1.4;
-  }
-
-  /* ← アイコンが原因で押し出されるのを防ぐ */
-  .backBtn {
-    flex-shrink: 0;
-    margin-right: 6px;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    white-space: normal;
   }
 }
   
@@ -621,6 +622,7 @@ resetAutoCloseTimer();
 
 </body>
 </html>
+
 
 
 
