@@ -478,33 +478,18 @@ userInput.addEventListener("keypress", (e)=>{
   if(e.key==="Enter") sendBtn.click();
 });
 
-/* ===== 音声入力 ===== */
-let recognition = null;
+/* 録音中 */
+#micBtn.recording {
+  background: #ffffff !important; /* 白背景 */
+  color: transparent;             /* 🎤を完全に消す */
+}
 
-if('SpeechRecognition' in window || 'webkitSpeechRecognition' in window){
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  recognition = new SpeechRecognition();
-  recognition.lang="ja-JP";
-  recognition.continuous=false;
-  recognition.interimResults=false;
-
-  recognition.onstart = ()=>{
-    micBtn.classList.add("recording");   // 🔴
-  };
-
-  recognition.onend = ()=>{
-    micBtn.classList.remove("recording"); // 🎤
-  };
-
-  recognition.onerror = ()=>{
-    micBtn.classList.remove("recording");
-  };
-
-  recognition.onresult = (event)=>{
-    const transcript = event.results[0][0].transcript;
-    userInput.value = transcript;
-    sendBtn.click();
-  }
+/* 赤丸表示 */
+#micBtn.recording::after {
+  content: "●";
+  color: #d32f2f;                 /* 赤丸 */
+  font-size: 20px;
+  line-height: 1;
 }
 
 micBtn.onclick=()=>{
@@ -517,6 +502,7 @@ micBtn.onclick=()=>{
 </script>
 </body>
 </html>
+
 
 
 
