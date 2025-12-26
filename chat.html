@@ -156,26 +156,25 @@
     opacity: 0;
   }
 
-/* ===== スマホ：見た目優先・安全サイズ ===== */
+/* ===== スマホ：横見切れ完全強制修正 ===== */
 @media screen and (max-width: 600px) {
 
   #chatbox {
-    width: 90% !important;      /* ← 広げすぎない */
-    max-width: 90% !important;
-    right: 5% !important;       /* 中央寄せに近い */
-    left: auto !important;
-    bottom: 10px;
-  }
+    position: fixed !important;
 
-  #chatHeader {
-    box-sizing: border-box;
-  }
+    left: 10px !important;
+    right: 10px !important;
+    top: auto !important;
+    bottom: 10px !important;
 
-  #chatHeader > div {
-    font-size: 13px;
-    line-height: 1.4;
+    width: auto !important;
+    max-width: none !important;
+
+    transform: none !important;   /* ← これが決定打 */
+    margin: 0 !important;
   }
 }
+
   
 </style>
 </head>
@@ -614,21 +613,3 @@ resetAutoCloseTimer();
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
