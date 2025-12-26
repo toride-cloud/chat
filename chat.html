@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
 <title>セントラルホテルQ&Aチャット</title>
 
@@ -155,6 +156,15 @@
     opacity: 0;
   }
 
+/* ===== スマホ表示を確実に大きくする ===== */
+@media screen and (max-width: 600px) {
+  #chatbox {
+    width: calc(100vw - 20px); /* 画面ほぼ全幅 */
+    max-width: none;
+    height: 65dvh;             /* 今の縦サイズ維持 */
+    bottom: 10px;
+    right: 10px;
+  }
 }
 
 </style>
@@ -594,6 +604,7 @@ resetAutoCloseTimer();
 
 </body>
 </html>
+
 
 
 
