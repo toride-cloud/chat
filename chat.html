@@ -156,25 +156,42 @@
     opacity: 0;
   }
 
-/* ===== スマホ：横見切れ完全強制修正 ===== */
+/* ===== スマホ：横ズレ・文字ズレ完全修正（JS非干渉） ===== */
 @media screen and (max-width: 600px) {
 
+  /* bodyの謎マージンを殺す */
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden !important;
+  }
+
+  /* チャット本体：左右ピッタリ */
   #chatbox {
-    position: fixed !important;
-
-    left: 10px !important;
-    right: 10px !important;
-    top: auto !important;
-    bottom: 10px !important;
-
+    left: 8px !important;
+    right: 8px !important;
     width: auto !important;
     max-width: none !important;
-
-    transform: none !important;   /* ← これが決定打 */
-    margin: 0 !important;
+    transform: none !important;
   }
-}
 
+  /* ヘッダーを親幅に完全追従 */
+  #chatHeader {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  /* ヘッダー内テキスト */
+  #chatHeader > div {
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 13px;        /* 1pxだけ縮める */
+    line-height: 1.4;
+    word-break: keep-all;  /* 全角文字を途中で割らない */
+    overflow-wrap: break-word;
+  }
+
+}
   
 </style>
 </head>
@@ -613,3 +630,4 @@ resetAutoCloseTimer();
 
 </body>
 </html>
+
