@@ -159,29 +159,22 @@
 /* ===== スマホ専用：ヘッダー構造を修正（決定版） ===== */
 @media screen and (max-width: 600px) {
 
-  #chatHeader {
-    display: flex;
-    flex-direction: column;   /* ← 横並びをやめる */
-    align-items: flex-start;
-    gap: 4px;
-    padding: 8px 10px;
-    box-sizing: border-box;
+  html, body {
+    overflow-x: hidden;
   }
 
-  .backBtn {
-    align-self: flex-start;
+  #chatbox {
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    height: 65dvh;
     margin: 0;
-  }
-
-  #chatHeader > div {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    font-size: 13px;
-    line-height: 1.4;
-    word-break: break-word;
-    overflow-wrap: anywhere;
-    white-space: normal;
+    border-radius: 0;
+    transform: none !important;
   }
 }
   
@@ -622,6 +615,7 @@ resetAutoCloseTimer();
 
 </body>
 </html>
+
 
 
 
