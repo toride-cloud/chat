@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta charset="UTF-8">
-<title>セントラルホテルQ&Aチャット</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta charset="UTF-8">
+  <title>セントラルホテルQ&Aチャット</title>
 
 <style>
-*, *::before, *::after { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
 
 /* ===== 共通 ===== */
 #chatbox {
@@ -55,8 +61,8 @@ html, body { margin: 0; padding: 0; }
   padding: 8px 10px;
   border-radius: 10px;
   max-width: 80%;
-  font-size: 14px;
   word-wrap: break-word;
+  font-size: 14px;
 }
 
 .user { background: #d1f0d1; align-self: flex-end; }
@@ -77,11 +83,12 @@ html, body { margin: 0; padding: 0; }
   font-size: 14px;
 }
 
-/* ===== ボタン固定 ===== */
+/* ===== ボタンサイズ完全固定 ===== */
 #micBtn,
 #sendBtn {
   width: 44px;
   height: 44px;
+  padding: 0;
   border: none;
   border-radius: 8px;
   background: #0078d7;
@@ -94,10 +101,22 @@ html, body { margin: 0; padding: 0; }
   flex-shrink: 0;
 }
 
-/* ===== 録音中：赤丸＋安全パルス ===== */
+/* ===== 録音中：色のみ変更 ===== */
 #micBtn.recording {
+  background: #0078d7;
   color: #ff5252;
+  position: relative;
+}
+
+/* ===== 赤丸 外側パルス（サイズ不変・タップ不干渉） ===== */
+#micBtn.recording::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(255,82,82,0.6);
   animation: micPulse 1.5s infinite;
+  pointer-events: none;
 }
 
 @keyframes micPulse {
@@ -106,7 +125,7 @@ html, body { margin: 0; padding: 0; }
   100% { box-shadow: 0 0 0 0 rgba(255,82,82,0); }
 }
 
-/* ===== スマホ中央 ===== */
+/* ===== スマホ中央固定 ===== */
 @media screen and (max-width: 600px) {
   #chatbox {
     left: 50%;
@@ -123,7 +142,7 @@ html, body { margin: 0; padding: 0; }
 
 <div id="chatbox">
   <div id="chatHeader">
-    <span class="backBtn">←</span>
+    <span class="backBtn" title="公式サイトへ戻る">←</span>
     <div>
       矢印クリックで公式サイトへ..<br>
       セントラルホテル取手Q&Aチャットです<br>
@@ -143,7 +162,7 @@ html, body { margin: 0; padding: 0; }
 <script>
 /* ===== 戻る ===== */
 document.querySelector(".backBtn").onclick = ()=>{
-  window.location.href="https://www.centralhoteltoride.com/";
+  window.location.href = "https://www.centralhoteltoride.com/";
 };
 
   
@@ -426,38 +445,30 @@ function findAnswer(query){
   return "申し訳ありません。その質問にはまだ対応していません。0297-72-1123までお問い合わせください。";
 }
 
+/* ===== QAロジック ===== */
+function findAnswer(query){
+  query = query.toLowerCase();
+  for(const item of faq){
+    for(const kw of item.keywords){
+      if(query.includes(kw)) return item.answer;
+    }
+  }
+  return "申し訳ありません。その質問にはまだ対応していません。0297-72-1123までお問い合わせください。";
+}
+
 /* ===== DOM ===== */
 const messages = document.getElementById("messages");
 const userInput = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
 const micBtn = document.getElementById("micBtn");
 
-/* ===== タイプライター ===== */
-function typeWriter(text, element, speed=20){
-  element.textContent="";
-  let i=0;
-  function typing(){
-    if(i<text.length){
-      element.textContent+=text.charAt(i);
-      i++;
-      setTimeout(typing,speed);
-    }
-  }
-  typing();
-}
-
 /* ===== メッセージ表示 ===== */
 function addMessage(msg,isUser=false){
   const div=document.createElement("div");
   div.className="msg "+(isUser?"user":"bot");
+  div.textContent=msg;
   messages.appendChild(div);
   messages.scrollTop=messages.scrollHeight;
-
-  if(isUser){
-    div.textContent=msg;
-  }else{
-    typeWriter(msg,div,20);
-  }
 }
 
 /* ===== 送信 ===== */
@@ -495,14 +506,17 @@ if(window.SpeechRecognition||window.webkitSpeechRecognition){
     micBtn.classList.add("recording");
     micBtn.textContent="●";
   };
+
   recognition.onend=()=>{
     micBtn.classList.remove("recording");
     micBtn.textContent="🎤";
   };
+
   recognition.onerror=()=>{
     micBtn.classList.remove("recording");
     micBtn.textContent="🎤";
   };
+
   recognition.onresult=e=>{
     userInput.value=e.results[0][0].transcript;
     sendBtn.click();
@@ -536,4 +550,3 @@ resetTimer();
 
 </body>
 </html>
-
