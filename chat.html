@@ -156,19 +156,19 @@
     opacity: 0;
   }
 
-/* ===== スマホ専用：表示修正＋操作復活 ===== */
+/* ===== スマホ専用：表示と操作を完全修正 ===== */
 @media screen and (max-width: 600px) {
   #chatbox {
-    width: 95vw;
-    max-width: 95vw;
-    height: 65dvh;          /* 縦は現状維持 */
-    left: 50%;
-    right: auto;
+    position: fixed;
+    left: 10px;
+    right: 10px;        /* ← これが重要 */
     bottom: 10px;
-    transform: translateX(-50%);
+    width: auto;        /* vw / calc を使わない */
+    max-width: none;
+    height: 65dvh;      /* 縦は現状維持 */
+    transform: none;    /* ← 絶対に使わない */
   }
 
-  /* 入力系を確実にタップ可能に */
   #inputArea,
   #userInput,
   #micBtn,
@@ -615,6 +615,7 @@ resetAutoCloseTimer();
 
 </body>
 </html>
+
 
 
 
