@@ -165,36 +165,18 @@
     opacity: 0;
   }
 
-/* ===== スマホ：強制viewport固定（最終解） ===== */
+/* ===== スマホ：左見切れを物理的に不可能にする ===== */
 @media screen and (max-width: 600px) {
 
-  /* fixed計算を完全にリセット */
   #chatbox {
-    all: unset;
-    position: fixed;
-    inset: 8px;
-    display: flex;
-    flex-direction: column;
+    left: 0 !important;
+    right: 0 !important;
 
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    z-index: 9999;
-  }
+    width: 100vw !important;
+    max-width: 100vw !important;
 
-  /* ヘッダーと中身を100%拘束 */
-  #chatHeader,
-  #messages,
-  #inputArea {
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  #chatHeader > div {
-    width: 100%;
-    white-space: normal;
-    word-break: keep-all;
-    overflow-wrap: break-word;
+    margin: 0 !important;
+    transform: none !important;
   }
 
 }
@@ -636,6 +618,7 @@ resetAutoCloseTimer();
 
 </body>
 </html>
+
 
 
 
