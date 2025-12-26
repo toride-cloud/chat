@@ -101,18 +101,14 @@ html, body {
   flex-shrink: 0;
 }
 
-/* ===== 録音中（サイズ不変） ===== */
+/* ===== 録音中：色のみ変更 ===== */
 #micBtn.recording {
   background: #0078d7;
   color: #ff5252;
+  position: relative;
 }
 
-/* ===== 録音中：外側パルス（サイズ不変・安全） ===== */
-#micBtn.recording {
-  position: relative; /* 擬似要素の基準 */
-}
-
-/* 外側パルス */
+/* ===== 赤丸 外側パルス（サイズ不変） ===== */
 #micBtn.recording::after {
   content: "";
   position: absolute;
@@ -120,20 +116,14 @@ html, body {
   border-radius: 50%;
   box-shadow: 0 0 0 0 rgba(255,82,82,0.6);
   animation: micPulse 1.5s infinite;
-  pointer-events: none;   /* ← タップ座標絶対保護 */
+  pointer-events: none;
 }
 
-/* パルス拡散アニメーション */
 @keyframes micPulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(255,82,82,0.6);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(255,82,82,0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(255,82,82,0);
-  }
+  0%   { box-shadow: 0 0 0 0 rgba(255,82,82,0.6); }
+  70%  { box-shadow: 0 0 0 10px rgba(255,82,82,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,82,82,0); }
+}
 
 /* ===== スマホ中央固定 ===== */
 @media screen and (max-width: 600px) {
@@ -172,9 +162,10 @@ html, body {
 <script>
 /* ===== 戻る ===== */
 document.querySelector(".backBtn").onclick = ()=>{
-  window.open("https://www.centralhoteltoride.com/","_blank","noopener");
+  window.location.href = "https://www.centralhoteltoride.com/";
 };
 
+  
 /* ===== FAQ（例：ここに全文入れてOK） ===== */
 const faq=[
  {
@@ -460,7 +451,7 @@ const userInput = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
 const micBtn = document.getElementById("micBtn");
 
-/* ===== 表示 ===== */
+/* ===== メッセージ表示 ===== */
 function addMessage(msg,isUser=false){
   const div=document.createElement("div");
   div.className="msg "+(isUser?"user":"bot");
@@ -478,7 +469,7 @@ sendBtn.onclick=()=>{
   userInput.value="";
 };
 
-/* ===== ① プレースホルダー回転 ===== */
+/* ===== プレースホルダー回転 ===== */
 const placeholders=[
   "ご質問を入力ください",
   "音声入力はマイクをPush！",
@@ -486,14 +477,11 @@ const placeholders=[
   "駐車場、食事などお尋ねください",
   "お電話なら0297-72-1123まで.."
 ];
-
-let phIndex = 0;
-function rotatePlaceholder(){
-  userInput.placeholder = placeholders[phIndex];
-  phIndex = (phIndex + 1) % placeholders.length;
-}
-setInterval(rotatePlaceholder, 3000);
-rotatePlaceholder();
+let phIndex=0;
+setInterval(()=>{
+  userInput.placeholder=placeholders[phIndex];
+  phIndex=(phIndex+1)%placeholders.length;
+},3000);
 
 /* ===== 音声入力 ===== */
 let recognition=null;
@@ -522,16 +510,32 @@ if(window.SpeechRecognition||window.webkitSpeechRecognition){
     userInput.value=e.results[0][0].transcript;
     sendBtn.click();
   };
-} else {
-  /* ===== ② 非対応ブラウザ通知 ===== */
-  alert("このブラウザでは音声入力に対応していません。");
 }
 
 micBtn.onclick=()=>{
-  if(recognition) recognition.start();
+  if(recognition){
+    recognition.start();
+  }else{
+    alert("このブラウザでは音声入力に対応していません。");
+  }
 };
+
+/* ===== 無操作2分でホームへ ===== */
+const AUTO_CLOSE_TIME=120000;
+let autoTimer=null;
+
+function resetTimer(){
+  clearTimeout(autoTimer);
+  autoTimer=setTimeout(()=>{
+    window.location.href="https://www.centralhoteltoride.com/";
+  },AUTO_CLOSE_TIME);
+}
+
+["click","keydown","touchstart","mousemove","scroll"].forEach(e=>{
+  document.addEventListener(e,resetTimer,{passive:true});
+});
+resetTimer();
 </script>
 
 </body>
 </html>
-
