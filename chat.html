@@ -30,6 +30,13 @@
   padding: 10px;
   font-size: 14px;
   font-weight: bold;
+  display: flex;
+  gap: 8px;
+}
+
+#chatHeader .backBtn {
+  cursor: pointer;
+  font-size: 18px;
 }
 
 #messages {
@@ -76,54 +83,19 @@
   cursor: pointer;
 }
 
-/* ===== トグルボタン ===== */
-#chatToggleBtn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 10000;
-  background: #2e7d32;
-  color: white;
-  border: none;
-  padding: 12px 16px;
-  border-radius: 50px;
-  font-size: 16px;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
+/* ===== 録音中 表示（希望仕様どおり） ===== */
 #micBtn.recording {
-  background: #d32f2f !important;
+  background: #ffffff !important; /* 白背景 */
+  color: transparent;             /* 🎤を消す */
 }
 
 #micBtn.recording::after {
-  content: " ●";
-}
-  
-/* ===== スマホ ===== */
-@media (max-width:none;) {
-  #chatbox {
-    width: 601px;     /* 横幅を大きく */
-    max-width: none;  /* ← これがないと絶対に変わらない */
-  }
-}
-
-/* ===== PC ===== */
-@media (min-width: 601px) {
-  #chatbox {
-    right: 20px;
-    bottom: 20px;
-    top: auto;
-    left: auto;
-    transform: none;
-  }
-
-  #chatToggleBtn {
-    display: none;
-  }
+  content: "●";
+  color: #d32f2f;
+  font-size: 20px;
+  line-height: 1;
 }
 </style>
-  
 </head>
 
 <body>
@@ -133,8 +105,8 @@
     <span class="backBtn" title="公式サイトへ戻る">←</span>
     <div>
       矢印クリックで公式サイトへ..<br>
-       -☆セントラルホテル取手Q&Aチャットです。☆-<br>
-       -☆下記直接入力、スマホ音声入力対応です。 ☆-
+      -☆セントラルホテル取手Q&Aチャットです。☆-<br>
+      -☆下記直接入力、スマホ音声入力対応です。 ☆-
     </div>
   </div>
 
@@ -149,7 +121,7 @@
 
 <script>
 /* ===== 戻る ===== */
-document.querySelector(".backBtn").onclick=()=>{
+document.querySelector(".backBtn").onclick = ()=>{
   window.open("https://www.centralhoteltoride.com/","_blank","noopener");
 };
 
@@ -423,21 +395,22 @@ answer:`お掃除は毎朝10：00より開始となります。要・不要に�
 
 /* ===== QAロジック ===== */
 function findAnswer(query){
-  query=query.toLowerCase();
+  query = query.toLowerCase();
   for(const item of faq){
     for(const kw of item.keywords){
-      if(query.includes(kw.toLowerCase())) return item.answer;
+      if(query.includes(kw)) return item.answer;
     }
   }
   return "申し訳ありません。その質問にはまだ対応していません。0297-72-1123までお問い合わせください。";
 }
 
-/* ===== メッセージ表示 ===== */
+/* ===== DOM ===== */
 const messages = document.getElementById("messages");
 const userInput = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
 const micBtn = document.getElementById("micBtn");
 
+/* ===== タイプライター ===== */
 function typeWriter(text, element, speed=20){
   element.textContent = "";
   let i = 0;
@@ -469,36 +442,27 @@ sendBtn.onclick = ()=>{
   const msg = userInput.value.trim();
   if(msg==="") return;
   addMessage(msg,true);
-  const ans = findAnswer(msg);
-  setTimeout(()=>addMessage(ans),100);
+  setTimeout(()=>addMessage(findAnswer(msg)),100);
   userInput.value="";
-}
+};
 
-userInput.addEventListener("keypress", (e)=>{
+userInput.addEventListener("keypress", e=>{
   if(e.key==="Enter") sendBtn.click();
 });
 
 /* ===== 音声入力 ===== */
 let recognition = null;
 
-if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window){
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   recognition = new SR();
   recognition.lang = "ja-JP";
 
-  recognition.onstart = ()=>{
-    micBtn.classList.add("recording");
-  };
+  recognition.onstart = ()=> micBtn.classList.add("recording");
+  recognition.onend   = ()=> micBtn.classList.remove("recording");
+  recognition.onerror = ()=> micBtn.classList.remove("recording");
 
-  recognition.onend = ()=>{
-    micBtn.classList.remove("recording");
-  };
-
-  recognition.onerror = ()=>{
-    micBtn.classList.remove("recording");
-  };
-
-  recognition.onresult = (e)=>{
+  recognition.onresult = e=>{
     userInput.value = e.results[0][0].transcript;
     sendBtn.click();
   };
@@ -508,18 +472,10 @@ micBtn.onclick = ()=>{
   if(recognition){
     recognition.start();
   } else {
-    alert("音声入力非対応ブラウザです");
+    alert("このブラウザでは音声入力に対応していません。");
   }
 };
 </script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
