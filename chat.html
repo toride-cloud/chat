@@ -478,30 +478,43 @@ userInput.addEventListener("keypress", (e)=>{
   if(e.key==="Enter") sendBtn.click();
 });
 
-/* 録音中 */
-#micBtn.recording {
-  background: #ffffff !important; /* 白背景 */
-  color: transparent;             /* 🎤を完全に消す */
+/* ===== 音声入力 ===== */
+let recognition = null;
+
+if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SR();
+  recognition.lang = "ja-JP";
+
+  recognition.onstart = ()=>{
+    micBtn.classList.add("recording");
+  };
+
+  recognition.onend = ()=>{
+    micBtn.classList.remove("recording");
+  };
+
+  recognition.onerror = ()=>{
+    micBtn.classList.remove("recording");
+  };
+
+  recognition.onresult = (e)=>{
+    userInput.value = e.results[0][0].transcript;
+    sendBtn.click();
+  };
 }
 
-/* 赤丸表示 */
-#micBtn.recording::after {
-  content: "●";
-  color: #d32f2f;                 /* 赤丸 */
-  font-size: 20px;
-  line-height: 1;
-}
-
-micBtn.onclick=()=>{
+micBtn.onclick = ()=>{
   if(recognition){
-    recognition.start();   // ← ここは最初のまま
+    recognition.start();
   } else {
-    alert("このブラウザでは音声入力に対応していません。");
+    alert("音声入力非対応ブラウザです");
   }
-}
+};
 </script>
 </body>
 </html>
+
 
 
 
