@@ -156,7 +156,7 @@
     opacity: 0;
   }
 
-/* ===== スマホ専用：表示だけを完全修正（音声入力は壊さない） ===== */
+/* ===== スマホ専用：表示だけ修正（音声入力安全） ===== */
 @media screen and (max-width: 600px) {
 
   html, body {
@@ -164,28 +164,30 @@
   }
 
   #chatbox {
-    position: fixed !important;   /* ← ここ超重要 */
-    right: 10px !important;
-    left: auto !important;
-    bottom: 10px !important;
+    right: 10px;
+    left: 10px;              /* ← 両側指定が超重要 */
+    bottom: 10px;
 
-    width: calc(100vw - 20px) !important;
-    max-width: calc(100vw - 20px) !important;
+    width: auto;             /* vw を使わない */
+    max-width: none;
     height: 65dvh;
 
-    transform: none !important;
-    margin: 0 !important;
+    transform: none;
+    margin: 0;
   }
 
-  #inputArea,
-  #userInput,
-  #micBtn,
-  #sendBtn {
-    pointer-events: auto;
-    touch-action: manipulation;
+  #chatHeader {
+    display: flex;
+    gap: 6px;
+  }
+
+  #chatHeader > div {
+    flex: 1;
+    min-width: 0;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
 }
-
 </style>
 </head>
 
@@ -623,6 +625,7 @@ resetAutoCloseTimer();
 
 </body>
 </html>
+
 
 
 
