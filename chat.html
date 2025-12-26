@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta charset="UTF-8">
   <title>セントラルホテルQ&Aチャット</title>
 
@@ -73,6 +72,7 @@ html, body {
   display: flex;
   border-top: 1px solid #ddd;
   padding: 6px;
+  gap: 6px;
 }
 
 #userInput {
@@ -83,47 +83,38 @@ html, body {
   font-size: 14px;
 }
 
-#sendBtn, #micBtn {
-  margin-left: 5px;
-  padding: 8px 12px;
+/* ===== ボタンサイズ完全固定 ===== */
+#micBtn,
+#sendBtn {
+  width: 44px;
+  height: 44px;
+  padding: 0;
   border: none;
   border-radius: 8px;
   background: #0078d7;
   color: white;
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
-/* ===== 録音中：青背景＋赤丸（点滅） ===== */
+/* ===== 録音中：表示のみ切替（サイズ不変） ===== */
 #micBtn.recording {
-  background: #0078d7 !important;
-  color: transparent;
-  position: relative;
-}
-
-#micBtn.recording::after {
-  content: "●";
+  background: #0078d7;
   color: #ff5252;
-  font-size: 20px;
-  animation: micBlink 1.2s infinite;
 }
 
-@keyframes micBlink {
-  0%,100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-
-/* ===== スマホ：中央固定（左見切れ完全解消） ===== */
+/* ===== ★ スマホのみ中央固定（左寄り解消） ===== */
 @media screen and (max-width: 600px) {
-
   #chatbox {
     left: 50%;
     right: auto;
-    bottom: 10px;
     transform: translateX(-50%);
     width: calc(100vw - 20px);
     max-width: calc(100vw - 20px);
-    margin: 0;
   }
 }
 </style>
@@ -441,61 +432,47 @@ const userInput = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
 const micBtn = document.getElementById("micBtn");
 
-/* ===== タイプライター ===== */
-function typeWriter(text, element, speed=20){
-  element.textContent="";
-  let i=0;
-  (function typing(){
-    if(i<text.length){
-      element.textContent+=text.charAt(i++);
-      setTimeout(typing,speed);
-    }
-  })();
-}
-
+/* ===== 表示 ===== */
 function addMessage(msg,isUser=false){
   const div=document.createElement("div");
   div.className="msg "+(isUser?"user":"bot");
+  div.textContent=msg;
   messages.appendChild(div);
   messages.scrollTop=messages.scrollHeight;
-  isUser ? div.textContent=msg : typeWriter(msg,div);
 }
 
 /* ===== 送信 ===== */
 sendBtn.onclick=()=>{
   const msg=userInput.value.trim();
-  if(!msg) return;
+  if(!msg)return;
   addMessage(msg,true);
   setTimeout(()=>addMessage(findAnswer(msg)),100);
   userInput.value="";
 };
 
-userInput.addEventListener("keypress",e=>{
-  if(e.key==="Enter") sendBtn.click();
-});
-
-/* ===== プレースホルダー回転 ===== */
-const placeholders=[
-  "ご質問を入力ください",
-  "音声入力はマイクをPush！",
-  "チェックイン時の不明点や、",
-  "駐車場、食事などお尋ねください",
-  "お電話なら0297-72-1123まで.."
-];
-let phIndex=0;
-setInterval(()=>{
-  userInput.placeholder=placeholders[phIndex++%placeholders.length];
-},3000);
-
-/* ===== 音声入力 ===== */
+/* ===== 音声入力（安定版） ===== */
 let recognition=null;
-if('SpeechRecognition'in window||'webkitSpeechRecognition'in window){
+
+if(window.SpeechRecognition||window.webkitSpeechRecognition){
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   recognition=new SR();
   recognition.lang="ja-JP";
-  recognition.onstart=()=>micBtn.classList.add("recording");
-  recognition.onend=()=>micBtn.classList.remove("recording");
-  recognition.onerror=()=>micBtn.classList.remove("recording");
+
+  recognition.onstart=()=>{
+    micBtn.classList.add("recording");
+    micBtn.textContent="●";
+  };
+
+  recognition.onend=()=>{
+    micBtn.classList.remove("recording");
+    micBtn.textContent="🎤";
+  };
+
+  recognition.onerror=()=>{
+    micBtn.classList.remove("recording");
+    micBtn.textContent="🎤";
+  };
+
   recognition.onresult=e=>{
     userInput.value=e.results[0][0].transcript;
     sendBtn.click();
@@ -504,7 +481,6 @@ if('SpeechRecognition'in window||'webkitSpeechRecognition'in window){
 
 micBtn.onclick=()=>{
   if(recognition) recognition.start();
-  else alert("このブラウザでは音声入力に対応していません。");
 };
 </script>
 
