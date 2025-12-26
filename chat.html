@@ -83,15 +83,15 @@
   cursor: pointer;
 }
 
-/* ===== 録音中 表示（希望仕様どおり） ===== */
+/* ===== 録音中：青背景＋赤丸のみ ===== */
 #micBtn.recording {
-  background: #ffffff !important; /* 白背景 */
-  color: transparent;             /* 🎤を消す */
+  background: #0078d7 !important; /* 🎤と同じ青 */
+  color: transparent;            /* マイク文字を消す */
 }
 
 #micBtn.recording::after {
   content: "●";
-  color: #d32f2f;
+  color: #ff5252;
   font-size: 20px;
   line-height: 1;
 }
@@ -450,6 +450,23 @@ userInput.addEventListener("keypress", e=>{
   if(e.key==="Enter") sendBtn.click();
 });
 
+/* ===== プレースホルダー回転 ===== */
+const placeholders=[
+  "ご質問を入力ください",
+  "音声入力はマイクをPush！",
+  "チェックイン時の不明点や、",
+  "駐車場、食事などお尋ねください",
+  "お電話なら0297-72-1123まで.."
+];
+
+let phIndex = 0;
+function rotatePlaceholder(){
+  userInput.placeholder = placeholders[phIndex];
+  phIndex = (phIndex + 1) % placeholders.length;
+}
+setInterval(rotatePlaceholder, 3000);
+rotatePlaceholder();
+
 /* ===== 音声入力 ===== */
 let recognition = null;
 
@@ -479,5 +496,6 @@ micBtn.onclick = ()=>{
 
 </body>
 </html>
+
 
 
