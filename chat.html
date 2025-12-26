@@ -156,14 +156,25 @@
     opacity: 0;
   }
 
-/* ===== スマホ表示を確実に大きくする ===== */
+/* ===== スマホ専用：表示修正＋操作復活 ===== */
 @media screen and (max-width: 600px) {
   #chatbox {
-    width: calc(100vw - 20px); /* 画面ほぼ全幅 */
-    max-width: none;
-    height: 65dvh;             /* 今の縦サイズ維持 */
+    width: 95vw;
+    max-width: 95vw;
+    height: 65dvh;          /* 縦は現状維持 */
+    left: 50%;
+    right: auto;
     bottom: 10px;
-    right: 10px;
+    transform: translateX(-50%);
+  }
+
+  /* 入力系を確実にタップ可能に */
+  #inputArea,
+  #userInput,
+  #micBtn,
+  #sendBtn {
+    pointer-events: auto;
+    touch-action: manipulation;
   }
 }
 
@@ -604,6 +615,7 @@ resetAutoCloseTimer();
 
 </body>
 </html>
+
 
 
 
