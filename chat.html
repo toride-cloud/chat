@@ -156,25 +156,24 @@
     opacity: 0;
   }
 
-/* ===== スマホ専用：ヘッダー構造を修正（決定版） ===== */
+/* ===== スマホ：見た目優先・安全サイズ ===== */
 @media screen and (max-width: 600px) {
 
-  html, body {
-    overflow-x: hidden;
+  #chatbox {
+    width: 90% !important;      /* ← 広げすぎない */
+    max-width: 90% !important;
+    right: 5% !important;       /* 中央寄せに近い */
+    left: auto !important;
+    bottom: 10px;
   }
 
-  #chatbox {
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0;
+  #chatHeader {
+    box-sizing: border-box;
+  }
 
-    width: 100% !important;
-    max-width: 100% !important;
-
-    height: 65dvh;
-    margin: 0;
-    border-radius: 0;
-    transform: none !important;
+  #chatHeader > div {
+    font-size: 13px;
+    line-height: 1.4;
   }
 }
   
@@ -615,6 +614,7 @@ resetAutoCloseTimer();
 
 </body>
 </html>
+
 
 
 
