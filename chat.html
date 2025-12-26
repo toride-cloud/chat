@@ -6,14 +6,8 @@
   <title>セントラルホテルQ&Aチャット</title>
 
 <style>
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
 
 /* ===== 共通 ===== */
 #chatbox {
@@ -108,7 +102,7 @@ html, body {
   position: relative;
 }
 
-/* ===== 赤丸 外側パルス（サイズ不変・タップ不干渉） ===== */
+/* ===== 赤丸 外側パルス（タップ非干渉） ===== */
 #micBtn.recording::after {
   content: "";
   position: absolute;
@@ -445,30 +439,37 @@ function findAnswer(query){
   return "申し訳ありません。その質問にはまだ対応していません。0297-72-1123までお問い合わせください。";
 }
 
-/* ===== QAロジック ===== */
-function findAnswer(query){
-  query = query.toLowerCase();
-  for(const item of faq){
-    for(const kw of item.keywords){
-      if(query.includes(kw)) return item.answer;
-    }
-  }
-  return "申し訳ありません。その質問にはまだ対応していません。0297-72-1123までお問い合わせください。";
-}
-
 /* ===== DOM ===== */
 const messages = document.getElementById("messages");
 const userInput = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
 const micBtn = document.getElementById("micBtn");
 
+/* ===== タイプライター表示（bot専用） ===== */
+function addBotMessageTypewriter(text){
+  const div = document.createElement("div");
+  div.className = "msg bot";
+  messages.appendChild(div);
+  let i = 0;
+  const timer = setInterval(()=>{
+    div.textContent += text.charAt(i);
+    i++;
+    messages.scrollTop = messages.scrollHeight;
+    if(i >= text.length) clearInterval(timer);
+  }, 25);
+}
+
 /* ===== メッセージ表示 ===== */
 function addMessage(msg,isUser=false){
-  const div=document.createElement("div");
-  div.className="msg "+(isUser?"user":"bot");
-  div.textContent=msg;
-  messages.appendChild(div);
-  messages.scrollTop=messages.scrollHeight;
+  if(isUser){
+    const div=document.createElement("div");
+    div.className="msg user";
+    div.textContent=msg;
+    messages.appendChild(div);
+    messages.scrollTop=messages.scrollHeight;
+  }else{
+    addBotMessageTypewriter(msg);
+  }
 }
 
 /* ===== 送信 ===== */
