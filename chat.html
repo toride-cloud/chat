@@ -107,22 +107,22 @@
     }
     #userInput {
       flex: 1;
-      padding: 8px 20px 8px 8px; /* 変更: padding-rightを20pxに増やし、プレースホルダー末尾の余裕確保 */
+      padding: 8px 30px 8px 8px; /* 変更: padding-rightを30pxに増やし、プレースホルダー末尾の余裕をさらに確保 */
       border: 1px solid #ccc;
       border-radius: 8px;
-      font-size: 14px;
+      font-size: 13px; /* 変更: 少し小さく固定で拡大時収まりやすく */
     }
     #micBtn,
     #sendBtn {
       height: 44px; /* 固定高さ */
-      min-width: 50px; /* 変更: min-widthでテキスト幅に追従し、見切れ防止 */
-      width: auto; /* 変更: autoで内容にフィット */
-      padding: 0 8px; /* 変更: 左右パディング追加でテキスト余裕 */
+      min-width: 60px; /* 変更: min-widthを60pxに広げ、多言語テキスト対応 */
+      width: auto; /* autoで内容にフィット */
+      padding: 0 8px; /* 左右パディングでテキスト余裕 */
       border: none;
       border-radius: 8px;
       background: #0078d7;
       color: white;
-      font-size: 14px; /* 変更: 小さめ固定で拡大耐性向上 */
+      font-size: 14px; /* 小さめ固定 */
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -132,7 +132,7 @@
       overflow: hidden; /* はみ出し隠す */
     }
     #micBtn {
-      width: 44px; /* micBtnは固定幅でアイコン中心 */
+      width: 44px; /* micBtnは固定幅 */
       min-width: 44px;
     }
     #micBtn.recording {
@@ -194,7 +194,7 @@
   <div id="inputArea">
     <input id="userInput" placeholder="">
     <button id="micBtn">🎤</button>
-    <button id="sendBtn" data-i18n="send" aria-label="送信"></button> <!-- 変更: テキスト「送信」に戻し、i18n対応 -->
+    <button id="sendBtn" data-i18n="send" aria-label="送信"></button>
   </div>
 </div>
 </div>
@@ -421,7 +421,7 @@ i18next
             '音声入力はマイクをPush！',
             'チェックイン時の不明点や、',
             '駐車場、食事などお尋ねください',
-            'お電話なら0299-90-0500まで..'
+            '電話: 0299-90-0500..'  /* 変更: 長いテキストを短く調整（見切れ防止） */
           ]
         }
       },
@@ -442,7 +442,7 @@ i18next
             'Press the microphone for voice input!',
             'Ask about check-in details,',
             'parking, meals, etc.',
-            'Or call us at +81-299-90-0500..'
+            'Call: +81-299-90-0500..'  /* 変更: 短く調整 */
           ]
         }
       },
@@ -463,7 +463,7 @@ i18next
             '语音输入请按麦克风！',
             '关于入住的问题、',
             '停车场、用餐等请咨询',
-            '电话+81-299-90-0500..'
+            '电话: +81-299-90-0500..'  /* 変更: 短く調整 */
           ]
         }
       },
@@ -484,7 +484,7 @@ i18next
             '语音输入请按麦克风！',
             '关于入住的问题、',
             '停车场、用餐等请咨询',
-            '电话+81-299-90-0500..'
+            '电话: +81-299-90-0500..'  /* 変更: 短く調整 */
           ]
         }
       },
@@ -505,7 +505,7 @@ i18next
             '語音輸入請按麥克風！',
             '關於入住的問題、',
             '停車場、用餐等請諮詢',
-            '電話+81-299-90-0500..'
+            '電話: +81-299-90-0500..'  /* 変更: 短く調整 */
           ]
         }
       },
@@ -526,7 +526,7 @@ i18next
             '語音輸入請按麥克風！',
             '關於入住的問題、',
             '停車場、用餐等請諮詢',
-            '電話+81-299-90-0500..'
+            '電話: +81-299-90-0500..'  /* 変更: 短く調整 */
           ]
         }
       },
@@ -547,7 +547,7 @@ i18next
             'Để nhập bằng giọng nói, hãy nhấn vào micrô!',
             'Vui lòng hỏi về những điểm chưa rõ khi làm thủ tục nhận phòng,',
             'bãi đậu xe, bữa ăn, v.v.',
-            'Nếu gọi điện thoại, vui lòng gọi số +81-299-90-0500..'
+            'Call: +81-299-90-0500..'  /* 変更: 短く調整 */
           ]
         }
       },
@@ -568,28 +568,28 @@ i18next
             'ดันไมโครโฟนสําหรับการป้อนข้อมูลด้วยเสียง!',
             'จุดที่ไม่รู้จักเมื่อเช็คอิน',
             'ขอที่จอดรถ อาหาร ฯลฯ',
-            'หากคุณโทรกรุณาโทร +81-299-90-0500..'
+            'Call: +81-299-90-0500..'  /* 変更: 短く調整 */
           ]
         }
       }
     }
   }, function(err, t) {
-   
+  
     console.log('Detected language:', i18next.language);
-   
+  
     document.querySelectorAll('[data-i18n]').forEach(el => {
       el.innerHTML = t(el.dataset.i18n);
     });
     document.title = t('siteHeader') + ' Q&A Chat';
-   
+  
     placeholders = t('placeholders', { returnObjects: true });
-   
+  
     let phIndex = 0;
     setInterval(() => {
       userInput.placeholder = placeholders[phIndex];
       phIndex = (phIndex + 1) % placeholders.length;
     }, 3000);
-   
+  
     if (recognition) {
       const lang = i18next.language || 'ja';
       if (lang.startsWith('ja')) {
@@ -608,6 +608,3 @@ i18next
 </script>
 </body>
 </html>
-
-
-
