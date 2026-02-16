@@ -8,13 +8,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/25.5.2/i18next.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next-browser-languagedetector/8.2.0/i18nextBrowserLanguageDetector.min.js"></script>
   <style>
-   
+  
     *, *::before, *::after { box-sizing: border-box; }
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px; /* 追加: rem基準のフォントサイズを設定 */
     }
     #bg-layer {
       position: fixed;
@@ -109,23 +110,25 @@
       padding: 8px;
       border: 1px solid #ccc;
       border-radius: 8px;
-      font-size: 14px;
+      font-size: 1rem; /* 変更: rem単位に */
     }
     #micBtn,
     #sendBtn {
-      width: 44px;
-      height: 44px;
+      min-width: 44px; /* 変更: min-widthにし柔軟化 */
+      min-height: 44px; /* 変更: min-heightにし柔軟化 */
       padding: 0;
       border: none;
       border-radius: 8px;
       background: #0078d7;
       color: white;
-      font-size: 16px;
+      font-size: 1.2rem; /* 変更: rem単位にし調整 */
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      white-space: nowrap; /* 追加: テキスト折り返し防止 */
+      overflow: hidden; /* 追加: はみ出しを隠す */
     }
     #micBtn.recording {
       color: #ff5252;
@@ -186,7 +189,7 @@
   <div id="inputArea">
     <input id="userInput" placeholder="">
     <button id="micBtn">🎤</button>
-    <button id="sendBtn" data-i18n="send">送信</button>
+    <button id="sendBtn" aria-label="送信">→</button> <!-- 変更: テキストをアイコンに。aria-labelでアクセシビリティ対応 -->
   </div>
 </div>
 </div>
@@ -600,3 +603,4 @@ i18next
 </script>
 </body>
 </html>
+
