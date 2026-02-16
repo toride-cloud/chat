@@ -15,7 +15,7 @@
       padding: 0;
       height: 100%;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      font-size: 16px; /* 追加: rem基準のフォントサイズを設定 */
+      font-size: 16px; /* 基準フォントサイズ */
     }
     #bg-layer {
       position: fixed;
@@ -110,25 +110,25 @@
       padding: 8px;
       border: 1px solid #ccc;
       border-radius: 8px;
-      font-size: 1rem; /* 変更: rem単位に */
+      font-size: 14px; /* 変更: px単位に戻し固定 */
     }
     #micBtn,
     #sendBtn {
-      min-width: 44px; /* 変更: min-widthにし柔軟化 */
-      min-height: 44px; /* 変更: min-heightにし柔軟化 */
+      width: 44px; /* 変更: widthに戻し固定 */
+      height: 44px; /* 変更: heightに戻し固定 */
       padding: 0;
       border: none;
       border-radius: 8px;
       background: #0078d7;
       color: white;
-      font-size: 1.2rem; /* 変更: rem単位にし調整 */
+      font-size: 20px; /* 変更: px単位に固定し、アイコンサイズ調整（少し大きめで視認性確保） */
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      white-space: nowrap; /* 追加: テキスト折り返し防止 */
-      overflow: hidden; /* 追加: はみ出しを隠す */
+      white-space: nowrap; /* はみ出し防止 */
+      overflow: hidden; /* はみ出しを隠す */
     }
     #micBtn.recording {
       color: #ff5252;
@@ -189,7 +189,7 @@
   <div id="inputArea">
     <input id="userInput" placeholder="">
     <button id="micBtn">🎤</button>
-    <button id="sendBtn" aria-label="送信">→</button> <!-- 変更: テキストをアイコンに。aria-labelでアクセシビリティ対応 -->
+    <button id="sendBtn" aria-label="送信">→</button> <!-- アイコンはそのまま -->
   </div>
 </div>
 </div>
@@ -603,4 +603,5 @@ i18next
 </script>
 </body>
 </html>
+
 
