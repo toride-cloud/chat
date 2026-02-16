@@ -107,28 +107,33 @@
     }
     #userInput {
       flex: 1;
-      padding: 8px;
+      padding: 8px 20px 8px 8px; /* 変更: padding-rightを20pxに増やし、プレースホルダー末尾の余裕確保 */
       border: 1px solid #ccc;
       border-radius: 8px;
-      font-size: 14px; /* 変更: px単位に戻し固定 */
+      font-size: 14px;
     }
     #micBtn,
     #sendBtn {
-      width: 44px; /* 変更: widthに戻し固定 */
-      height: 44px; /* 変更: heightに戻し固定 */
-      padding: 0;
+      height: 44px; /* 固定高さ */
+      min-width: 50px; /* 変更: min-widthでテキスト幅に追従し、見切れ防止 */
+      width: auto; /* 変更: autoで内容にフィット */
+      padding: 0 8px; /* 変更: 左右パディング追加でテキスト余裕 */
       border: none;
       border-radius: 8px;
       background: #0078d7;
       color: white;
-      font-size: 20px; /* 変更: px単位に固定し、アイコンサイズ調整（少し大きめで視認性確保） */
+      font-size: 14px; /* 変更: 小さめ固定で拡大耐性向上 */
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      white-space: nowrap; /* はみ出し防止 */
-      overflow: hidden; /* はみ出しを隠す */
+      white-space: nowrap; /* 折り返し防止 */
+      overflow: hidden; /* はみ出し隠す */
+    }
+    #micBtn {
+      width: 44px; /* micBtnは固定幅でアイコン中心 */
+      min-width: 44px;
     }
     #micBtn.recording {
       color: #ff5252;
@@ -189,7 +194,7 @@
   <div id="inputArea">
     <input id="userInput" placeholder="">
     <button id="micBtn">🎤</button>
-    <button id="sendBtn" aria-label="送信">→</button> <!-- アイコンはそのまま -->
+    <button id="sendBtn" data-i18n="send" aria-label="送信"></button> <!-- 変更: テキスト「送信」に戻し、i18n対応 -->
   </div>
 </div>
 </div>
@@ -603,5 +608,6 @@ i18next
 </script>
 </body>
 </html>
+
 
 
