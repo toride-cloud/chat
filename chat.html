@@ -25,7 +25,7 @@
       pointer-events: none;
     }
     .site-header {
-      background: #ff8c00;
+      background: #4376DF;
       color: #fff;
       padding: 16px;
     }
@@ -62,7 +62,7 @@
       overflow: hidden;
     }
     #chatHeader {
-      background: #ff8c00;
+      background: #4376DF;
       color: white;
       padding: 10px;
       font-size: 14px;
@@ -118,7 +118,7 @@
       padding: 0;
       border: none;
       border-radius: 8px;
-      background: #ff8c00;
+      background: #0078d7;
       color: white;
       font-size: 16px;
       cursor: pointer;
@@ -159,14 +159,14 @@
 <body>
 <div id="bg-layer">
   <header class="site-header">
-    <h1 data-i18n="siteHeader">セントラルホテル高崎</h1>
+    <h1 data-i18n="siteHeader">鹿嶋パークホテル</h1>
   </header>
   <main class="site-main">
     <h2 data-i18n="guidance">ご案内</h2>
     <p data-i18n="checkinCheckout">チェックイン 15:00 / チェックアウト 10:00</p>
     <p data-i18n="facilities">有料/提携駐車場・館内Wi-Fi完備</p>
     <h2 data-i18n="access">アクセス</h2>
-    <p data-i18n="accessDetails">高崎駅から徒歩3分</p>
+    <p data-i18n="accessDetails">鹿島神宮駅より車で約10分</p>
   </main>
   <footer class="site-footer">
     <span data-i18n="copyright">© Central Hotel Group</span>
@@ -178,7 +178,7 @@
     <span class="backBtn" title="公式サイトへ戻る">◀</span>
     <div data-i18n="chatHeaderText">
       矢印クリックで公式サイトへ..<br>
-      セントラルホテル高崎Q&Aチャットです<br>
+      鹿嶋パークホテルQ&Aチャットです<br>
       質問は直接入力、スマホ音声入力対応！
     </div>
   </div>
@@ -206,7 +206,7 @@ document.addEventListener("keydown", function(e){
   }
 });
 document.querySelector(".backBtn").onclick = () => {
-  window.location.href = "https://www.centralhoteltoride.com/";
+  window.location.href = "https://www.kashimaparkhotel.com/";
 };
 const faq = {
   ja: [
@@ -381,7 +381,7 @@ let autoTimer = null;
 function resetTimer(){
   clearTimeout(autoTimer);
   autoTimer = setTimeout(()=>{
-    window.location.href = "https://centralhoteltakasaki.com/";
+    window.location.href = "https://www.kashimaparkhotel.com/";
   }, AUTO_CLOSE_TIME);
 }
 ["click","keydown","mousemove","scroll","pointerdown"].forEach(ev=>{
@@ -398,169 +398,169 @@ i18next
     resources: {
       ja: {
         translation: {
-          siteHeader: 'セントラルホテル高崎',
+          siteHeader: '鹿嶋パークホテル',
           guidance: 'ご案内',
           checkinCheckout: 'チェックイン 15:00 / チェックアウト 10:00',
           facilities: '有料/提携駐車場・館内Wi-Fi完備',
           access: 'アクセス',
-          accessDetails: '高崎駅から徒歩3分',
+          accessDetails: '鹿島神宮駅より車で約10分',
           copyright: '© Central Hotel Group',
-          chatHeaderText: '矢印クリックで公式サイトへ..<br>セントラルホテル高崎Q&Aチャットです<br>質問は直接入力、スマホ音声入力対応！',
+          chatHeaderText: '矢印クリックで公式サイトへ..<br>鹿嶋パークホテルQ&Aチャットです<br>質問は直接入力、スマホ音声入力対応！',
           send: '送信',
-          noAnswer: '申し訳ありません。頂いたご質問にはまだ対応していません。027-321-7000までお問い合わせください。',
+          noAnswer: '申し訳ありません。頂いたご質問にはまだ対応していません。0299-90-0500までお問い合わせください。',
           placeholders: [
             'ご質問を入力ください',
             '音声入力はマイクをPush！',
             'チェックイン時の不明点や、',
             '駐車場、食事などお尋ねください',
-            'お電話なら027-321-7000まで..'
+            'お電話なら0299-90-0500まで..'
           ]
         }
       },
       en: {
         translation: {
-          siteHeader: 'Central Hotel Takasaki',
+          siteHeader: 'Kashima Park Hotel',
           guidance: 'Information',
           checkinCheckout: 'Check-in 3:00 PM / Check-out 10:00 AM',
           facilities: 'Paid/Affiliated Parking · In-house Wi-Fi Available',
           access: 'Access',
-          accessDetails: '3-minute walk from Takasaki Station',
+          accessDetails: 'About 10 minutes by car from Kashima Jingu Station',
           copyright: '© Central Hotel Group',
-          chatHeaderText: 'Click the arrow to visit our official site..<br>This is Central Hotel Takasaki\'s Q&A Chat<br>Type your question directly or use smartphone voice input!',
+          chatHeaderText: 'Click the arrow to visit our official site..<br>This is Kashima Park Hotel\'s Q&A Chat<br>Type your question directly or use smartphone voice input!',
           send: 'Send',
-          noAnswer: 'We apologize. We do not yet have an answer for your question. Please call +81-27-321-7000.',
+          noAnswer: 'We apologize. We do not yet have an answer for your question. Please call +81-299-90-0500.',
           placeholders: [
             'Please enter your question',
             'Press the microphone for voice input!',
             'Ask about check-in details,',
             'parking, meals, etc.',
-            'Or call us at +81-27-321-7000..'
+            'Or call us at +81-299-90-0500..'
           ]
         }
       },
       zh: {
         translation: {
-          siteHeader: '中央酒店高崎',
+          siteHeader: '鹿嶋公园酒店',
           guidance: '指南',
           checkinCheckout: '入住 下午3:00 / 退房 上午10:00',
           facilities: '免费停车场和馆内Wi-Fi',
           access: '交通',
-          accessDetails: '从高崎站步行3分钟',
+          accessDetails: '从鹿岛神宫站驾车约10分钟',
           copyright: '© Central Hotel Group',
-          chatHeaderText: '点击箭头返回官方网站..<br>中央酒店高崎Q&A聊天<br>直接输入问题，支持智能手机语音输入！',
+          chatHeaderText: '点击箭头返回官方网站..<br>鹿嶋公园酒店Q&A聊天<br>直接输入问题，支持智能手机语音输入！',
           send: '发送',
-          noAnswer: '抱歉，我们还无法回答您的问题。请致电+81-27-321-7000。',
+          noAnswer: '抱歉，我们还无法回答您的问题。请致电+81-299-90-0500。',
           placeholders: [
             '请输入您的问题',
             '语音输入请按麦克风！',
             '关于入住的问题、',
             '停车场、用餐等请咨询',
-            '电话+81-27-321-7000..'
+            '电话+81-299-90-0500..'
           ]
         }
       },
       'zh-CN': {
         translation: {
-          siteHeader: '中央酒店高崎',
+          siteHeader: '鹿嶋公园酒店',
           guidance: '指南',
           checkinCheckout: '入住 下午3:00 / 退房 上午10:00',
           facilities: '免费停车场和馆内Wi-Fi',
           access: '交通',
-          accessDetails: '从高崎站步行3分钟',
+          accessDetails: '从鹿岛神宫站驾车约10分钟',
           copyright: '© Central Hotel Group',
-          chatHeaderText: '点击箭头返回官方网站..<br>中央酒店高崎Q&A聊天<br>直接输入问题，支持智能手机语音输入！',
+          chatHeaderText: '点击箭头返回官方网站..<br>鹿嶋公园酒店Q&A聊天<br>直接输入问题，支持智能手机语音输入！',
           send: '发送',
-          noAnswer: '抱歉，我们还无法回答您的问题。请致电+81-27-321-7000。',
+          noAnswer: '抱歉，我们还无法回答您的问题。请致电+81-299-90-0500。',
           placeholders: [
             '请输入您的问题',
             '语音输入请按麦克风！',
             '关于入住的问题、',
             '停车场、用餐等请咨询',
-            '电话+81-27-321-7000..'
+            '电话+81-299-90-0500..'
           ]
         }
       },
       'zh-TW': {
         translation: {
-          siteHeader: '中央酒店高崎',
+          siteHeader: '鹿嶋公園酒店',
           guidance: '指南',
           checkinCheckout: '入住 下午3:00 / 退房 上午10:00',
           facilities: '免費停車場和館內Wi-Fi',
           access: '交通',
-          accessDetails: '從高崎站步行3分鐘',
+          accessDetails: '從鹿島神宮站開車約10分鐘',
           copyright: '© Central Hotel Group',
-          chatHeaderText: '點擊箭頭返回官方網站..<br>中央高崎Q&A聊天<br>直接輸入問題，支持智能手機語音輸入！',
+          chatHeaderText: '點擊箭頭返回官方網站..<br>鹿嶋公園酒店Q&A聊天<br>直接輸入問題，支持智能手機語音輸入！',
           send: '發送',
-          noAnswer: '抱歉，我們還無法回答您的問題。請致電+81-27-321-7000。',
+          noAnswer: '抱歉，我們還無法回答您的問題。請致電+81-299-90-0500。',
           placeholders: [
             '請輸入您的問題',
             '語音輸入請按麥克風！',
             '關於入住的問題、',
             '停車場、用餐等請諮詢',
-            '電話+81-27-321-7000..'
+            '電話+81-299-90-0500..'
           ]
         }
       },
       'zh-HK': {
         translation: {
-          siteHeader: '中央酒店高崎',
+          siteHeader: '鹿嶋公園酒店',
           guidance: '指南',
           checkinCheckout: '入住 下午3:00 / 退房 上午10:00',
           facilities: '免費停車場和館內Wi-Fi',
           access: '交通',
-          accessDetails: '從高崎站步行3分鐘',
+          accessDetails: '從鹿島神宮站開車約10分鐘',
           copyright: '© Central Hotel Group',
-          chatHeaderText: '點擊箭頭返回官方網站..<br>中央酒店高崎Q&A聊天<br>直接輸入問題，支持智能手機語音輸入！',
+          chatHeaderText: '點擊箭頭返回官方網站..<br>鹿嶋公園酒店Q&A聊天<br>直接輸入問題，支持智能手機語音輸入！',
           send: '發送',
-          noAnswer: '抱歉，我們還無法回答您的問題。請致電+81-27-321-7000。',
+          noAnswer: '抱歉，我們還無法回答您的問題。請致電+81-299-90-0500。',
           placeholders: [
             '請輸入您的問題',
             '語音輸入請按麥克風！',
             '關於入住的問題、',
             '停車場、用餐等請諮詢',
-            '電話+81-27-321-7000..'
+            '電話+81-299-90-0500..'
           ]
         }
       },
       vi: {
         translation: {
-          siteHeader: 'Khách sạn Central Takasaki',
+          siteHeader: 'Khách sạn Kashima Park',
           guidance: 'Hướng dẫn',
           checkinCheckout: 'Check-in 15:00 / Check-out 10:00',
           facilities: 'Bãi đậu xe có thu phí/liên kết, Wi-Fi trong khách sạn',
           access: 'Cách đi',
-          accessDetails: '3 phút đi bộ từ ga Takasaki',
+          accessDetails: 'Khoảng 10 phút bằng xe hơi từ ga Kashima Jingu',
           copyright: '© Central Hotel Group',
-          chatHeaderText: 'Nhấp vào mũi tên để truy cập trang web chính thức..<br>Đây là chat Q&A của Central Hotel Takasaki<br>Hãy nhập câu hỏi trực tiếp, hỗ trợ nhập liệu bằng giọng nói trên điện thoại thông minh!',
+          chatHeaderText: 'Nhấp vào mũi tên để truy cập trang web chính thức..<br>Đây là chat Q&A của Khách sạn Kashima Park<br>Hãy nhập câu hỏi trực tiếp, hỗ trợ nhập liệu bằng giọng nói trên điện thoại thông minh!',
           send: 'Gửi',
-          noAnswer: 'Xin lỗi. Chúng tôi chưa có câu trả lời cho câu hỏi của bạn. Vui lòng liên hệ số +81-27-321-7000.',
+          noAnswer: 'Xin lỗi. Chúng tôi chưa có câu trả lời cho câu hỏi của bạn. Vui lòng liên hệ số +81-299-90-0500.',
           placeholders: [
             'Vui lòng nhập câu hỏi của bạn',
             'Để nhập bằng giọng nói, hãy nhấn vào micrô!',
             'Vui lòng hỏi về những điểm chưa rõ khi làm thủ tục nhận phòng,',
             'bãi đậu xe, bữa ăn, v.v.',
-            'Nếu gọi điện thoại, vui lòng gọi số +81-27-321-7000..'
+            'Nếu gọi điện thoại, vui lòng gọi số +81-299-90-0500..'
           ]
         }
       },
       th: {
         translation: {
-          siteHeader: 'โรงแรมเซ็นทรัลทาคาซากิ',
+          siteHeader: 'โรงแรมคาชิม่า พาร์ค',
           guidance: 'คําแนะนํา',
           checkinCheckout: 'เช็คอิน 15:00 น./เช็คเอาท์ 10:00 น.',
           facilities: 'มีบริการที่จอดรถแบบชําระเงิน/ที่จอดรถในเครือ และอินเทอร์เน็ตไร้สาย (Wi-Fi) ในโรงแรม',
           access: 'การเข้าถึง',
-          accessDetails: 'เดิน 3 นาทีจากสถานีทาคาซากิ',
+          accessDetails: 'ประมาณ 10 นาทีโดยรถยนต์จากสถานีคาชิม่า จินกู',
           copyright: '© Central Hotel Group',
-          chatHeaderText: 'คลิกลูกศรเพื่อไปที่เว็บไซต์อย่างเป็นทางการ...<br>โรงแรมเซ็นทรัลทาคาซากิถามตอบแชท<br>คําถามสามารถป้อนได้โดยตรง, รองรับการป้อนข้อมูลด้วยเสียงของสมาร์ทโฟน!',
+          chatHeaderText: 'คลิกลูกศรเพื่อไปที่เว็บไซต์อย่างเป็นทางการ..<br>นี่คือแชท Q&A ของโรงแรมคาชิม่า พาร์ค<br>พิมพ์คำถามของคุณโดยตรงหรือใช้การป้อนข้อมูลด้วยเสียงบนสมาร์ทโฟน!',
           send: 'ส่ง',
-          noAnswer: 'ขอโทษ เรายังไม่ได้ตอบคําถามที่คุณถาม โปรดติดต่อเราที่ +81-27-321-7000',
+          noAnswer: 'ขอโทษ เรายังไม่ได้ตอบคําถามที่คุณถาม โปรดติดต่อเราที่ +81-299-90-0500',
           placeholders: [
             'ป้อนคําถามของคุณ',
             'ดันไมโครโฟนสําหรับการป้อนข้อมูลด้วยเสียง!',
             'จุดที่ไม่รู้จักเมื่อเช็คอิน',
             'ขอที่จอดรถ อาหาร ฯลฯ',
-            'หากคุณโทรกรุณาโทร +81-27-321-7000..'
+            'หากคุณโทรกรุณาโทร +81-299-90-0500..'
           ]
         }
       }
