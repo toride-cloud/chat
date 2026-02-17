@@ -21,13 +21,56 @@
     .msg { margin:6px 0; padding:10px 12px; border-radius:10px; max-width:95%; word-wrap:break-word; font-size:14px; line-height:1.6; }
     .user { background:#d1f0d1; align-self:flex-end; }
     .bot { background:#f0f0f0; align-self:flex-start; }
-    #inputArea { display:flex; border-top:1px solid #ddd; padding:6px; gap:6px; }
-    #userInput { flex:1; padding:8px; border:1px solid #ccc; border-radius:8px; font-size:14px; }
-    #micBtn, #sendBtn { width:44px; height:44px; padding:0; border:none; border-radius:8px; background:#0078d7; color:white; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    #inputArea { 
+      display:flex; 
+      border-top:1px solid #ddd; 
+      padding:6px; 
+      gap:6px; 
+      position:relative; 
+    }
+    #placeholderMarquee {
+      position:absolute;
+      left:12px;
+      top:50%;
+      transform:translateY(-50%);
+      color:#999;
+      font-size:14px;
+      white-space:nowrap;
+      overflow:hidden;
+      width:calc(100% - 110px);
+      pointer-events:none;
+      z-index:1;
+      animation: marqueeScroll 22s linear infinite;
+    }
+    #userInput {
+      flex:1; 
+      padding:8px 12px 8px 12px; 
+      border:1px solid #ccc; 
+      border-radius:8px; 
+      font-size:14px;
+      background:transparent;
+      position:relative;
+      z-index:2;
+    }
+    #userInput:focus ~ #placeholderMarquee,
+    #userInput:not(:placeholder-shown) ~ #placeholderMarquee {
+      display:none;
+    }
+    #micBtn, #sendBtn { 
+      width:44px; height:44px; padding:0; border:none; border-radius:8px; 
+      background:#0078d7; color:white; font-size:16px; cursor:pointer; 
+      display:flex; align-items:center; justify-content:center; flex-shrink:0; 
+    }
     #micBtn.recording { color:#ff5252; position:relative; }
     #micBtn.recording::after { content:""; position:absolute; inset:0; border-radius:50%; box-shadow:0 0 0 0 rgba(255,82,82,0.6); animation:micPulse 1.5s infinite; }
     @keyframes micPulse { 0%{box-shadow:0 0 0 0 rgba(255,82,82,0.6);} 70%{box-shadow:0 0 0 10px rgba(255,82,82,0);} 100%{box-shadow:0 0 0 0 rgba(255,82,82,0);} }
-    @media (max-width:600px) { #chatbox { left:50%; right:auto; transform:translateX(-50%); width:calc(100vw-20px); max-width:calc(100vw-20px); } }
+    @keyframes marqueeScroll {
+      0%   { transform: translateY(-50%) translateX(0); }
+      100% { transform: translateY(-50%) translateX(-50%); }
+    }
+    @media (max-width:600px) { 
+      #chatbox { left:50%; right:auto; transform:translateX(-50%); width:calc(100vw-20px); max-width:calc(100vw-20px); } 
+    }
   </style>
 </head>
 <body>
@@ -50,6 +93,7 @@
     </div>
     <div id="messages"></div>
     <div id="inputArea">
+      <div id="placeholderMarquee"></div>
       <input id="userInput" placeholder="">
       <button id="micBtn">🎤</button>
       <button id="sendBtn" data-i18n="send">送信</button>
@@ -93,6 +137,7 @@ const messages = document.getElementById("messages");
 const userInput = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
 const micBtn = document.getElementById("micBtn");
+const marquee = document.getElementById("placeholderMarquee");
 
 function addBotMessageTypewriter(text){
   const div = document.createElement("div"); div.className="msg bot"; messages.appendChild(div);
@@ -155,29 +200,16 @@ i18next.use(i18nextBrowserLanguageDetector).init({
   document.querySelectorAll('[data-i18n]').forEach(el => el.innerHTML = t(el.dataset.i18n));
   document.title = t('siteHeader') + ' Q&A Chat';
 
-  // =============== 流れるプレースホルダー（ここが変更点）===============
+  // =============== スムーズ流れるプレースホルダー（最終版）===============
   const phArray = t('placeholders', { returnObjects: true }) || ['ご質問を入力ください'];
-  const fullPlaceholder = phArray.join(' → ');
-  let marqueePos = 0;
-  const VISIBLE_CHARS = 40;   // 表示文字数（調整可）
-  const SPEED = 180;          // 流れる速さ（ms）
+  const fullText = phArray.join('　');                    // 「→」完全削除、自然な文章の流れ
+  const marqueeText = fullText + '　　　　　' + fullText; // シームレスループ用に2回繰り返し
+  marquee.textContent = marqueeText;
 
-  function updateMarquee() {
-    if (userInput.value.trim()) {
-      userInput.placeholder = '';
-      return;
-    }
-    const padded = fullPlaceholder + '          ' + fullPlaceholder;
-    const display = padded.slice(marqueePos, marqueePos + VISIBLE_CHARS);
-    userInput.placeholder = display;
-    marqueePos = (marqueePos + 1) % fullPlaceholder.length;
-  }
-
-  setInterval(updateMarquee, SPEED);
-  updateMarquee(); // 初回表示
-
-  // 入力中はプレースホルダーを消す
-  userInput.addEventListener('input', updateMarquee);
+  // 入力中・フォーカス中は流れる文字を非表示
+  userInput.addEventListener('focus', () => marquee.style.display = 'none');
+  userInput.addEventListener('blur', () => { if(!userInput.value.trim()) marquee.style.display = ''; });
+  userInput.addEventListener('input', () => { if(userInput.value.trim()) marquee.style.display = 'none'; else marquee.style.display = ''; });
 
   // 音声認識言語設定
   if(recognition){
