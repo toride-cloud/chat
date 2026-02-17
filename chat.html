@@ -155,9 +155,29 @@ i18next.use(i18nextBrowserLanguageDetector).init({
   document.querySelectorAll('[data-i18n]').forEach(el => el.innerHTML = t(el.dataset.i18n));
   document.title = t('siteHeader') + ' Q&A Chat';
 
-  // ★★★ ここだけ変更 ★★★ 回転をやめて1つの流れる文章に
+  // =============== 流れるプレースホルダー（ここが変更点）===============
   const phArray = t('placeholders', { returnObjects: true }) || ['ご質問を入力ください'];
-  userInput.placeholder = phArray.join(' → ');
+  const fullPlaceholder = phArray.join(' → ');
+  let marqueePos = 0;
+  const VISIBLE_CHARS = 40;   // 表示文字数（調整可）
+  const SPEED = 180;          // 流れる速さ（ms）
+
+  function updateMarquee() {
+    if (userInput.value.trim()) {
+      userInput.placeholder = '';
+      return;
+    }
+    const padded = fullPlaceholder + '          ' + fullPlaceholder;
+    const display = padded.slice(marqueePos, marqueePos + VISIBLE_CHARS);
+    userInput.placeholder = display;
+    marqueePos = (marqueePos + 1) % fullPlaceholder.length;
+  }
+
+  setInterval(updateMarquee, SPEED);
+  updateMarquee(); // 初回表示
+
+  // 入力中はプレースホルダーを消す
+  userInput.addEventListener('input', updateMarquee);
 
   // 音声認識言語設定
   if(recognition){
