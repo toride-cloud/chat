@@ -108,7 +108,7 @@
       padding: 8px;
       border: 1px solid #ccc;
       border-radius: 8px;
-      font-size: 14px;   
+      font-size: 16px; /* ← ここを16pxに変更（iOS Safari/Chrome/Firefoxの入力フォーカス時の自動ズーム防止） */
     }
     #micBtn,
     #sendBtn {
@@ -189,7 +189,6 @@
   </div>
 </div>
 </div>
-
 <script>
 document.addEventListener("contextmenu", function(e){ e.preventDefault(); });
 document.addEventListener("selectstart", function(e){ e.preventDefault(); });
@@ -198,11 +197,9 @@ document.addEventListener("keydown", function(e){
     e.preventDefault();
   }
 });
-
 document.querySelector(".backBtn").onclick = () => {
   window.location.href = "https://www.kashimaparkhotel.com/";
 };
-
 const faq = {
   ja: [
     {keywords:["チェックイン","ちぇっくいん","checkin","check-in"], answer:"チェックイン時間は宿泊当日15:00〜です。早めのチェックインをご希望の際は有償によるご対応が可能です。"},
@@ -237,7 +234,6 @@ const faq = {
     {"keywords": ["เช็คเอาท์", "เช็คเอาท์", "ออก", "เกินกำหนด"], "answer": "ขอเช็คเอาท์ก่อน 10:00 น. สามารถขยายเวลาพักได้โดยมีค่าธรรมเนียมขึ้นอยู่กับความพร้อมของห้องพัก กรุณาแจ้งแผนกต้อนรับชั้น 2"}
   ]
 };
-
 function findAnswer(query){
   query = query.toLowerCase();
   const detectedLang = i18next.language || 'ja';
@@ -251,12 +247,10 @@ function findAnswer(query){
   }
   return i18next.t('noAnswer');
 }
-
 const messages = document.getElementById("messages");
 const userInput = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
 const micBtn = document.getElementById("micBtn");
-
 function addBotMessageTypewriter(text){
   const div = document.createElement("div");
   div.className = "msg bot";
@@ -268,7 +262,6 @@ function addBotMessageTypewriter(text){
     if(i >= text.length) clearInterval(timer);
   }, 25);
 }
-
 function addMessage(msg, isUser=false){
   if(isUser){
     const div = document.createElement("div");
@@ -280,7 +273,6 @@ function addMessage(msg, isUser=false){
     addBotMessageTypewriter(msg);
   }
 }
-
 sendBtn.onclick = () => {
   const msg = userInput.value.trim();
   if(!msg) return;
@@ -288,14 +280,12 @@ sendBtn.onclick = () => {
   setTimeout(()=>addMessage(findAnswer(msg)), 100);
   userInput.value = "";
 };
-
 userInput.addEventListener("keydown", e=>{
   if(e.key === "Enter"){
     e.preventDefault();
     sendBtn.click();
   }
 });
-
 let recognition = null;
 let isRecording = false;
 if(window.SpeechRecognition || window.webkitSpeechRecognition){
@@ -317,7 +307,6 @@ if(window.SpeechRecognition || window.webkitSpeechRecognition){
     sendBtn.click();
   };
 }
-
 function startVoice(){
   const ua = navigator.userAgent;
   if(ua.includes("Edg/")){
@@ -331,13 +320,11 @@ function startVoice(){
   if(isRecording) return;
   try{ recognition.start(); }catch(e){}
 }
-
 micBtn.onclick = startVoice;
 micBtn.addEventListener("pointerdown", e=>{
   e.preventDefault();
   startVoice();
 });
-
 const AUTO_CLOSE_TIME = 180000;
 let autoTimer = null;
 function resetTimer(){
@@ -350,7 +337,6 @@ function resetTimer(){
   document.addEventListener(ev, resetTimer, { passive:true });
 });
 resetTimer();
-
 let placeholders = [];
 i18next
   .use(i18nextBrowserLanguageDetector)
@@ -416,7 +402,7 @@ i18next
           '电话+81-299-90-0500..'
         ]
       }},
-      'zh-CN': { translation: {  
+      'zh-CN': { translation: {
         siteHeader: '鹿嶋公园酒店', guidance: '指南', checkinCheckout: '入住 下午3:00 / 退房 上午10:00',
         facilities: '免费停车场和馆内Wi-Fi', access: '交通', accessDetails: '从鹿岛神宫站驾车约10分钟',
         copyright: '© Central Hotel Group',
@@ -425,7 +411,7 @@ i18next
         noAnswer: '抱歉，我们还无法回答您的问题。请致电+81-299-90-0500。',
         placeholders: ['请输入您的问题','语音输入请按麦克风！','关于入住的问题、','停车场、用餐等请咨询','电话+81-299-90-0500..']
       }},
-      'zh-TW': { translation: {  
+      'zh-TW': { translation: {
         siteHeader: '鹿嶋公園酒店', guidance: '指南', checkinCheckout: '入住 下午3:00 / 退房 上午10:00',
         facilities: '免費停車場和館內Wi-Fi', access: '交通', accessDetails: '從鹿島神宮站開車約10分鐘',
         copyright: '© Central Hotel Group',
@@ -434,7 +420,7 @@ i18next
         noAnswer: '抱歉，我們還無法回答您的問題。請致電+81-299-90-0500。',
         placeholders: ['請輸入您的問題','語音輸入請按麥克風！','關於入住的問題、','停車場、用餐等請諮詢','電話+81-299-90-0500..']
       }},
-      'zh-HK': { translation: {  
+      'zh-HK': { translation: {
         siteHeader: '鹿嶋公園酒店', guidance: '指南', checkinCheckout: '入住 下午3:00 / 退房 上午10:00',
         facilities: '免費停車場和館內Wi-Fi', access: '交通', accessDetails: '從鹿島神宮站開車約10分鐘',
         copyright: '© Central Hotel Group',
@@ -469,14 +455,12 @@ i18next
       el.innerHTML = t(el.dataset.i18n);
     });
     document.title = t('siteHeader') + ' Q&A Chat';
-
     placeholders = t('placeholders', { returnObjects: true });
     let phIndex = 0;
     setInterval(() => {
       userInput.placeholder = placeholders[phIndex];
       phIndex = (phIndex + 1) % placeholders.length;
     }, 3000);
-
     if (recognition) {
       const lang = i18next.language || 'ja';
       if (lang.startsWith('ja')) recognition.lang = 'ja-JP';
@@ -489,5 +473,4 @@ i18next
 </script>
 </body>
 </html>
-
 
