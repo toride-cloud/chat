@@ -105,10 +105,11 @@
     }
     #userInput {
       flex: 1;
-      padding: 8px;
+      height: 44px;              /* ← 追加：送信ボタンと高さを完全に揃える */
+      padding: 0 12px;           /* ← 変更：縦パディング0で高さ固定 */
       border: 1px solid #ccc;
       border-radius: 8px;
-      font-size: 16px; /* ← ここを16pxに変更（iOS Safari/Chrome/Firefoxの入力フォーカス時の自動ズーム防止） */
+      font-size: 16px;           /* ← ズーム防止のため維持 */
     }
     #micBtn,
     #sendBtn {
@@ -473,4 +474,3 @@ i18next
 </script>
 </body>
 </html>
-
