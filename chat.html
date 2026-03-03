@@ -1,9 +1,86 @@
-<div id="maintenance-message">
-  <div class="message-box">
-    <h2>ただいま準備中です</h2>
-    <p>
-      現在こちらのテスト版はお休みしています。<br>
-      機能チェックは終了しました。よろしくお願いいたします。
-    </p>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ただいま準備中です</title>
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa, #e9eef5);
+    }
+
+    #maintenance-message {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;      
+      justify-content: center;  
+      padding: 20px;
+    }
+
+    .message-box {
+      background: #ffffff;
+      padding: 40px 48px;
+      border-radius: 16px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      max-width: 520px;
+      width: 100%;
+    }
+
+    .message-box h2 {
+      margin: 0 0 20px;
+      font-size: 26px;   
+      font-weight: 600;
+      color: #4376DF;
+    }
+
+    .message-box p {
+      margin: 0;
+      font-size: 17px;   
+      line-height: 1.9;
+      color: #555;
+    }
+
+    
+    @media (max-width: 480px) {
+      .message-box {
+        padding: 30px 24px;
+      }
+
+      .message-box h2 {
+        font-size: 22px;
+      }
+
+      .message-box p {
+        font-size: 16px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div id="maintenance-message">
+    <div class="message-box">
+      <h2>🕊️ ただいま準備中です</h2>
+      <p>
+        現在こちらのテスト版はお休みしています。<br>
+        機能チェックは終了しました。<br>
+        よろしくお願いいたします。
+      </p>
+    </div>
   </div>
-</div>
+
+</body>
+</html>
