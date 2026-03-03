@@ -16,14 +16,18 @@
       height: 100%;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
       background: linear-gradient(135deg, #f5f7fa, #e9eef5);
+      -webkit-user-select: none; 
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
 
     #maintenance-message {
       position: fixed;
       inset: 0;
       display: flex;
-      align-items: center;      
-      justify-content: center;  
+      align-items: center;
+      justify-content: center;
       padding: 20px;
     }
 
@@ -39,19 +43,18 @@
 
     .message-box h2 {
       margin: 0 0 20px;
-      font-size: 26px;   
+      font-size: 26px;
       font-weight: 600;
       color: #4376DF;
     }
 
     .message-box p {
       margin: 0;
-      font-size: 17px;   
+      font-size: 17px;
       line-height: 1.9;
       color: #555;
     }
 
-    
     @media (max-width: 480px) {
       .message-box {
         padding: 30px 24px;
@@ -65,7 +68,6 @@
         font-size: 16px;
       }
     }
-
   </style>
 </head>
 
@@ -82,6 +84,23 @@
     </div>
   </div>
 
+  <script>
+    // 右クリック禁止
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
+
+    
+    document.addEventListener('keydown', function(e) {
+      if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+        (e.ctrlKey && e.key === 'U')
+      ) {
+        e.preventDefault();
+      }
+    });
+  </script>
+
 </body>
 </html>
-
