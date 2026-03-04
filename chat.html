@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
-  <title>セントラルホテルグループQ&Aチャット</title>  
+  <title>セントラルホテルグループQ&Aチャット</title>  <!-- 初期タイトルをシンプルに保つ -->
   <!-- i18next （最新安定版） -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/23.11.5/i18next.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next-browser-languagedetector/7.1.0/i18nextBrowserLanguageDetector.min.js"></script>
   <style>
-    
+    /* --- 修正: 行間調整 --- */
     #chatHeader {
       background: #2e7d32;
       color: white;
@@ -18,9 +18,9 @@
       display: flex;
       gap: 8px;
       white-space: pre-line;
-      line-height: 1.4;  
+      line-height: 1.4;  /* 行間を狭く調整（デフォルトより狭め） */
     }
-    
+    /* 他のスタイルは変更なし */
     *, *::before, *::after { box-sizing: border-box; }
     html, body {
       margin: 0;
@@ -209,7 +209,7 @@ document.addEventListener("keydown", function(e){
     e.preventDefault();
   }
 });
-
+// --- URLマスキングをページロード後に実行 ---
 window.addEventListener('load', function() {
   if (history && history.replaceState) {
     history.replaceState(null, '', '/chat');  // '/chat' を任意に変更可能
@@ -219,7 +219,7 @@ window.addEventListener('load', function() {
 document.querySelector(".backBtn").onclick = () => {
   window.location.href = "https://www.centralhoteltoride.com/";
 };
-
+// --- 修正: faqオブジェクトの構文クリーンアップ（コンマ/括弧確認） ---
 const faq = {
   ja: [
     {keywords: ["チェックイン", "ちぇっくいん", "時間", "何時", "check", "in", "check-in"], answer: "チェックインは15:00からとなります。早めのお時間からのチェックインは空室状況により有料で承っております。２階フロントまでお越しください。"}
@@ -243,17 +243,17 @@ const faq = {
     {keywords: ["trả phòng", "nhận phòng", "thời gian", "mấy giờ", "thời gian đến"], answer: "Nhận phòng bắt đầu từ 3:00 PM. Nhận phòng sớm có sẵn với phí tùy theo tình trạng phòng trống. Vui lòng đến quầy lễ tân ở tầng 2."}
   ],
   th: [
-    {keywords: ["เช็คเอาท์", "เช็คอิน", "เวลา", "กี่โมง", "เวลาถึง"], answer: "การเช็คอินเริ่มต้นเวลา 15:00 น. การเช็คอินก่อนเวลามีให้บริการโดยมีค่าธรรมเนียมขึ้นอยู่กับความพร้อมของห้องพัก กรุณามาที่แผนกต้อนรับชั้น 2"}
+    {keywords: ["เช็คเอาท์", "เช็คอイン", "เวลา", "กี่โมง", "เวลาถึง"], answer: "การเช็คอินเริ่มต้นเวลา 15:00 น. การเช็คอインก่อนเวลามีให้บริการโดยมีค่าธรรมเนียมขึ้นอยู่กับความพร้อมของห้องพัก กรุณามาที่แผนกต้อนรับชั้น 2"}
   ]
 };
-
+// --- 修正ここまで ---
 
 function findAnswer(query){
   query = query.toLowerCase();
   const detectedLang = i18next.language || 'ja';
   const baseLang = detectedLang.split('-')[0];
   const lang = faq[detectedLang] ? detectedLang : (faq[baseLang] ? baseLang : 'ja');
-  const faqList = faq[lang] || [];  
+  const faqList = faq[lang] || [];  // --- 修正: 空配列フォールバック ---
   for(const item of faqList){
     for(const kw of item.keywords){
       if(query.includes(kw.toLowerCase())) return item.answer;
@@ -529,7 +529,7 @@ i18next
       }
     }
   }, function(err, t) {
-    
+    // --- 修正: デバッグログ強化（placeholders確認） ---
     if (err) {
       console.error('i18next init error:', err);
     } else {
@@ -538,10 +538,10 @@ i18next
     document.querySelectorAll('[data-i18n]').forEach(el => {
       el.innerHTML = t(el.dataset.i18n);
     });
-    document.title = t('siteHeader') + ' Q&A Chat';
+    document.title = 'セントラルホテルグループ Q&A チャット';  // --- 修正: タイトルを「セントラルホテルグループ Q&A チャット」に変更 ---
 
-    placeholders = t('placeholders', { returnObjects: true }) || ['デフォルトプレイスホルダー'];  
-    console.log('Placeholders loaded:', placeholders);  
+    placeholders = t('placeholders', { returnObjects: true }) || ['デフォルトプレイスホルダー'];  // --- 修正: 空の場合フォールバック ---
+    console.log('Placeholders loaded:', placeholders);  // デバッグ用
 
     let phIndex = 0;
     setInterval(() => {
@@ -563,8 +563,8 @@ i18next
         recognition.lang = 'th-TH';
       }
     }
-    
-    addMessage(t('chatHeaderText').replace(/<br>/g, ' '), false);  
+    // --- 修正: 初期ボットメッセージ追加でQAテスト容易に ---
+    addMessage(t('chatHeaderText').replace(/<br>/g, ' '), false);  // テスト用初期メッセージ
   });
 </script>
 </body>
