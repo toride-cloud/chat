@@ -2,106 +2,577 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ただいま準備中です</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+  <title>セントラルホテルグループQ&Aチャット</title>
+  <!-- i18next （最新安定版） -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/23.11.5/i18next.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next-browser-languagedetector/7.1.0/i18nextBrowserLanguageDetector.min.js"></script>
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
-
+    *, *::before, *::after { box-sizing: border-box; }
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: linear-gradient(135deg, #f5f7fa, #e9eef5);
-      -webkit-user-select: none; 
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
     }
-
-    #maintenance-message {
+    #bg-layer {
       position: fixed;
       inset: 0;
+      overflow-y: auto;
+      background: #ffffff;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .site-header {
+      background: #2e7d32;
+      color: #fff;
+      padding: 16px;
+    }
+    .site-main {
+      padding: 16px;
+      line-height: 1.8;
+    }
+    .site-footer {
+      padding: 16px;
+      background: #f0f0f0;
+      font-size: 12px;
+    }
+    #chat-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(255,255,255,0.65);
+      backdrop-filter: blur(4px);
+    }
+    #chatbox {
+      width: 360px;
+      max-width: 95vw;
+      height: 520px;
+      max-height: 75dvh;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    #chatHeader {
+      background: #2e7d32;
+      color: white;
+      padding: 10px;
+      font-size: 14px;
+      font-weight: bold;
+      display: flex;
+      gap: 8px;
+      white-space: pre-line;
+    }
+    #chatHeader .backBtn {
+      cursor: pointer;
+      font-size: 18px;
+    }
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+      background: #fafafa;
+    }
+    .msg {
+      margin: 6px 0;
+      padding: 10px 12px;
+      border-radius: 10px;
+      max-width: 95%;
+      word-wrap: break-word;
+      font-size: 14px;
+      line-height: 1.6;
+      text-align: left;
+    }
+    .user {
+      background: #d1f0d1;
+      align-self: flex-end;
+    }
+    .bot {
+      background: #f0f0f0;
+      align-self: flex-start;
+    }
+    #inputArea {
+      display: flex;
+      border-top: 1px solid #ddd;
+      padding: 6px;
+      gap: 6px;
+    }
+    #userInput {
+      flex: 1;
+      height: 44px;
+      padding: 0 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    #micBtn,
+    #sendBtn {
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: none;
+      border-radius: 8px;
+      background: #2e7d32;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      flex-shrink: 0;
     }
-
-    .message-box {
-      background: #ffffff;
-      padding: 40px 48px;
-      border-radius: 16px;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-      text-align: center;
-      max-width: 520px;
-      width: 100%;
+    #micBtn.recording {
+      color: #ff5252;
+      position: relative;
     }
-
-    .message-box h2 {
-      margin: 0 0 20px;
-      font-size: 26px;
-      font-weight: 600;
-      color: #4376DF;
+    #micBtn.recording::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(255,82,82,0.6);
+      animation: micPulse 1.5s infinite;
+      pointer-events: none;
     }
-
-    .message-box p {
-      margin: 0;
-      font-size: 17px;
-      line-height: 1.9;
-      color: #555;
+    @keyframes micPulse {
+      0% { box-shadow: 0 0 0 0 rgba(255,82,82,0.6); }
+      70% { box-shadow: 0 0 0 10px rgba(255,82,82,0); }
+      100% { box-shadow: 0 0 0 0 rgba(255,82,82,0); }
     }
-
-    @media (max-width: 480px) {
-      .message-box {
-        padding: 30px 24px;
-      }
-
-      .message-box h2 {
-        font-size: 22px;
-      }
-
-      .message-box p {
-        font-size: 16px;
+    @media screen and (max-width: 600px) {
+      #chatbox {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: calc(100vw - 20px);
+        max-width: calc(100vw - 20px);
       }
     }
   </style>
 </head>
-
 <body>
-
-  <div id="maintenance-message">
-    <div class="message-box">
-      <h2>🕊️ ただいま準備中です</h2>
-      <p>
-        現在テスト版はお休み中です。<br>
-        機能チェックは終了しました。<br>
-        よろしくお願いいたします。
-      </p>
+<div id="bg-layer">
+  <header class="site-header">
+    <h1 data-i18n="siteHeader">セントラルホテル取手</h1>
+  </header>
+  <main class="site-main">
+    <h2 data-i18n="guidance">ご案内</h2>
+    <p data-i18n="checkinCheckout">チェックイン 15:00 / チェックアウト 10:00</p>
+    <p data-i18n="facilities">無料駐車場・館内Wi-Fi完備</p>
+    <h2 data-i18n="access">アクセス</h2>
+    <p data-i18n="accessDetails">矢田部ＩＣより車で約30分</p>
+  </main>
+  <footer class="site-footer">
+    <span data-i18n="copyright">© Central Hotel Group</span>
+  </footer>
+</div>
+<div id="chat-layer">
+<div id="chatbox">
+  <div id="chatHeader">
+    <span class="backBtn" title="公式サイトへ戻る">◀</span>
+    <div data-i18n="chatHeaderText">
+      矢印クリックで公式サイトへ..<br>
+      セントラルホテル取手Q&Aチャットです<br>
+      質問は直接入力、スマホ音声入力対応！
     </div>
   </div>
+  <div id="messages"></div>
+  <div id="inputArea">
+    <input id="userInput" placeholder="">
+    <button id="micBtn">🎤</button>
+    <button id="sendBtn" data-i18n="send">送信</button>
+  </div>
+</div>
+</div>
+<script>
+document.addEventListener("contextmenu", function(e){
+  e.preventDefault();
+});
+document.addEventListener("selectstart", function(e){
+  e.preventDefault();
+});
+document.addEventListener("keydown", function(e){
+  if (
+    (e.ctrlKey && ["c","u","s","p","a"].includes(e.key.toLowerCase())) ||
+    e.key === "F12"
+  ){
+    e.preventDefault();
+  }
+});
+// --- 追加: URLマスキング（History API） ---
+if (history && history.replaceState) {
+  history.replaceState(null, '', '/chat');  // '/chat' を任意の文字列に変更可能
+}
+// --- 追加ここまで ---
 
-  <script>
-    
-    document.addEventListener('contextmenu', function(e) {
-      e.preventDefault();
-    });
-
-    
-    document.addEventListener('keydown', function(e) {
-      if (
-        e.key === 'F12' ||
-        (e.ctrlKey && e.shiftKey && e.key === 'I') ||
-        (e.ctrlKey && e.key === 'U')
-      ) {
-        e.preventDefault();
+document.querySelector(".backBtn").onclick = () => {
+  window.location.href = "https://www.centralhoteltoride.com/";
+};
+const faq = {
+  ja: [
+  {keywords:["チェックイン","ちぇっくいん","時間","何時","check","in","check-in"], answer:"チェックインは15:00からとなります。早めのお時間からのチェックインは空室状況により有料で承っております。２階フロントまでお越しください。"}
+  ],
+  en: [
+    {
+"keywords": ["check-in", "checkin", "time", "what time"],
+"answer": "Check-in starts at 3:00 PM. Early check-in is available on a chargeable basis depending on room availability. Please come to the front desk on the 2nd floor."
+}
+  ],
+  zh: [
+    {
+    "keywords": ["入住", "登记", "时间", "几点", "入住时间"],
+    "answer": "入住时间从下午3:00开始。根据房况，可提供付费提前入住服务。请到2楼前台办理。"
+  }
+  ],
+  'zh-CN': [
+    {
+    "keywords": ["入住", "登记", "时间", "几点", "入住时间"],
+    "answer": "入住时间从下午3:00开始。根据房况，可提供付费提前入住服务。请到2楼前台办理。"
+  }
+ ],
+  'zh-TW': [
+    {
+    "keywords": ["入住", "登記", "時間", "幾點", "入住時間"],
+    "answer": "入住時間從下午3:00開始。視房況可提供付費提前入住服務，請至2樓櫃台辦理。"
+  }
+  ],
+  'zh-HK': [
+    {
+    "keywords": ["入住", "登記", "時間", "幾點", "入住時間"],
+    "answer": "入住時間由下午3:00開始。視房況可提供付費提前入住服務，請到2樓前台辦理。"
+  }
+  vi: [
+    {
+"keywords": ["trả phòng", "nhận phòng", "thời gian", "mấy giờ", "thời gian đến"],
+"answer": "Nhận phòng bắt đầu từ 3:00 PM. Nhận phòng sớm có sẵn với phí tùy theo tình trạng phòng trống. Vui lòng đến quầy lễ tân ở tầng 2."
+}
+  ],
+  th: [
+    {
+"keywords": ["เช็คเอาท์", "เช็คอิน", "เวลา", "กี่โมง", "เวลาถึง"],
+"answer": "การเช็คอินเริ่มต้นเวลา 15:00 น. การเช็คอินก่อนเวลามีให้บริการโดยมีค่าธรรมเนียมขึ้นอยู่กับความพร้อมของห้องพัก กรุณามาที่แผนกต้อนรับชั้น 2"
+}
+  ]
+};
+function findAnswer(query){
+  query = query.toLowerCase();
+  const detectedLang = i18next.language || 'ja';
+  const baseLang = detectedLang.split('-')[0];
+  const lang = faq[detectedLang] ? detectedLang : (faq[baseLang] ? baseLang : 'ja');
+  const faqList = faq[lang];
+  for(const item of faqList){
+    for(const kw of item.keywords){
+      if(query.includes(kw.toLowerCase())) return item.answer;
+    }
+  }
+  return i18next.t('noAnswer');
+}
+const messages = document.getElementById("messages");
+const userInput = document.getElementById("userInput");
+const sendBtn = document.getElementById("sendBtn");
+const micBtn = document.getElementById("micBtn");
+function addBotMessageTypewriter(text){
+  const div = document.createElement("div");
+  div.className = "msg bot";
+  messages.appendChild(div);
+  let i = 0;
+  const timer = setInterval(()=>{
+    div.textContent += text.charAt(i++);
+    messages.scrollTop = messages.scrollHeight;
+    if(i >= text.length) clearInterval(timer);
+  }, 25);
+}
+function addMessage(msg, isUser=false){
+  if(isUser){
+    const div = document.createElement("div");
+    div.className = "msg user";
+    div.textContent = msg;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  }else{
+    addBotMessageTypewriter(msg);
+  }
+}
+sendBtn.onclick = () => {
+  const msg = userInput.value.trim();
+  if(!msg) return;
+  addMessage(msg, true);
+  setTimeout(()=>addMessage(findAnswer(msg)), 100);
+  userInput.value = "";
+};
+userInput.addEventListener("keydown", e=>{
+  if(e.key === "Enter"){
+    e.preventDefault();
+    sendBtn.click();
+  }
+});
+let recognition = null;
+let isRecording = false;
+if(window.SpeechRecognition || window.webkitSpeechRecognition){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SR();
+  recognition.lang = "ja-JP";
+  recognition.onstart = ()=>{
+    isRecording = true;
+    micBtn.classList.add("recording");
+    micBtn.textContent = "●";
+  };
+  recognition.onend = recognition.onerror = ()=>{
+    isRecording = false;
+    micBtn.classList.remove("recording");
+    micBtn.textContent = "🎤";
+  };
+  recognition.onresult = e=>{
+    userInput.value = e.results[0][0].transcript;
+    sendBtn.click();
+  };
+}
+function startVoice(){
+  const ua = navigator.userAgent;
+  if(ua.includes("Edg/")){
+    alert("Edgeでは音声入力は利用できません。\nChrome または Safari をご利用ください。");
+    return;
+  }
+  if(!recognition){
+    alert("このブラウザでは音声入力に対応していません。");
+    return;
+  }
+  if(isRecording) return;
+  try{ recognition.start(); }catch(e){}
+}
+micBtn.onclick = startVoice;
+micBtn.addEventListener("pointerdown", e=>{
+  e.preventDefault();
+  startVoice();
+});
+const AUTO_CLOSE_TIME = 180000;
+let autoTimer = null;
+function resetTimer(){
+  clearTimeout(autoTimer);
+  autoTimer = setTimeout(()=>{
+    window.location.href = "https://www.centralhoteltoride.com/";
+  }, AUTO_CLOSE_TIME);
+}
+["click","keydown","mousemove","scroll","pointerdown"].forEach(ev=>{
+  document.addEventListener(ev, resetTimer, { passive:true });
+});
+resetTimer();
+let placeholders = [];
+i18next
+  .use(i18nextBrowserLanguageDetector)
+  .init({
+    fallbackLng: 'ja',
+    supportedLngs: ['ja', 'en', 'zh', 'zh-CN', 'zh-TW', 'zh-HK', 'vi', 'th'],
+    nonExplicitSupportedLngs: true,
+    resources: {
+      ja: {
+        translation: {
+          siteHeader: 'セントラルホテル取手',
+          guidance: 'ご案内',
+          checkinCheckout: 'チェックイン 15:00 / チェックアウト 10:00',
+          facilities: '無料駐車場・館内Wi-Fi完備',
+          access: 'アクセス',
+          accessDetails: '矢田部ＩＣより車で約30分',
+          copyright: '© Central Hotel Group',
+          chatHeaderText: '矢印クリックで公式サイトへ..<br>セントラルホテル取手Q&Aチャットです<br>質問は直接入力、スマホ音声入力対応！',
+          send: '送信',
+          noAnswer: '申し訳ありません。頂いたご質問にはまだ対応していません。0297-72-1123までお問い合わせください。',
+          placeholders: [
+            'ご質問を入力ください',
+            '音声入力はマイクをPush！',
+            'チェックイン時の不明点や、',
+            '駐車場、食事などお尋ね下さい',
+            'お電話は0297-72-1123まで..'
+          ]
+        }
+      },
+      en: {
+        translation: {
+          siteHeader: 'Central Hotel Toride',
+          guidance: 'Guidance',
+          checkinCheckout: 'Check-in 3:00 PM / Check-out 10:00 AM',
+          facilities: 'Free parking and in-house Wi-Fi available',
+          access: 'Access',
+          accessDetails: 'About 30 minutes by car from Yatabe IC',
+          copyright: '© Central Hotel Group',
+          chatHeaderText: 'Click arrow to return to official site..<br>Central Hotel Toride Q&A Chat<br>Enter questions directly, supports smartphone voice input!',
+          send: 'Send',
+          noAnswer: 'Sorry, we cannot answer your question yet. Please call +81-297-72-1123.',
+          placeholders: [
+            'Please enter your question',
+            'Push mic for voice input!',
+            'Questions about check-in,',
+            'parking, meals, etc.',
+            'Call +81-297-72-1123..'
+          ]
+        }
+      },
+      zh: {
+        translation: {
+          siteHeader: '中央酒店取手',
+          guidance: '指南',
+          checkinCheckout: '入住 下午3:00 / 退房 上午10:00',
+          facilities: '免费停车场和馆内Wi-Fi',
+          access: '交通',
+          accessDetails: '从矢田部IC开车约30分钟',
+          copyright: '© Central Hotel Group',
+          chatHeaderText: '点击箭头返回官方网站..<br>中央酒店取手Q&A聊天<br>直接输入问题，支持智能手机语音输入！',
+          send: '发送',
+          noAnswer: '抱歉，我们还无法回答您的问题。请致电+81-297-72-1123。',
+          placeholders: [
+            '请输入您的问题',
+            '语音输入请按麦克风！',
+            '关于入住的问题、',
+            '停车场、用餐等请咨询',
+            '电话+81-297-72-1123..'
+          ]
+        }
+      },
+      'zh-CN': {
+        translation: {
+          siteHeader: '中央酒店取手',
+          guidance: '指南',
+          checkinCheckout: '入住 下午3:00 / 退房 上午10:00',
+          facilities: '免费停车场和馆内Wi-Fi',
+          access: '交通',
+          accessDetails: '从矢田部IC开车约30分钟',
+          copyright: '© Central Hotel Group',
+          chatHeaderText: '点击箭头返回官方网站..<br>中央酒店取手Q&A聊天<br>直接输入问题，支持智能手机语音输入！',
+          send: '发送',
+          noAnswer: '抱歉，我们还无法回答您的问题。请致电+81-297-72-1123。',
+          placeholders: [
+            '请输入您的问题',
+            '语音输入请按麦克风！',
+            '关于入住的问题、',
+            '停车场、用餐等请咨询',
+            '电话+81-297-72-1123..'
+          ]
+        }
+      },
+      'zh-TW': {
+        translation: {
+          siteHeader: '中央酒店取手',
+          guidance: '指南',
+          checkinCheckout: '入住 下午3:00 / 退房 上午10:00',
+          facilities: '免費停車場和館內Wi-Fi',
+          access: '交通',
+          accessDetails: '從矢田部IC開車約30分鐘',
+          copyright: '© Central Hotel Group',
+          chatHeaderText: '點擊箭頭返回官方網站..<br>中央酒店取手Q&A聊天<br>直接輸入問題，支持智能手機語音輸入！',
+          send: '發送',
+          noAnswer: '抱歉，我們還無法回答您的問題。請致電+81-297-72-1123。',
+          placeholders: [
+            '請輸入您的問題',
+            '語音輸入請按麥克風！',
+            '關於入住的問題、',
+            '停車場、用餐等請諮詢',
+            '電話+81-297-72-1123..'
+          ]
+        }
+      },
+      'zh-HK': {
+        translation: {
+          siteHeader: '中央酒店取手',
+          guidance: '指南',
+          checkinCheckout: '入住 下午3:00 / 退房 上午10:00',
+          facilities: '免費停車場和館內Wi-Fi',
+          access: '交通',
+          accessDetails: '從矢田部IC開車約30分鐘',
+          copyright: '© Central Hotel Group',
+          chatHeaderText: '點擊箭頭返回官方網站..<br>中央酒店取手Q&A聊天<br>直接輸入問題，支持智能手機語音輸入！',
+          send: '發送',
+          noAnswer: '抱歉，我們還無法回答您的問題。請致電+81-297-72-1123。',
+          placeholders: [
+            '請輸入您的問題',
+            '語音輸入請按麥克風！',
+            '關於入住的問題、',
+            '停車場、用餐等請諮詢',
+            '電話+81-297-72-1123..'
+          ]
+        }
+      },
+      vi: {
+        translation: {
+          siteHeader: 'Khách sạn Central Toride',
+          guidance: 'Hướng dẫn',
+          checkinCheckout: 'Nhận phòng 15:00 / Trả phòng 10:00',
+          facilities: 'Bãi đỗ xe miễn phí và Wi-Fi trong nhà',
+          access: 'Truy cập',
+          accessDetails: 'Khoảng 30 phút bằng xe từ Yatabe IC',
+          copyright: '© Central Hotel Group',
+          chatHeaderText: 'Nhấp vào mũi tên để quay lại trang web chính thức..<br>Chat Hỏi Đáp Khách sạn Central Toride<br>Nhập câu hỏi trực tiếp, hỗ trợ nhập giọng nói trên điện thoại thông minh!',
+          send: 'Gửi',
+          noAnswer: 'Xin lỗi, chúng tôi chưa thể trả lời câu hỏi của bạn. Vui lòng gọi +81-297-72-1123.',
+          placeholders: [
+            'Vui lòng nhập câu hỏi của bạn',
+            'Nhấn mic để nhập giọng nói!',
+            'Câu hỏi về nhận phòng,',
+            'bãi đỗ xe, bữa ăn, v.v.',
+            'Gọi +81-297-72-1123..'
+          ]
+        }
+      },
+      th: {
+        translation: {
+          siteHeader: 'เซ็นทรัลโฮเทลโทริเดะ',
+          guidance: 'คำแนะนำ',
+          checkinCheckout: 'เช็คอิน 15:00 / เช็คเอาท์ 10:00',
+          facilities: 'ที่จอดรถฟรีและ Wi-Fi ในอาคาร',
+          access: 'การเข้าถึง',
+          accessDetails: 'ประมาณ 30 นาทีโดยรถยนต์จาก Yatabe IC',
+          copyright: '© Central Hotel Group',
+          chatHeaderText: 'คลิกลูกศรเพื่อกลับไปยังเว็บไซต์อย่างเป็นทางการ..<br>แชทถามตอบเซ็นทรัลโฮเทลโทริเดะ<br>ป้อนคำถามโดยตรง รองรับการป้อนข้อมูลด้วยเสียงสมาร์ทโฟน!',
+          send: 'ส่ง',
+          noAnswer: 'ขออภัย เรายังไม่สามารถตอบคำถามของคุณได้ โปรดโทร +81-297-72-1123.',
+          placeholders: [
+            'โปรดป้อนคำถามของคุณ',
+            'กดไมค์สำหรับการป้อนข้อมูลด้วยเสียง!',
+            'คำถามเกี่ยวกับการเช็คอิน,',
+            'ที่จอดรถ, อาหาร, ฯลฯ',
+            'โทร +81-297-72-1123..'
+          ]
+        }
       }
+    }
+  }, function(err, t) {
+ 
+    console.log('Detected language:', i18next.language);
+ 
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      el.innerHTML = t(el.dataset.i18n);
     });
-  </script>
-
+    document.title = t('siteHeader') + ' Q&A Chat';
+ 
+    placeholders = t('placeholders', { returnObjects: true });
+ 
+    let phIndex = 0;
+    setInterval(() => {
+      userInput.placeholder = placeholders[phIndex];
+      phIndex = (phIndex + 1) % placeholders.length;
+    }, 4000); // 間隔を調整
+ 
+    if (recognition) {
+      const lang = i18next.language || 'ja';
+      if (lang.startsWith('ja')) {
+        recognition.lang = 'ja-JP';
+      } else if (lang.startsWith('en')) {
+        recognition.lang = 'en-US';
+      } else if (lang.startsWith('zh')) {
+        recognition.lang = lang;
+      } else if (lang.startsWith('vi')) {
+        recognition.lang = 'vi-VN';
+      } else if (lang.startsWith('th')) {
+        recognition.lang = 'th-TH';
+      }
+    }
+  });
+</script>
 </body>
 </html>
-
