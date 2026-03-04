@@ -3,12 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
-  <title>セントラルホテルグループQ&Aチャット</title>  <!-- 初期タイトルをシンプルに保つ -->
+  <title>セントラルホテルグループQ&Aチャット</title>  
   <!-- i18next （最新安定版） -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/23.11.5/i18next.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next-browser-languagedetector/7.1.0/i18nextBrowserLanguageDetector.min.js"></script>
   <style>
-    /* スタイルは変更なし */
+    
+    #chatHeader {
+      background: #2e7d32;
+      color: white;
+      padding: 10px;
+      font-size: 14px;
+      font-weight: bold;
+      display: flex;
+      gap: 8px;
+      white-space: pre-line;
+      line-height: 1.4;  
+    }
+    
     *, *::before, *::after { box-sizing: border-box; }
     html, body {
       margin: 0;
@@ -60,16 +72,6 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
-    }
-    #chatHeader {
-      background: #2e7d32;
-      color: white;
-      padding: 10px;
-      font-size: 14px;
-      font-weight: bold;
-      display: flex;
-      gap: 8px;
-      white-space: pre-line;
     }
     #chatHeader .backBtn {
       cursor: pointer;
@@ -207,69 +209,51 @@ document.addEventListener("keydown", function(e){
     e.preventDefault();
   }
 });
-// --- 修正: URLマスキングをページロード後に実行 ---
+
 window.addEventListener('load', function() {
   if (history && history.replaceState) {
     history.replaceState(null, '', '/chat');  // '/chat' を任意に変更可能
   }
 });
-// --- 修正ここまで ---
 
 document.querySelector(".backBtn").onclick = () => {
   window.location.href = "https://www.centralhoteltoride.com/";
 };
+
 const faq = {
   ja: [
-  {keywords:["チェックイン","ちぇっくいん","時間","何時","check","in","check-in"], answer:"チェックインは15:00からとなります。早めのお時間からのチェックインは空室状況により有料で承っております。２階フロントまでお越しください。"}
+    {keywords: ["チェックイン", "ちぇっくいん", "時間", "何時", "check", "in", "check-in"], answer: "チェックインは15:00からとなります。早めのお時間からのチェックインは空室状況により有料で承っております。２階フロントまでお越しください。"}
   ],
   en: [
-    {
-"keywords": ["check-in", "checkin", "time", "what time"],
-"answer": "Check-in starts at 3:00 PM. Early check-in is available on a chargeable basis depending on room availability. Please come to the front desk on the 2nd floor."
-}
+    {keywords: ["check-in", "checkin", "time", "what time"], answer: "Check-in starts at 3:00 PM. Early check-in is available on a chargeable basis depending on room availability. Please come to the front desk on the 2nd floor."}
   ],
   zh: [
-    {
-    "keywords": ["入住", "登记", "时间", "几点", "入住时间"],
-    "answer": "入住时间从下午3:00开始。根据房况，可提供付费提前入住服务。请到2楼前台办理。"
-  }
+    {keywords: ["入住", "登记", "时间", "几点", "入住时间"], answer: "入住时间从下午3:00开始。根据房况，可提供付费提前入住服务。请到2楼前台办理。"}
   ],
   'zh-CN': [
-    {
-    "keywords": ["入住", "登记", "时间", "几点", "入住时间"],
-    "answer": "入住时间从下午3:00开始。根据房况，可提供付费提前入住服务。请到2楼前台办理。"
-  }
- ],
+    {keywords: ["入住", "登记", "时间", "几点", "入住时间"], answer: "入住时间从下午3:00开始。根据房况，可提供付费提前入住服务。请到2楼前台办理。"}
+  ],
   'zh-TW': [
-    {
-    "keywords": ["入住", "登記", "時間", "幾點", "入住時間"],
-    "answer": "入住時間從下午3:00開始。視房況可提供付費提前入住服務，請至2樓櫃台辦理。"
-  }
+    {keywords: ["入住", "登記", "時間", "幾點", "入住時間"], answer: "入住時間從下午3:00開始。視房況可提供付費提前入住服務，請至2樓櫃台辦理。"}
   ],
   'zh-HK': [
-    {
-    "keywords": ["入住", "登記", "時間", "幾點", "入住時間"],
-    "answer": "入住時間由下午3:00開始。視房況可提供付費提前入住服務，請到2樓前台辦理。"
-  }
+    {keywords: ["入住", "登記", "時間", "幾點", "入住時間"], answer: "入住時間由下午3:00開始。視房況可提供付費提前入住服務，請到2樓前台辦理。"}
+  ],
   vi: [
-    {
-"keywords": ["trả phòng", "nhận phòng", "thời gian", "mấy giờ", "thời gian đến"],
-"answer": "Nhận phòng bắt đầu từ 3:00 PM. Nhận phòng sớm có sẵn với phí tùy theo tình trạng phòng trống. Vui lòng đến quầy lễ tân ở tầng 2."
-}
+    {keywords: ["trả phòng", "nhận phòng", "thời gian", "mấy giờ", "thời gian đến"], answer: "Nhận phòng bắt đầu từ 3:00 PM. Nhận phòng sớm có sẵn với phí tùy theo tình trạng phòng trống. Vui lòng đến quầy lễ tân ở tầng 2."}
   ],
   th: [
-    {
-"keywords": ["เช็คเอาท์", "เช็คอิน", "เวลา", "กี่โมง", "เวลาถึง"],
-"answer": "การเช็คอินเริ่มต้นเวลา 15:00 น. การเช็คอินก่อนเวลามีให้บริการโดยมีค่าธรรมเนียมขึ้นอยู่กับความพร้อมของห้องพัก กรุณามาที่แผนกต้อนรับชั้น 2"
-}
+    {keywords: ["เช็คเอาท์", "เช็คอิน", "เวลา", "กี่โมง", "เวลาถึง"], answer: "การเช็คอินเริ่มต้นเวลา 15:00 น. การเช็คอินก่อนเวลามีให้บริการโดยมีค่าธรรมเนียมขึ้นอยู่กับความพร้อมของห้องพัก กรุณามาที่แผนกต้อนรับชั้น 2"}
   ]
 };
+
+
 function findAnswer(query){
   query = query.toLowerCase();
   const detectedLang = i18next.language || 'ja';
   const baseLang = detectedLang.split('-')[0];
   const lang = faq[detectedLang] ? detectedLang : (faq[baseLang] ? baseLang : 'ja');
-  const faqList = faq[lang];
+  const faqList = faq[lang] || [];  
   for(const item of faqList){
     for(const kw of item.keywords){
       if(query.includes(kw.toLowerCase())) return item.answer;
@@ -384,7 +368,7 @@ i18next
           access: 'アクセス',
           accessDetails: '矢田部ＩＣより車で約30分',
           copyright: '© Central Hotel Group',
-          chatHeaderText: '矢印クリックで公式サイトへ..\nセントラルホテル取手Q&Aチャットです\n質問は直接入力、スマホ音声入力対応！',  // <br>を\nに変更して崩れを防ぐ
+          chatHeaderText: '矢印クリックで公式サイトへ..<br>セントラルホテル取手Q&Aチャットです<br>質問は直接入力、スマホ音声入力対応！',  // --- 修正: <br>に戻す ---
           send: '送信',
           noAnswer: '申し訳ありません。頂いたご質問にはまだ対応していません。0297-72-1123までお問い合わせください。',
           placeholders: [
@@ -405,7 +389,7 @@ i18next
           access: 'Access',
           accessDetails: 'About 30 minutes by car from Yatabe IC',
           copyright: '© Central Hotel Group',
-          chatHeaderText: 'Click arrow to return to official site..\nCentral Hotel Toride Q&A Chat\nEnter questions directly, supports smartphone voice input!',
+          chatHeaderText: 'Click arrow to return to official site..<br>Central Hotel Toride Q&A Chat<br>Enter questions directly, supports smartphone voice input!',
           send: 'Send',
           noAnswer: 'Sorry, we cannot answer your question yet. Please call +81-297-72-1123.',
           placeholders: [
@@ -426,7 +410,7 @@ i18next
           access: '交通',
           accessDetails: '从矢田部IC开车约30分钟',
           copyright: '© Central Hotel Group',
-          chatHeaderText: '点击箭头返回官方网站..\n中央酒店取手Q&A聊天\n直接输入问题，支持智能手机语音输入！',
+          chatHeaderText: '点击箭头返回官方网站..<br>中央酒店取手Q&A聊天<br>直接输入问题，支持智能手机语音输入！',
           send: '发送',
           noAnswer: '抱歉，我们还无法回答您的问题。请致电+81-297-72-1123。',
           placeholders: [
@@ -447,7 +431,7 @@ i18next
           access: '交通',
           accessDetails: '从矢田部IC开车约30分钟',
           copyright: '© Central Hotel Group',
-          chatHeaderText: '点击箭头返回官方网站..\n中央酒店取手Q&A聊天\n直接输入问题，支持智能手机语音输入！',
+          chatHeaderText: '点击箭头返回官方网站..<br>中央酒店取手Q&A聊天<br>直接输入问题，支持智能手机语音输入！',
           send: '发送',
           noAnswer: '抱歉，我们还无法回答您的问题。请致电+81-297-72-1123。',
           placeholders: [
@@ -468,7 +452,7 @@ i18next
           access: '交通',
           accessDetails: '從矢田部IC開車約30分鐘',
           copyright: '© Central Hotel Group',
-          chatHeaderText: '點擊箭頭返回官方網站..\n中央酒店取手Q&A聊天\n直接輸入問題，支持智能手機語音輸入！',
+          chatHeaderText: '點擊箭頭返回官方網站..<br>中央酒店取手Q&A聊天<br>直接輸入問題，支持智能手機語音輸入！',
           send: '發送',
           noAnswer: '抱歉，我們還無法回答您的問題。請致電+81-297-72-1123。',
           placeholders: [
@@ -489,7 +473,7 @@ i18next
           access: '交通',
           accessDetails: '從矢田部IC開車約30分鐘',
           copyright: '© Central Hotel Group',
-          chatHeaderText: '點擊箭頭返回官方網站..\n中央酒店取手Q&A聊天\n直接輸入問題，支持智能手機語音輸入！',
+          chatHeaderText: '點擊箭頭返回官方網站..<br>中央酒店取手Q&A聊天<br>直接輸入問題，支持智能手機語音輸入！',
           send: '發送',
           noAnswer: '抱歉，我們還無法回答您的問題。請致電+81-297-72-1123。',
           placeholders: [
@@ -510,7 +494,7 @@ i18next
           access: 'Truy cập',
           accessDetails: 'Khoảng 30 phút bằng xe từ Yatabe IC',
           copyright: '© Central Hotel Group',
-          chatHeaderText: 'Nhấp vào mũi tên để quay lại trang web chính thức..\nChat Hỏi Đáp Khách sạn Central Toride\nNhập câu hỏi trực tiếp, hỗ trợ nhập giọng nói trên điện thoại thông minh!',
+          chatHeaderText: 'Nhấp vào mũi tên để quay lại trang web chính thức..<br>Chat Hỏi Đáp Khách sạn Central Toride<br>Nhập câu hỏi trực tiếp, hỗ trợ nhập giọng nói trên điện thoại thông minh!',
           send: 'Gửi',
           noAnswer: 'Xin lỗi, chúng tôi chưa thể trả lời câu hỏi của bạn. Vui lòng gọi +81-297-72-1123.',
           placeholders: [
@@ -531,7 +515,7 @@ i18next
           access: 'การเข้าถึง',
           accessDetails: 'ประมาณ 30 นาทีโดยรถยนต์จาก Yatabe IC',
           copyright: '© Central Hotel Group',
-          chatHeaderText: 'คลิกลูกศรเพื่อกลับไปยังเว็บไซต์อย่างเป็นทางการ..\nแชทถามตอบเซ็นทรัลโฮเทลโทริเดะ\nป้อนคำถามโดยตรง รองรับการป้อนข้อมูลด้วยเสียงสมาร์ทโฟน!',
+          chatHeaderText: 'คลิกลูกศรเพื่อกลับไปยังเว็บไซต์อย่างเป็นทางการ..<br>แชทถามตอบเซ็นทรัลโฮเทลโทริเดะ<br>ป้อนคำถามโดยตรง รองรับการป้อนข้อมูลด้วยเสียงสมาร์ทโฟน!',
           send: 'ส่ง',
           noAnswer: 'ขออภัย เรายังไม่สามารถตอบคำถามของคุณได้ โปรดโทร +81-297-72-1123.',
           placeholders: [
@@ -545,27 +529,26 @@ i18next
       }
     }
   }, function(err, t) {
-    // --- 修正: 言語検出ログとタイトル設定を安定させる ---
+    
     if (err) {
       console.error('i18next init error:', err);
     } else {
       console.log('Detected language:', i18next.language);
     }
-    // --- 修正ここまで ---
-
     document.querySelectorAll('[data-i18n]').forEach(el => {
       el.innerHTML = t(el.dataset.i18n);
     });
-    document.title = t('siteHeader') + ' Q&A Chat';  // タイトルをここで設定（コールバック内）
+    document.title = t('siteHeader') + ' Q&A Chat';
 
-    placeholders = t('placeholders', { returnObjects: true });
- 
+    placeholders = t('placeholders', { returnObjects: true }) || ['デフォルトプレイスホルダー'];  
+    console.log('Placeholders loaded:', placeholders);  
+
     let phIndex = 0;
     setInterval(() => {
       userInput.placeholder = placeholders[phIndex];
       phIndex = (phIndex + 1) % placeholders.length;
-    }, 4000); // 間隔を調整
- 
+    }, 4000);
+
     if (recognition) {
       const lang = i18next.language || 'ja';
       if (lang.startsWith('ja')) {
@@ -580,7 +563,10 @@ i18next
         recognition.lang = 'th-TH';
       }
     }
+    
+    addMessage(t('chatHeaderText').replace(/<br>/g, ' '), false);  
   });
 </script>
 </body>
 </html>
+
