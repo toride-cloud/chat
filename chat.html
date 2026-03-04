@@ -212,7 +212,7 @@ document.addEventListener("keydown", function(e){
 // --- URLマスキングをページロード後に実行 ---
 window.addEventListener('load', function() {
   if (history && history.replaceState) {
-    history.replaceState(null, '', '/chat');  // '/chat' を任意に変更可能
+    history.replaceState(null, '', '/セントラルホテルグループQAチャット');
   }
 });
 
@@ -243,7 +243,7 @@ const faq = {
     {keywords: ["trả phòng", "nhận phòng", "thời gian", "mấy giờ", "thời gian đến"], answer: "Nhận phòng bắt đầu từ 3:00 PM. Nhận phòng sớm có sẵn với phí tùy theo tình trạng phòng trống. Vui lòng đến quầy lễ tân ở tầng 2."}
   ],
   th: [
-    {keywords: ["เช็คเอาท์", "เช็คอイン", "เวลา", "กี่โมง", "เวลาถึง"], answer: "การเช็คอินเริ่มต้นเวลา 15:00 น. การเช็คอインก่อนเวลามีให้บริการโดยมีค่าธรรมเนียมขึ้นอยู่กับความพร้อมของห้องพัก กรุณามาที่แผนกต้อนรับชั้น 2"}
+    {keywords: ["เช็คเอาท์", "เช็คอイン", "เวลา", "กี่โมง", "เวลาถึง"], answer: "การเช็คอインเริ่มต้นเวลา 15:00 น. การเช็คอインก่อนเวลามีให้บริการโดยมีค่าธรรมเนียมขึ้นอยู่กับความพร้อมของห้องพัก กรุณามาที่แผนกต้อนรับชั้น 2"}
   ]
 };
 // --- 修正ここまで ---
@@ -515,7 +515,7 @@ i18next
           access: 'การเข้าถึง',
           accessDetails: 'ประมาณ 30 นาทีโดยรถยนต์จาก Yatabe IC',
           copyright: '© Central Hotel Group',
-          chatHeaderText: 'คลิกลูกศรเพื่อกลับไปยังเว็บไซต์อย่างเป็นทางการ..<br>แชทถามตอบเซ็นทรัลโฮเทลโทริเดะ<br>ป้อนคำถามโดยตรง รองรับการป้อนข้อมูลด้วยเสียงสมาร์ทโฟน!',
+          chatHeaderText: 'คลิกลูกศรเพื่อกลับไปยังเว็บไซต์อย่างเป็นทางการ..<br>แชทถามตอบเซ็นทรัลโฮเทลโทริเดะ<br>ป้อนคำถามโดยตรง รองรับการป้อนข้อมูลด้วยเสียงสมาร์ทโฟン!',
           send: 'ส่ง',
           noAnswer: 'ขออภัย เรายังไม่สามารถตอบคำถามของคุณได้ โปรดโทร +81-297-72-1123.',
           placeholders: [
@@ -563,10 +563,7 @@ i18next
         recognition.lang = 'th-TH';
       }
     }
-    // --- 修正: 初期ボットメッセージ追加でQAテスト容易に ---
-    addMessage(t('chatHeaderText').replace(/<br>/g, ' '), false);  // テスト用初期メッセージ
   });
 </script>
 </body>
 </html>
-
