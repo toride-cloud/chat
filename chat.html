@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
-  <title>セントラルホテルグループQ&Aチャット</title>  <!-- 初期タイトルをシンプルに保つ -->
-  <!-- i18next （最新安定版） -->
+  <title>セントラルホテルグループQ&Aチャット</title>  <!-- i18next （最新安定版） -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/23.11.5/i18next.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next-browser-languagedetector/7.1.0/i18nextBrowserLanguageDetector.min.js"></script>
   <style>
-    /* --- 修正: 行間調整 --- */
+    
     #chatHeader {
       background: #2e7d32;
       color: white;
@@ -18,9 +17,9 @@
       display: flex;
       gap: 8px;
       white-space: pre-line;
-      line-height: 1.4;  /* 行間を狭く調整（デフォルトより狭め） */
+      line-height: 1.4;  
     }
-    /* 他のスタイルは変更なし */
+   
     *, *::before, *::after { box-sizing: border-box; }
     html, body {
       margin: 0;
@@ -209,7 +208,6 @@ document.addEventListener("keydown", function(e){
     e.preventDefault();
   }
 });
-// --- URLマスキングをページロード後に実行 ---
 window.addEventListener('load', function() {
   if (history && history.replaceState) {
     history.replaceState(null, '', '/セントラルホテルグループQAチャット');
@@ -219,7 +217,7 @@ window.addEventListener('load', function() {
 document.querySelector(".backBtn").onclick = () => {
   window.location.href = "https://www.centralhoteltoride.com/";
 };
-// --- 修正: faqオブジェクトの構文クリーンアップ（コンマ/括弧確認） ---
+
 const faq = {
   ja: [
     {keywords: ["チェックイン", "ちぇっくいん", "時間", "何時", "check", "in", "check-in"], answer: "チェックインは15:00からとなります。早めのお時間からのチェックインは空室状況により有料で承っております。２階フロントまでお越しください。"}
@@ -246,14 +244,14 @@ const faq = {
     {keywords: ["เช็คเอาท์", "เช็คอイン", "เวลา", "กี่โมง", "เวลาถึง"], answer: "การเช็คอインเริ่มต้นเวลา 15:00 น. การเช็คอインก่อนเวลามีให้บริการโดยมีค่าธรรมเนียมขึ้นอยู่กับความพร้อมของห้องพัก กรุณามาที่แผนกต้อนรับชั้น 2"}
   ]
 };
-// --- 修正ここまで ---
+
 
 function findAnswer(query){
   query = query.toLowerCase();
   const detectedLang = i18next.language || 'ja';
   const baseLang = detectedLang.split('-')[0];
   const lang = faq[detectedLang] ? detectedLang : (faq[baseLang] ? baseLang : 'ja');
-  const faqList = faq[lang] || [];  // --- 修正: 空配列フォールバック ---
+  const faqList = faq[lang] || [];  
   for(const item of faqList){
     for(const kw of item.keywords){
       if(query.includes(kw.toLowerCase())) return item.answer;
@@ -368,7 +366,7 @@ i18next
           access: 'アクセス',
           accessDetails: '矢田部ＩＣより車で約30分',
           copyright: '© Central Hotel Group',
-          chatHeaderText: '矢印クリックで公式サイトへ..<br>セントラルホテル取手Q&Aチャットです<br>質問は直接入力、スマホ音声入力対応！',  // --- 修正: <br>に戻す ---
+          chatHeaderText: '矢印クリックで公式サイトへ..<br>セントラルホテル取手Q&Aチャットです<br>質問は直接入力、スマホ音声入力対応！',  
           send: '送信',
           noAnswer: '申し訳ありません。頂いたご質問にはまだ対応していません。0297-72-1123までお問い合わせください。',
           placeholders: [
@@ -529,7 +527,7 @@ i18next
       }
     }
   }, function(err, t) {
-    // --- 修正: デバッグログ強化（placeholders確認） ---
+    
     if (err) {
       console.error('i18next init error:', err);
     } else {
@@ -538,10 +536,10 @@ i18next
     document.querySelectorAll('[data-i18n]').forEach(el => {
       el.innerHTML = t(el.dataset.i18n);
     });
-    document.title = 'セントラルホテルグループ Q&A チャット';  // --- 修正: タイトルを「セントラルホテルグループ Q&A チャット」に変更 ---
+    document.title = 'セントラルホテルグループ Q&A チャット';  
 
-    placeholders = t('placeholders', { returnObjects: true }) || ['デフォルトプレイスホルダー'];  // --- 修正: 空の場合フォールバック ---
-    console.log('Placeholders loaded:', placeholders);  // デバッグ用
+    placeholders = t('placeholders', { returnObjects: true }) || ['デフォルトプレイスホルダー'];  
+    console.log('Placeholders loaded:', placeholders);  
 
     let phIndex = 0;
     setInterval(() => {
