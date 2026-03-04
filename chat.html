@@ -217,14 +217,52 @@ document.querySelector(".backBtn").onclick = () => {
 };
 const faq = {
   ja: [
-  {
-    "keywords": ["チェックイン", "ちぇっくいん", "チェックイン時間", "check in", "checkin"],
-    "answer": "チェックイン時間は宿泊当日15:00〜です。早めのチェックインをご希望の際は有償によるご対応が可能です。フロントスタッフまたは、事前に 0297-72-1123 までお問合わせください。お待ちいただく際にはウエルカムドリンクコーナーもございますのでご利用ください。"
-  },
-  {
-    "keywords": ["チェックアウト", "ちぇっくあうと", "チェックアウト時間", "オーバーチャージ", "超過", "check out", "checkout"],
-    "answer": "チェックアウト時間は翌朝10:00です。（プランにより異なる場合がございます）遅めのチェックアウトご希望も有償によるご対応が可能です。フロントスタッフまたは、事前に 0297-72-1123 までお問合わせください。"
-  }
+  {keywords:["チェックイン","ちぇっくいん","時間","何時","check","in","check-in"], answer:"チェックインは15:00からとなります。早めのお時間からのチェックインは空室状況により有料で承っております。２階フロントまでお越しください。"},
+  {keywords:["チェックアウト","ちぇっくあうと","check","out","check-out"], answer:"チェックアウトは10:00までにお願いいたします。滞在時間の延長は空室状況により有料で可能です。２階フロントまでお知らせください。"},
+  {keywords:["アーリー","早い","早く入れる","あーりー"], answer:"アーリーチェックインは空室状況により有料にて承らせていただきます。料金等は事前にお問い合わせください。"},
+  {keywords:["レイト","遅い","遅く出る","遅く","れいと","遅め"], answer:"レイトチェックアウトは空室状況により有料で承らせていただきます。料金等は事前にお問い合わせください。"},
+  {keywords:["駐車","パーキング","ちゅうしゃじょう","自動車"], answer:"ホテル滞在中のお客様は無料駐車場をご利用いただけますが、台数に限りがあるためご予約は承れません。駐車場は先着順となります。バス、トラックなど大型の車種（大きさ、長さ）によっては事前にご連絡頂ければ駐車場のご予約も可能です。宿泊ホテルに直接お電話いただければ幸いです。"},
+  {keywords:["Wi-Fi","wifi","WiFi","ワイファイ","わいふぁい","インターネット","ネット","無線","有線","ねっと","LAN","ＬＡＮ"], answer:"館内は無料にてWi-Fiをご利用いただけます。SSID、パスワードは各お部屋内デスク前にある鏡の右下に掲示しております。電波の強いものからお繋ぎください。有線LANはお部屋数に限りがありますので事前にご連絡下さいませ。フロントにて無料Wi-Fiをお使いいただく場合はフロントスタッフにお尋ねください。"},
+  {keywords:["朝食","朝ごはん","モーニング","ビュッフェ"], answer:"ご朝食はAM6：30～AM9：00の間で２階フロント前にてお渡し致しております。お受け取り後お部屋でお召し上がり下さい。食事後の容器は廊下に置いておいてください。（朝食はサービス中にて料金は頂いておりませんが予告なく終了する場合もございます。ご了承ください。）"},
+  {keywords:["夕食","晩ごはん","ディナー"], answer:"ご夕食は承っておりません。２階フロントにて近隣の飲食店マップをお渡しいたしますのでご活用ください。"},
+  {keywords:["室内電話","内線電話","スタッフ"], answer:"室内設置のお電話は外線通話はできません。他の客室への内線通話をご利用の際は、対象部屋の４桁の部屋番号を押して下さい。フロントスタッフ宛の内線は「９番」を押して下さい。"},
+  {keywords:["モーニングコール","目覚まし","時計"], answer:"お部屋に設置の受話器をお取りになり、「80」を押してからアラーム設定時間を４桁押して下さい（例・8時15分予定の場合は、0815）尚、モーニングコールの解除は「81」、モーニングコールの確認は「82」となります。"},
+  {keywords:["カギ","鍵","るーむきー","ルームキー"], answer:"オートロックとなっておりますので、お部屋からお出かけの際は、必ずルームキーを携帯し施錠の確認をお願いします。外出の際はルームキーをフロントにお預けください。"},
+  {keywords:["貴重品","お預かり品","あずかり"], answer:"貴重品は２階フロントにてお預かりも可能です。必ず「預かり証」をお受け取りください。「預かり証」をお持ちいただけないと直ぐにお渡しできない場合がございます。"},
+  {keywords:["空調","冷房","暖房","エアコン","えあこん"], answer:"館内一括空調（冷房または暖房）になります。温度設定は出来ません。枕元にある丸い摘みを回すことにより、風量に調節が可能です。"},
+  {keywords:["避難経路","逃げる","火事","火災","地震","じしん"], answer:"避難経路のご案内図をお部屋のドア内側に提示しております。必ず確認しておいてください。"},
+  {keywords:["くりーにんぐ","クリーニング"], answer:"現在承ってございません。申し訳ありませんがお客様の方でお近くのクリーニング店へご依頼ください。"},
+  {keywords:["連泊中","清掃","ルームクリーニング"], answer:"清掃はAM10：00～となります。３日に一度は清掃を行わせていただきますのでご了承お願い致します。清掃不要やお時間の変更はPM1：00までにフロント「９番」までご連絡ください。ドア内側にある赤札、白札での掲示も可能です。飲み残し、ゴミ箱内は処分させていただきますので、捨ててはいけない物はメモ帳にてご提示ください。"},
+  {keywords:["お湯","飲み水","水道水","フリードリンク","ウェルカムドリンク","コーヒー","お茶","紅茶","麦茶"], answer:"お部屋のお水（水道水）は飲料としてお使いいただけます。お湯を沸かす場合は備え付けのポットまたはティーサーバーをご利用ください。２階にはウェルカムドリンクコーナーも設置しており無料にてお楽しみいただけます。（ウェルカムドリンクコーナーは予告なく終了する場合もございます。ご了承ください。）"},
+  {keywords:["宅配便","たっきゅうびん","宅急便","お荷物","にもつ","はいそう","配送"], answer:"２階フロントにてお預かりが可能です。お荷物のお届け配送につきましては「ヤマト急便」のみの取り扱いとなります。事前にホテル宛にお荷物などお送りいただく場合は「お名前」「宿泊日」を明記のお電話にて一報いただけますと幸いです。着払いはお受けできませんのでご了承お願い致します。"},
+  {keywords:["貸し出し品","かしだし","れんたる","レンタル"], answer:"電気スタンド、加湿器、毛布、携帯電話充電器、アイロン、アイロン台、ズボンプレッサー、爪切り、毛抜き、ソーイングセット、体温計、筆記用具、ハンガー、水枕、アイスペール、ワインオープナー、栓抜き、スプーン、フォーク、お皿などがございますので、ご利用の際は２階フロントまでご連絡ください。"},
+  {keywords:["差し上げ","さしあげ","おわたし","お渡し","レディース","女性"], answer:"女性向けアメニティ（クシ、ヘアブラシ、ボディスポンジ、各種ジェル、綿棒、入浴剤、フェイスパックetc）の入ったセットをお渡しさせていただきます。また、電車などの時刻表（取手発）、近隣の飲食店マップもございますのでご利用ください。"},
+  {keywords:["のし袋","のしぶくろ","くつした","靴下","ストッキング","プリンタ"], answer:"のし袋、靴下、ストッキング、傘、ベルト、プリンタ用紙など有料となりますが２階フロントにて承っております。"},
+  {keywords:["ルームサービス","うーばー","ウーバー","ピザ"], answer:"ルームサービスは承れません。また、外部よりご購入いただいた飲食物（ピザ、丼ものetc）はお部屋までお届けは出来ません。２階フロント前での受け渡しとなりますので２階までお越しください。"},
+  {keywords:["浴衣","ゆかた","ねまき","寝間着","室内","スリッパ"], answer:"お部屋にご用意しております浴衣、スリッパなどでロビーでの滞在及び外出は出来ませんのでご了承ください。"},
+  {keywords:["ヘヤドライア","ヘアドライヤ"], answer:"ヘアードライヤーは入口ドア傍の洋服掛け（クローゼット）の場所にございます。消臭剤、スリッパ、靴ベラ等もございますのでご利用ください。"},
+  {keywords:["冷蔵庫","れいぞう","れいとう","冷凍"], answer:"シングルルーム、ツインルームはデスク下に、デラックスシングルルームはテレビ台下にございます。和室のお部屋はクローゼット横にございますのでご利用ください。（冷凍は出来ません。）"},
+  {keywords:["自販機","じはんき","自動販売","じどうはんばい","ジュース","温め","れんじ","レンジ","さけ","酒"], answer:"自動販売機コーナーは、２階、４階、８階にございます。氷をご希望の方は４階製氷機をご利用ください。電子レンジも２階、４階、８階に同じく設置しております。"},
+  {keywords:["コインランドリー","洗濯機"], answer:"４階、８階にランドリーコーナー、自販機コーナーがございます。洗濯機はお金を投入すると洗剤は自動投入となります。両替等ご希望の際は２階フロントまでお越しください。"},
+  {keywords:["新聞","しんぶん","ニュース"], answer:"２階フロントにて閲覧可能な新聞（日経、朝日、スポーツ）がございます。朝刊の読売新聞はお部屋までお持ち帰り頂けます。（朝刊の新聞に関しましてはお断りなく廃止する場合がございますのでご了承ください。）"},
+  {keywords:["こぴー","コピー","FAX","fax"], answer:"有料になりますが２階フロントにて承っております。"},
+  {keywords:["支払い","カード","クレジット","visa","マスター","現金"], answer:"お支払方法は、現金、クレジットカード（VISA、マスター）、QR決済（メルペイ、D払い）などのお支払方法からお選びいただけます。"},
+  {keywords:["駐輪場", "自転車", "バイク", "二輪", "２輪", "オートバイ"], answer:"ご宿泊期間中のご利用に限り、地下駐車場の一番奥の駐輪場（自転車、オートバイ）がご利用いただけます。地下駐車場より2階フロントまではエレベーターがご利用いただけます。"},
+  {keywords:["キツエン", "喫煙", "きつえん", "煙草", "吸う"], answer:"館内にタバコの販売機・喫煙場所はございません。喫煙場所をお探しの際は取手駅の喫煙所（徒歩3分位）をご案内させて頂いております。館内全体では喫煙ルーム（48室・ツイン、DXシングル含む）禁煙ルーム（72室・ツイン、DXシングル含む）がございます。禁煙指定のお部屋による喫煙を発見した場合は「特別清掃費、不売日数分の補償」をご請求させていただく場合がございます。"},
+  {keywords:["キンエン", "禁煙", "きんえん", "くさい", "臭い", "部屋数"], answer:"館内全体では禁煙ルーム（72室・ツイン、DXシングル含む）喫煙ルーム（48室・ツイン、DXシングル含む）がございます。喫煙指定部屋以外は館内全て禁煙となりますがエレベーター、自販機・洗濯室など多くの方がご利用いただく場所では臭いが気になる場合はございます。禁煙指定のお部屋による喫煙を発見した場合は「特別清掃費、不売日数分の補償」をご請求させていただく場合がございます。"},
+  {keywords: ["ベッド", "サイズ", "広さ", "ひろさ", "大きさ", "部屋タイプ", "部屋の種類"], answer: "お部屋の広さは和室・ツインルームが24㎡、DXシングルルームが15.4㎡、シングルルームが12㎡になります。各ベッドサイズはツインルームが（シングルベッドサイズ、1030mm×1970mm）が2台入り、DXシングルルーム（ダブルベッドサイズ、1400mm×1970mm）が1台、シングルルーム（セミダブルサイズ、1230mm×1970mm）が1台の設置になります。ご不明な点等ございましたら事前にお問い合わせください。"},
+  {keywords: ["エレベータ", "階段", "門限"], answer: "エレベーターの利用におきましては午前0時から午前5時30分までは、セキュリティ上の理由で2階より下には降りません。午前0時以降のチェックインの場合は、階段を使って2階のフロントまでお越しください。"},
+  {keywords: ["おすすめ", "近く", "周辺", "観光", "遊ぶ", "見る", "イベント", "行事", "催し", "遊び"], answer: "ホテル裏手に長禅寺、夏は取手花火大会。取手市民会館では多々イベント(コンサート、漫才、演劇、映画など)が行われています。少し足を延ばすと牛久大仏・牛久沼、つくばエキスポセンターなどもあります。"},
+  {keywords: ["住所", "場所"], answer: "当館の場所は、〒302-0004、茨城県取手市取手2-4-3、TEL.0297-72-1123、FAX.0297-72-7788 になります。"},
+  {keywords: ["キャンセル", "キャンセル料", "いつまで", "何日前"], answer: "個人でのご宿泊につきましては宿泊前日のキャンセルは宿泊料金の20％、ご宿泊当日15時までにキャンセルご連絡いただいた場合は宿泊料金の80％を頂戴いたします。宿泊当日15時以降、及びご連絡が無い場合は宿泊料金の100％を頂戴致します。"},
+  {keywords: ["マッサージ", "あんま"], answer: "マッサージの申込・予約等はお受けできません。取手駅東口にタイマッサージアンチェラ、祥和堂ソフトマッサージ、西口に、ほぐし家将がございますのでご利用ください。"},
+  {keywords: ["コンビニ", "ローソン", "セブン"], answer: "取手駅東口のローソンまで徒歩3分です。セブンイレブンまで5分くらいになります。"},
+  {keywords: ["駅", "アクセス", "電車", "最寄り駅", "改札", "出口"], answer: "「JR取手駅」が最寄り駅になります。東口改札を出て右手側に在るローソン先の信号を渡り右方向へお進みください。徒歩約3分くらいで当ホテルに着きます。上野・品川方面行は前寄り、土浦・水戸方面行は後ろ寄りにご乗車いただくと「東口改札」出口に近くなります。迷われた場合は 0297-72-1123 までご連絡ください。"},
+  {keywords: ["車で","行き方", "道順", "方向", "ナビ"], answer: "ナビ利用は「セントラルホテル取手」または「茨城県取手市取手2-4-3」に設定して下さい。常磐自動車道・谷和原ICより約30分。東京方面よりお越しの際は国道6号を大利根橋通過後右折（県道11号へ）、水戸、土浦方面よりお越しの際は大利根橋手前で利根方面（県道11号へ）進み、常磐線のガードをくぐるとすぐに信号があります。取手駅東口方面に左折し、すぐ右側が当ホテルです。"},
+  {keywords: ["パンク", "ガソリン", "燃料", "給油"], answer: "車で5分ほどのところにガソリンスタンドがございます。フロントスタッフにお尋ねください。"},
+  {keywords: ["病院", "歯科", "熱", "風邪", "ねつ", "かぜ", "カゼ", "インフル", "コロナ", "病気", "痛い"], answer: "風邪、歯痛などであれば近隣にある病院をご案内いたします。JAとりで総合医療センターなど大きな病院もございます。フロントスタッフにお尋ねください。"},
+  {keywords: ["本屋", "携帯ショップ", "ドコモ", "ソフトバンク", "au", "スマホ", "買い物", "ショッピング", "西口", "百斤", "百均"], answer: "取手駅西口に成城石井(アトレ)、西友(リボン取手)、Tマルシェ取手(アトレ)、ダイソー(リボン取手)、くまざわ書店(アトレ)などがあります。ドコモ、ソフトバンク、AUなどのショップは若干遠くなりますが294号線沿いにございます。"},
+  {keywords:["タクシー", "taxi", "たくし"], answer:"タクシーのご予約は、タクシー会社の都合により深夜・早朝や翌日の朝にご予約をお取りすることが難しい状況です。ご予約をご希望のお客様はチェックイン時や前日にフロントスタッフにお尋ねください。"}
   ],
   en: [
     {
@@ -234,6 +272,186 @@ const faq = {
 {
 "keywords": ["check-out", "checkout", "out"],
 "answer": "Check-out is requested by 10:00 AM. Extension of stay is possible on a chargeable basis depending on room availability. Please inform the front desk on the 2nd floor."
+},
+{
+"keywords": ["early", "earlier", "enter early", "early check-in"],
+"answer": "Early check-in is available on a chargeable basis depending on room availability. Please inquire in advance about fees and details."
+},
+{
+"keywords": ["late", "later", "leave late", "late check-out"],
+"answer": "Late check-out is available on a chargeable basis depending on room availability. Please inquire in advance about fees and details."
+},
+{
+"keywords": ["parking", "parking lot", "parkinglot", "vehicle"],
+"answer": "Guests staying at the hotel can use the free parking lot, but reservations are not accepted due to limited spaces. Parking is on a first-come, first-served basis. For large vehicles such as buses or trucks (considering size and length), reservations may be possible if contacted in advance. Please call the hotel directly."
+},
+{
+"keywords": ["Wi-Fi", "wifi", "WiFi", "internet", "net", "wireless", "wired", "LAN"],
+"answer": "Free Wi-Fi is available throughout the hotel. The SSID and password are posted on the lower right of the mirror in front of the desk in each room. Please connect to the strongest signal. If you need to use free Wi-Fi at the front desk, please ask the staff."
+},
+{
+"keywords": ["breakfast", "morning meal", "buffet"],
+"answer": "Breakfast is provided from 6:30 AM to 9:00 AM at the front desk on the 2nd floor. Please take it back to your room to enjoy. After eating, please place the containers in the hallway. (Breakfast is complimentary, but it may end without prior notice. We appreciate your understanding.)"
+},
+{
+"keywords": ["dinner", "evening meal", "dinner"],
+"answer": "We do not provide dinner service. Please use the nearby restaurant map available at the front desk on the 2nd floor."
+},
+{
+"keywords": ["room phone", "internal phone", "staff"],
+"answer": "The phone in the room cannot make external calls. For internal calls to other rooms, dial the 4-digit room number. To reach the front desk staff, dial '9'."
+},
+{
+"keywords": ["morning call", "morningcall", "wake-up", "clock"],
+"answer": "Pick up the receiver in your room, dial '80', then enter the alarm time in 4 digits (e.g., 0815 for 8:15 AM). To cancel the morning call, dial '81'; to check, dial '82'."
+},
+{
+"keywords": ["key", "room key"],
+"answer": "The rooms have auto-locks, so please carry your room key and confirm the door is locked when leaving. When going out, please deposit the room key at the front desk."
+},
+{
+"keywords": ["valuables", "deposited items"],
+"answer": "Valuables can be deposited at the front desk on the 2nd floor. Please be sure to receive the deposit receipt. Without the receipt, we may not be able to return items immediately."
+},
+{
+"keywords": ["air conditioning", "aircondition", "cooling", "heating", "AC"],
+"answer": "The hotel uses centralized air conditioning (cooling or heating). Temperature settings are not adjustable. You can adjust the airflow by turning the round knob by the pillow."
+},
+{
+"keywords": ["evacuation route", "evacuation", "escape", "fire", "earthquake"],
+"answer": "The evacuation route map is posted on the inside of the room door. Please be sure to check it."
+},
+{
+"keywords": ["cleaning", "laundry"],
+"answer": "We are currently not accepting laundry services. We apologize for the inconvenience, but please use a nearby laundry shop."
+},
+{
+"keywords": ["consecutive stay", "room cleaning", "roomcleaning", "house keep", "housekeep"],
+"answer": "Cleaning starts at 10:00 AM. We perform cleaning every three days, so we appreciate your understanding. If you do not need cleaning or wish to change the time, please contact the front desk at '9' by 1:00 PM. You can also indicate with the red or white signs inside the door. Leftover drinks and trash will be disposed of, so please note any items not to discard on the memo pad."
+},
+{
+"keywords": ["hot water", "drinking water", "tap water", "free drink", "welcome drink", "barley tea"],
+"answer": "The room's water (tap water) is safe for drinking. To boil water, use the provided pot or tea server. There is also a complimentary welcome drink corner on the 2nd floor for your enjoyment. (The welcome drink corner may end without prior notice. We appreciate your understanding.)"
+},
+{
+"keywords": ["delivery", "parcel", "luggage", "shipping"],
+"answer": "We can handle parcels at the front desk on the 2nd floor. For delivery, we only handle Yamato Express. If sending luggage to the hotel in advance, please include your name and stay date, and call us beforehand. We cannot accept collect-on-delivery shipments."
+},
+{
+"keywords": ["lending","lending items", "rental"],
+"answer": "We have desk lamps, humidifiers, blankets, mobile chargers, irons, ironing boards, trouser pressers, nail clippers, tweezers, sewing sets, thermometers, writing utensils, pillows, ice pillows, ice pails, wine openers, bottle openers, spoons, forks, plates, etc. Please contact the front desk on the 2nd floor if needed."
+},
+{
+"keywords": ["provide", "ladies", "women"],
+"answer": "We provide a set of ladies' amenities (comb, hairbrush, body sponge, various gels, cotton swabs, bath salts, face pack, etc.). We also have train timetables (from Toride) and nearby restaurant maps available."
+},
+{
+"keywords": ["coffee", "black tea", "tea"],
+"answer": "There is a complimentary welcome drink corner on the 2nd floor for your enjoyment. (The welcome drink corner may end without prior notice. We appreciate your understanding.)"
+},
+{
+"keywords": ["gift envelope", "socks", "stockings", "printer"],
+"answer": "Gift envelopes, socks, stockings, umbrellas, belts, printer paper, etc., are available for a fee at the front desk on the 2nd floor."
+},
+{
+"keywords": ["room service","roomservice", "uber", "pizza"],
+"answer": "We do not offer room service. Food and drinks purchased externally (pizza, bowls, etc.) cannot be delivered to rooms. Please receive them at the front desk on the 2nd floor."
+},
+{
+"keywords": ["yukata", "nightwear", "indoor", "slippers"],
+"answer": "Please note that yukata and slippers provided in the room cannot be used for wandering in the lobby, staying, or going outside."
+},
+{
+"keywords": ["hair dryer", "hairdryer"],
+"answer": "The hair dryer is located near the entrance door in the closet area. Deodorizers, slippers, shoe horns, etc., are also available there."
+},
+{
+"keywords": ["refrigerator", "fridge", "freezer"],
+"answer": "In single and twin rooms, it is under the desk; in deluxe single rooms, under the TV stand; in Japanese-style rooms, next to the closet. (Freezing is not possible.)"
+},
+{
+"keywords": ["vending machine", "juice", "warm", "microwave", "alcohol"],
+"answer": "Vending machine corners are on the 2nd, 4th, and 8th floors. For ice, use the ice machine on the 4th floor. Microwaves are also installed on the 2nd, 4th, and 8th floors."
+},
+{
+"keywords": ["coin laundry","coinlaundry", "washing machine", "washingmachine"],
+"answer": "Laundry corners and vending machines are on the 4th and 8th floors. Detergent is automatically dispensed when coins are inserted into the washing machine. For change, please come to the front desk on the 2nd floor."
+},
+{
+"keywords": ["newspaper", "news"],
+"answer": "Newspapers (Nikkei, Asahi, Sports) are available for viewing at the front desk on the 2nd floor. You can take the morning Yomiuri newspaper to your room. (The morning newspaper may be discontinued without notice, so please understand.)"
+},
+{
+"keywords": ["massage"],
+"answer": "We are not currently offering massage services. Please use nearby services like Thai Massage Anjera or Showa-do Soft Massage at Toride Station East Exit, or Hogushi-ya Sho at West Exit."
+},
+{
+"keywords": ["copy", "FAX", "fax"],
+"answer": "Copies and faxes are available for a fee at the front desk on the 2nd floor."
+},
+{
+"keywords": ["payment", "card", "credit", "visa", "master", "cash"],
+"answer": "Payment methods include cash, credit cards (VISA, Master), QR payments (Merpay, d Payment), etc."
+},
+{
+"keywords": ["bicycle parking", "bicycleparking", "bicycle", "bike", "motorcycle", "two-wheeler"],
+"answer": "During your stay, you can use the bicycle/motorcycle parking at the back of the underground parking lot. Elevators are available from the underground parking to the 2nd floor front desk."
+},
+{
+"keywords": ["smoking", "cigarette", "smoke"],
+"answer": "There are no cigarette vending machines or smoking areas in the hotel. For smoking areas, we recommend the one at Toride Station (about 3 minutes walk). The hotel has 48 smoking rooms (including twins and deluxe singles) and 72 non-smoking rooms (including twins and deluxe singles). If smoking is detected in a non-smoking room, we may charge for special cleaning fees and compensation for unsold days."
+},
+{
+"keywords": ["non-smoking", "odor", "smell", "room count"],
+"answer": "The hotel has 72 non-smoking rooms (including twins and deluxe singles) and 48 smoking rooms (including twins and deluxe singles). Smoking is prohibited everywhere except designated smoking rooms, but odors may be present in shared areas like elevators and vending rooms. If smoking is detected in a non-smoking room, we may charge for special cleaning fees and compensation for unsold days."
+},
+{
+"keywords": ["bed", "size", "width", "room type", "roomtype", "room kinds", "roomkinds"],
+"answer": "Room sizes: Japanese-style and twin rooms are 24㎡, deluxe single rooms 15.4㎡, single rooms 12㎡. Bed sizes: Twin rooms have two single beds (1030mm × 1970mm), deluxe singles have one double bed (1400mm × 1970mm), singles have one semi-double bed (1230mm × 1970mm). Please inquire in advance if you have any questions."
+},
+{
+"keywords": ["elevator", "stairs", "curfew"],
+"answer": "For security reasons, the elevator does not go below the 2nd floor from 0:00 AM to 5:30 AM. If checking in after 0:00 AM, please use the stairs to reach the 2nd floor front desk."
+},
+{
+"keywords": ["sightseeing", "play", "see", "event", "festival"],
+"answer": "Nearby attractions include Chozenji Temple behind the hotel, Toride Fireworks Festival in summer. Toride Civic Hall hosts various events (concerts, comedy, theater, movies, etc.). Further afield, there are Ushiku Daibutsu, Ushiku Marsh, Tsukuba Expo Center, etc."
+},
+{
+"keywords": ["address", "location"],
+"answer": "Our hotel is located at 〒302-0004, 2-4-3 Toride, Toride City, Ibaraki Prefecture, TEL: +81-297-72-1123."
+},
+{
+"keywords": ["cancel", "cancellation fee", "cancellationfee", "until when", "untilwhen", "how many days before"],
+"answer": "For individual bookings, cancellation on the day before arrival incurs 20% of the accommodation fee; on the day until 3:00 PM, 80%; after 3:00 PM or no-show, 100%."
+},
+{
+"keywords": ["convenience store", "conveniencestore", "Lawson", "Seven-Eleven"],
+"answer": "Lawson at Toride Station East Exit is a 3-minute walk. Seven-Eleven is about 5 minutes away."
+},
+{
+"keywords": ["station", "access", "train", "nearest station", "neareststation", "exit"],
+"answer": "The nearest station is JR Toride Station. Exit the East Gate, turn right past Lawson, cross the signal, and proceed right for about 3 minutes. For trains from Ueno/Shinagawa, board the front cars; from Tsuchiura/Mito, the rear cars to be closer to the East Exit. If lost, please call +81-297-72-1123."
+},
+{
+"keywords": ["car", "automobile", "directions", "route"],
+"answer": "Set your navigation to 'Central Hotel Toride' or '2-4-3 Toride, Toride City, Ibaraki Prefecture'. From Joban Expressway Yawara IC, about 30 minutes. From Tokyo, after crossing Otone Bridge on Route 6, turn right onto Pref. Route 11; from Mito/Tsuchiura, before Otone Bridge, turn to Tone (Pref. Route 11), pass under Joban Line, turn left at the signal toward Toride Station East Exit, and the hotel is immediately on the right."
+},
+{
+"keywords": ["flat tire", "flattire", "gasoline", "fuel", "refuel"],
+"answer": "There is a gas station about 5 minutes by car. Please ask the front desk staff."
+},
+{
+"keywords": ["hospital", "dentist", "fever", "cold", "flu", "corona", "illness", "pain"],
+"answer": "For colds, toothaches, etc., we can guide you to nearby hospitals. Larger facilities like JA Toride General Medical Center are available. Please ask the front desk staff."
+},
+{
+"keywords": ["bookstore", "mobile shop", "docomo", "softbank", "au", "smartphone", "shopping", "west exit", "100 yen shop"],
+"answer": "At Toride Station West Exit: Seijo Ishii (Atre), Seiyu (Ribbon Toride), T Marche Toride (Atre), Daiso (Ribbon Toride), Kumazawa Bookstore (Atre), etc. Docomo, Softbank, AU shops are a bit farther along Route 294."
+},
+{
+"keywords": ["thanks", "thank you", "thankyou", "understood", "got it"],
+"answer": "I'm very glad to have been of assistance. If you have any other questions, please feel free to ask at any time. For any requests to the staff, please dial extension 9 from your room. The front desk staff will be happy to assist you."
 }
   ],
   zh: [
@@ -244,6 +462,190 @@ const faq = {
   {
     "keywords": ["退房", "离开", "退房时间"],
     "answer": "退房时间为上午10:00之前。根据房况，可提供付费延迟退房服务。请提前告知2楼前台。"
+  },
+  {
+    "keywords": ["提前", "早", "提前入住"],
+    "answer": "可提供付费提前入住服务，具体费用及详情视房况而定。建议提前咨询。"
+  },
+  {
+    "keywords": ["延迟", "晚", "延迟退房"],
+    "answer": "可提供付费延迟退房服务，具体费用及详情视房况而定。建议提前咨询。"
+  },
+  {
+    "keywords": ["停车", "停车场", "停车位", "车辆", "车"],
+    "answer": "住宿客人可免费使用本酒店停车场，但车位有限，不接受预订，先到先得。对于巴士或卡车等大型车辆（视尺寸及长度而定），如提前联系可能安排预订。请直接致电酒店。"
+  },
+  {
+    "keywords": ["Wi-Fi", "无线网", "网络", "上网", "WLAN"],
+    "answer": "酒店全馆提供免费Wi-Fi。SSID及密码请查看各房间书桌前镜子右下角。请连接信号最强的网络。如需在前台使用，请告知工作人员。"
+  },
+  {
+    "keywords": ["早餐", "早饭", "自助餐"],
+    "answer": "早餐时间为上午6:30至9:00，请至2楼前台领取后带回房间享用。用餐后请将容器置于走廊。（早餐免费提供，但可能因故提前结束，敬请谅解。）"
+  },
+  {
+    "keywords": ["晚餐", "晚饭", "晚餐服务"],
+    "answer": "本酒店不提供晚餐服务。请使用2楼前台提供的附近餐厅地图。"
+  },
+  {
+    "keywords": ["房间电话", "内线", "前台", "电话"],
+    "answer": "房间内电话无法拨打外线。拨打其他房间请直接输入4位房号；联系前台工作人员请拨打“9”。"
+  },
+  {
+    "keywords": ["叫早", "晨叫", "起床", "闹钟"],
+    "answer": "请拿起房间电话，拨打“80”，然后输入4位闹钟时间（例如0815代表上午8:15）。取消晨叫请拨“81”；查询请拨“82”。"
+  },
+  {
+    "keywords": ["房卡", "钥匙"],
+    "answer": "房间采用自动锁，请随身携带房卡，外出时确认房门已锁。外出时请将房卡寄存在2楼前台。"
+  },
+  {
+    "keywords": ["贵重物品", "寄存", "保管"],
+    "answer": "贵重物品可寄存于2楼前台。请务必领取寄存凭证，无凭证可能无法立即返还。"
+  },
+  {
+    "keywords": ["空调", "冷气", "暖气", "温度"],
+    "answer": "本酒店采用中央空调（冷暖统一）。温度不可自行调节，可通过枕边圆形旋钮调节风量。"
+  },
+  {
+    "keywords": ["疏散路线", "逃生", "消防", "地震"],
+    "answer": "疏散路线图张贴于房门内侧，请务必确认。"
+  },
+  {
+    "keywords": ["清洁", "洗衣", "洗衣服"],
+    "answer": "目前暂不提供洗衣服务。给您带来不便，敬请谅解，可使用附近洗衣店。"
+  },
+  {
+    "keywords": ["连续住宿", "房间清洁", "打扫", "清扫"],
+    "answer": "客房清洁从上午10:00开始。每3日进行一次清洁，感谢您的理解。如无需清洁或希望变更时间，请于下午1:00前拨打“9”联系前台。您也可使用门内红/白牌示意。剩余饮料及垃圾将被处理，请在便笺上注明勿丢弃物品。"
+  },
+  {
+    "keywords": ["热水", "饮用水", "自来水", "欢迎饮品", "大麦茶"],
+    "answer": "房间自来水可直接饮用。烧水请使用提供的热水壶或茶具。2楼另设有免费欢迎饮品角供您享用。（欢迎饮品角可能因故提前结束，敬请谅解。）"
+  },
+  {
+    "keywords": ["快递", "包裹", "行李", "寄件"],
+    "answer": "包裹可由2楼前台代收。只接受宅急便。如提前寄送行李至酒店，请注明姓名及入住日期，并提前致电。本酒店不接受到付包裹。"
+  },
+  {
+    "keywords": ["借用", "租借", "物品借用", "用品"],
+    "answer": "我们备有台灯、加湿器、毛毯、移动充电器、熨斗、熨衣板、裤子熨烫机、指甲剪、镊子、缝纫套装、体温计、文具、枕头、冰枕、冰桶、开酒器、开瓶器、勺子、叉子、盘子等。如有需要，请联系2楼前台。"
+  },
+  {
+    "keywords": ["女士用品", "女性", "提供"],
+    "answer": "我们为女性客人提供一套女士用品（梳子、发刷、沐浴海绵、各种凝胶、棉签、浴盐、面膜等）。另备有列车时刻表（取手出发）及附近餐厅地图。"
+  },
+  {
+    "keywords": ["咖啡", "红茶", "茶"],
+    "answer": "2楼设有免费欢迎饮品角供您享用。（欢迎饮品角可能因故提前结束，敬请谅解。）"
+  },
+  {
+    "keywords": ["礼金袋", "袜子", "丝袜", "雨伞", "打印纸"],
+    "answer": "礼金袋、袜子、丝袜、雨伞、皮带、打印纸等物品可在2楼前台有偿提供。"
+  },
+  {
+    "keywords": ["客房送餐", "外卖"],
+    "answer": "本酒店不提供客房送餐服务。外部购买的食品饮料（披萨、便当等）无法送至客房，请于2楼前台领取。"
+  },
+  {
+    "keywords": ["烹饪", "做饭", "电器", "厨房"],
+    "answer": "为防火灾等危险，严禁在设施内进行烹饪行为（如煮饭、泡面、烤零食等）。一经发现，将请您退房，敬请注意。"
+  },
+  {
+    "keywords": ["浴衣", "睡衣", "拖鞋", "室内"],
+    "answer": "房间提供的浴衣及拖鞋请勿用于在大堂徘徊、逗留或外出。"
+  },
+  {
+    "keywords": ["吹风机", "电吹风"],
+    "answer": "吹风机位于入口门附近的衣橱区域。另有除臭剂、拖鞋、鞋拔等物品。"
+  },
+  {
+    "keywords": ["冰箱", "冷藏"],
+    "answer": "单人房及双人房冰箱位于书桌下方；豪华单人房位于电视柜下方；日式房位于衣橱旁。（不可冷冻。）"
+  },
+  {
+    "keywords": ["自动贩卖机", "饮料", "微波炉", "酒"],
+    "answer": "自动贩卖机角位于2楼、4楼、8楼。冰块请使用4楼制冰机。微波炉同样设于2楼、4楼、8楼。"
+  },
+  {
+    "keywords": ["投币洗衣", "洗衣机", "洗衣"],
+    "answer": "投币洗衣角及自动贩卖机位于4楼及8楼。洗衣机投币后自动投放洗剂。如需兑换零钱，请至2楼前台。"
+  },
+  {
+    "keywords": ["报纸", "新闻", "读卖"],
+    "answer": "报纸（日经、朝日、体育报）可在2楼前台阅览。晨报读卖新闻可带回房间。（晨报可能因故停供，敬请谅解。）"
+  },
+  {
+    "keywords": ["按摩", "推拿"],
+    "answer": "目前暂不提供按摩服务。附近有取手站东口“泰式按摩Anjera”、昭和堂软按摩，或西口“ほぐし屋翔”等，敬请利用。"
+  },
+  {
+    "keywords": ["复印", "传真"],
+    "answer": "复印及传真可在2楼前台有偿办理。"
+  },
+  {
+    "keywords": ["支付", "信用卡", "现金"],
+    "answer": "支付方式包括现金、信用卡（VISA、Master）、QR支付（Merpay、d支付）等。"
+  },
+  {
+    "keywords": ["自行车停车", "摩托车", "自行车", "停车"],
+    "answer": "住宿期间可使用地下停车场后方的自行车/摩托车停车区。从地下停车场有电梯直达2楼前台。"
+  },
+  {
+    "keywords": ["吸烟", "烟", "香烟", "抽烟"],
+    "answer": "酒店内无香烟贩卖机及吸烟区。吸烟区建议使用取手站（步行约3分钟）。酒店有48间吸烟房（含双人及豪华单人）、72间禁烟房（含双人及豪华单人）。如在禁烟房吸烟，可能收取特殊清洁费及空房补偿金。"
+  },
+  {
+    "keywords": ["禁烟", "无烟", "气味", "房间数"],
+    "answer": "酒店有72间禁烟房（含双人及豪华单人）、48间吸烟房（含双人及豪华单人）。除指定吸烟房外全面禁烟，但电梯及贩卖室等共用区域可能有烟味。如在禁烟房吸烟，可能收取特殊清洁费及空房补偿金。"
+  },
+  {
+    "keywords": ["床", "尺寸", "房间类型", "房型"],
+    "answer": "房间面积：日式房及双人房24㎡，豪华单人房15.4㎡，单人房12㎡。床尺寸：双人房两张单人床（1030mm×1970mm），豪华单人房一张双人床（1400mm×1970mm），单人房一张半双人床（1230mm×1970mm）。如有疑问，欢迎提前咨询。"
+  },
+  {
+    "keywords": ["电梯", "楼梯", "宵禁", "凌晨"],
+    "answer": "出于安全考虑，凌晨0:00至5:30电梯不停靠2楼以下。凌晨0:00后入住请使用楼梯至2楼前台。"
+  },
+  {
+    "keywords": ["观光", "旅游", "景点", "活动", "祭典"],
+    "answer": "附近景点有酒店后方的长禅寺、夏季取手烟火大会。取手市民会馆常举办音乐会、喜剧、戏剧、电影等活动。稍远有牛久大佛、牛久大湿地、筑波博览中心等。"
+  },
+  {
+    "keywords": ["地址", "位置", "所在地", "酒店位置"],
+    "answer": "本酒店地址：〒302-0004 茨城县取手市取手2-4-3，电话：+81-297-72-1123。"
+  },
+  {
+    "keywords": ["取消", "取消费", "取消政策"],
+    "answer": "个人预约取消政策：入住前一天收取20%房费；当日15:00前收取80%；15:00后或未到店收取100%。"
+  },
+  {
+    "keywords": ["便利店", "Lawson", "7-11", "超市"],
+    "answer": "取手站东口Lawson步行约3分钟。Seven-Eleven约5分钟。"
+  },
+  {
+    "keywords": ["车站", "交通", "最近车站", "交通方式"],
+    "answer": "最近车站为JR取手站。从东口出站，右转经过Lawson，过信号灯再右行约3分钟。从上野/品川方向请坐前几节车厢；从土浦/水户方向请坐后几节车厢以靠近东口。如迷路，请致电酒店。"
+  },
+  {
+    "keywords": ["开车", "导航", "路线", "自驾"],
+    "answer": "导航请设定“取手中央酒店”或“茨城县取手市取手2-4-3”。从常磐道谷和原IC约30分钟。从东京经6号国道过大利根桥后右转县道11号；从水户/土浦方向在大利根桥前转入利根（县道11号），过常磐线地下道，在取手站东口方向信号左转，酒店即在右侧。"
+  },
+  {
+    "keywords": ["加油", "轮胎", "汽油"],
+    "answer": "附近约5分钟车程有加油站。请向前台工作人员咨询。"
+  },
+  {
+    "keywords": ["医院", "牙医", "感冒", "生病", "诊所"],
+    "answer": "感冒、牙痛等可引导至附近医院。较大设施有JA取手综合医疗中心等。请向前台工作人员咨询。"
+  },
+  {
+    "keywords": ["书店", "手机店", "购物", "docomo"],
+    "answer": "取手站西口有成城石井（Atre）、西友（Ribbon取手）、T Marche取手（Atre）、大创（Ribbon取手）、熊泽书店（Atre）等。Docomo、Softbank、au店铺位于294号线稍远处。"
+  },
+  {
+    "keywords": ["谢谢", "感谢", "明白了", "了解"],
+    "answer": "非常感谢您的咨询，能为您服务我们深感荣幸。如有其他问题，随时欢迎询问。需向工作人员提出的请求，请从房间拨打分机9，前台工作人员将竭诚为您服务。"
   }
   ],
   'zh-CN': [
@@ -254,6 +656,190 @@ const faq = {
   {
     "keywords": ["退房", "离开", "退房时间"],
     "answer": "退房时间为上午10:00之前。根据房况，可提供付费延迟退房服务。请提前告知2楼前台。"
+  },
+  {
+    "keywords": ["提前", "早", "提前入住"],
+    "answer": "可提供付费提前入住服务，具体费用及详情视房况而定。建议提前咨询。"
+  },
+  {
+    "keywords": ["延迟", "晚", "延迟退房"],
+    "answer": "可提供付费延迟退房服务，具体费用及详情视房况而定。建议提前咨询。"
+  },
+  {
+    "keywords": ["停车", "停车场", "停车位", "车辆", "车"],
+    "answer": "住宿客人可免费使用本酒店停车场，但车位有限，不接受预订，先到先得。对于巴士或卡车等大型车辆（视尺寸及长度而定），如提前联系可能安排预订。请直接致电酒店。"
+  },
+  {
+    "keywords": ["Wi-Fi", "无线网", "网络", "上网", "WLAN"],
+    "answer": "酒店全馆提供免费Wi-Fi。SSID及密码请查看各房间书桌前镜子右下角。请连接信号最强的网络。如需在前台使用，请告知工作人员。"
+  },
+  {
+    "keywords": ["早餐", "早饭", "自助餐"],
+    "answer": "早餐时间为上午6:30至9:00，请至2楼前台领取后带回房间享用。用餐后请将容器置于走廊。（早餐免费提供，但可能因故提前结束，敬请谅解。）"
+  },
+  {
+    "keywords": ["晚餐", "晚饭", "晚餐服务"],
+    "answer": "本酒店不提供晚餐服务。请使用2楼前台提供的附近餐厅地图。"
+  },
+  {
+    "keywords": ["房间电话", "内线", "前台", "电话"],
+    "answer": "房间内电话无法拨打外线。拨打其他房间请直接输入4位房号；联系前台工作人员请拨打“9”。"
+  },
+  {
+    "keywords": ["叫早", "晨叫", "起床", "闹钟"],
+    "answer": "请拿起房间电话，拨打“80”，然后输入4位闹钟时间（例如0815代表上午8:15）。取消晨叫请拨“81”；查询请拨“82”。"
+  },
+  {
+    "keywords": ["房卡", "钥匙"],
+    "answer": "房间采用自动锁，请随身携带房卡，外出时确认房门已锁。外出时请将房卡寄存在2楼前台。"
+  },
+  {
+    "keywords": ["贵重物品", "寄存", "保管"],
+    "answer": "贵重物品可寄存于2楼前台。请务必领取寄存凭证，无凭证可能无法立即返还。"
+  },
+  {
+    "keywords": ["空调", "冷气", "暖气", "温度"],
+    "answer": "本酒店采用中央空调（冷暖统一）。温度不可自行调节，可通过枕边圆形旋钮调节风量。"
+  },
+  {
+    "keywords": ["疏散路线", "逃生", "消防", "地震"],
+    "answer": "疏散路线图张贴于房门内侧，请务必确认。"
+  },
+  {
+    "keywords": ["清洁", "洗衣", "洗衣服"],
+    "answer": "目前暂不提供洗衣服务。给您带来不便，敬请谅解，可使用附近洗衣店。"
+  },
+  {
+    "keywords": ["连续住宿", "房间清洁", "打扫", "清扫"],
+    "answer": "客房清洁从上午10:00开始。每3日进行一次清洁，感谢您的理解。如无需清洁或希望变更时间，请于下午1:00前拨打“9”联系前台。您也可使用门内红/白牌示意。剩余饮料及垃圾将被处理，请在便笺上注明勿丢弃物品。"
+  },
+  {
+    "keywords": ["热水", "饮用水", "自来水", "欢迎饮品", "大麦茶"],
+    "answer": "房间自来水可直接饮用。烧水请使用提供的热水壶或茶具。2楼另设有免费欢迎饮品角供您享用。（欢迎饮品角可能因故提前结束，敬请谅解。）"
+  },
+  {
+    "keywords": ["快递", "包裹", "行李", "寄件"],
+    "answer": "包裹可由2楼前台代收。只接受宅急便。如提前寄送行李至酒店，请注明姓名及入住日期，并提前致电。本酒店不接受到付包裹。"
+  },
+  {
+    "keywords": ["借用", "租借", "物品借用", "用品"],
+    "answer": "我们备有台灯、加湿器、毛毯、移动充电器、熨斗、熨衣板、裤子熨烫机、指甲剪、镊子、缝纫套装、体温计、文具、枕头、冰枕、冰桶、开酒器、开瓶器、勺子、叉子、盘子等。如有需要，请联系2楼前台。"
+  },
+  {
+    "keywords": ["女士用品", "女性", "提供"],
+    "answer": "我们为女性客人提供一套女士用品（梳子、发刷、沐浴海绵、各种凝胶、棉签、浴盐、面膜等）。另备有列车时刻表（取手出发）及附近餐厅地图。"
+  },
+  {
+    "keywords": ["咖啡", "红茶", "茶"],
+    "answer": "2楼设有免费欢迎饮品角供您享用。（欢迎饮品角可能因故提前结束，敬请谅解。）"
+  },
+  {
+    "keywords": ["礼金袋", "袜子", "丝袜", "雨伞", "打印纸"],
+    "answer": "礼金袋、袜子、丝袜、雨伞、皮带、打印纸等物品可在2楼前台有偿提供。"
+  },
+  {
+    "keywords": ["客房送餐", "外卖"],
+    "answer": "本酒店不提供客房送餐服务。外部购买的食品饮料（披萨、便当等）无法送至客房，请于2楼前台领取。"
+  },
+  {
+    "keywords": ["烹饪", "做饭", "电器", "厨房"],
+    "answer": "为防火灾等危险，严禁在设施内进行烹饪行为（如煮饭、泡面、烤零食等）。一经发现，将请您退房，敬请注意。"
+  },
+  {
+    "keywords": ["浴衣", "睡衣", "拖鞋", "室内"],
+    "answer": "房间提供的浴衣及拖鞋请勿用于在大堂徘徊、逗留或外出。"
+  },
+  {
+    "keywords": ["吹风机", "电吹风"],
+    "answer": "吹风机位于入口门附近的衣橱区域。另有除臭剂、拖鞋、鞋拔等物品。"
+  },
+  {
+    "keywords": ["冰箱", "冷藏"],
+    "answer": "单人房及双人房冰箱位于书桌下方；豪华单人房位于电视柜下方；日式房位于衣橱旁。（不可冷冻。）"
+  },
+  {
+    "keywords": ["自动贩卖机", "饮料", "微波炉", "酒"],
+    "answer": "自动贩卖机角位于2楼、4楼、8楼。冰块请使用4楼制冰机。微波炉同样设于2楼、4楼、8楼。"
+  },
+  {
+    "keywords": ["投币洗衣", "洗衣机", "洗衣"],
+    "answer": "投币洗衣角及自动贩卖机位于4楼及8楼。洗衣机投币后自动投放洗剂。如需兑换零钱，请至2楼前台。"
+  },
+  {
+    "keywords": ["报纸", "新闻", "读卖"],
+    "answer": "报纸（日经、朝日、体育报）可在2楼前台阅览。晨报读卖新闻可带回房间。（晨报可能因故停供，敬请谅解。）"
+  },
+  {
+    "keywords": ["按摩", "推拿"],
+    "answer": "目前暂不提供按摩服务。附近有取手站东口“泰式按摩Anjera”、昭和堂软按摩，或西口“ほぐし屋翔”等，敬请利用。"
+  },
+  {
+    "keywords": ["复印", "传真"],
+    "answer": "复印及传真可在2楼前台有偿办理。"
+  },
+  {
+    "keywords": ["支付", "信用卡", "现金"],
+    "answer": "支付方式包括现金、信用卡（VISA、Master）、QR支付（Merpay、d支付）等。"
+  },
+  {
+    "keywords": ["自行车停车", "摩托车", "自行车", "停车"],
+    "answer": "住宿期间可使用地下停车场后方的自行车/摩托车停车区。从地下停车场有电梯直达2楼前台。"
+  },
+  {
+    "keywords": ["吸烟", "烟", "香烟", "抽烟"],
+    "answer": "酒店内无香烟贩卖机及吸烟区。吸烟区建议使用取手站（步行约3分钟）。酒店有48间吸烟房（含双人及豪华单人）、72间禁烟房（含双人及豪华单人）。如在禁烟房吸烟，可能收取特殊清洁费及空房补偿金。"
+  },
+  {
+    "keywords": ["禁烟", "无烟", "气味", "房间数"],
+    "answer": "酒店有72间禁烟房（含双人及豪华单人）、48间吸烟房（含双人及豪华单人）。除指定吸烟房外全面禁烟，但电梯及贩卖室等共用区域可能有烟味。如在禁烟房吸烟，可能收取特殊清洁费及空房补偿金。"
+  },
+  {
+    "keywords": ["床", "尺寸", "房间类型", "房型"],
+    "answer": "房间面积：日式房及双人房24㎡，豪华单人房15.4㎡，单人房12㎡。床尺寸：双人房两张单人床（1030mm×1970mm），豪华单人房一张双人床（1400mm×1970mm），单人房一张半双人床（1230mm×1970mm）。如有疑问，欢迎提前咨询。"
+  },
+  {
+    "keywords": ["电梯", "楼梯", "宵禁", "凌晨"],
+    "answer": "出于安全考虑，凌晨0:00至5:30电梯不停靠2楼以下。凌晨0:00后入住请使用楼梯至2楼前台。"
+  },
+  {
+    "keywords": ["观光", "旅游", "景点", "活动", "祭典"],
+    "answer": "附近景点有酒店后方的长禅寺、夏季取手烟火大会。取手市民会馆常举办音乐会、喜剧、戏剧、电影等活动。稍远有牛久大佛、牛久大湿地、筑波博览中心等。"
+  },
+  {
+    "keywords": ["地址", "位置", "所在地", "酒店位置"],
+    "answer": "本酒店地址：〒302-0004 茨城县取手市取手2-4-3，电话：+81-297-72-1123。"
+  },
+  {
+    "keywords": ["取消", "取消费", "取消政策"],
+    "answer": "个人预约取消政策：入住前一天收取20%房费；当日15:00前收取80%；15:00后或未到店收取100%。"
+  },
+  {
+    "keywords": ["便利店", "Lawson", "7-11", "超市"],
+    "answer": "取手站东口Lawson步行约3分钟。Seven-Eleven约5分钟。"
+  },
+  {
+    "keywords": ["车站", "交通", "最近车站", "交通方式"],
+    "answer": "最近车站为JR取手站。从东口出站，右转经过Lawson，过信号灯再右行约3分钟。从上野/品川方向请坐前几节车厢；从土浦/水户方向请坐后几节车厢以靠近东口。如迷路，请致电酒店。"
+  },
+  {
+    "keywords": ["开车", "导航", "路线", "自驾"],
+    "answer": "导航请设定“取手中央酒店”或“茨城县取手市取手2-4-3”。从常磐道谷和原IC约30分钟。从东京经6号国道过大利根桥后右转县道11号；从水户/土浦方向在大利根桥前转入利根（县道11号），过常磐线地下道，在取手站东口方向信号左转，酒店即在右侧。"
+  },
+  {
+    "keywords": ["加油", "轮胎", "汽油"],
+    "answer": "附近约5分钟车程有加油站。请向前台工作人员咨询。"
+  },
+  {
+    "keywords": ["医院", "牙医", "感冒", "生病", "诊所"],
+    "answer": "感冒、牙痛等可引导至附近医院。较大设施有JA取手综合医疗中心等。请向前台工作人员咨询。"
+  },
+  {
+    "keywords": ["书店", "手机店", "购物", "docomo"],
+    "answer": "取手站西口有成城石井（Atre）、西友（Ribbon取手）、T Marche取手（Atre）、大创（Ribbon取手）、熊泽书店（Atre）等。Docomo、Softbank、au店铺位于294号线稍远处。"
+  },
+  {
+    "keywords": ["谢谢", "感谢", "明白了", "了解"],
+    "answer": "非常感谢您的咨询，能为您服务我们深感荣幸。如有其他问题，随时欢迎询问。需向工作人员提出的请求，请从房间拨打分机9，前台工作人员将竭诚为您服务。"
   }
   ],
   'zh-TW': [
@@ -264,6 +850,190 @@ const faq = {
   {
     "keywords": ["退房", "離開", "退房時間"],
     "answer": "退房時間為上午10:00之前。視房況可提供付費延遲退房服務，請提前告知2樓櫃台。"
+  },
+  {
+    "keywords": ["提前", "早", "提前入住"],
+    "answer": "可提供付費提前入住服務，費用及詳細資訊視房況而定，建議提前詢問。"
+  },
+  {
+    "keywords": ["延遲", "晚", "延遲退房"],
+    "answer": "可提供付費延遲退房服務，費用及詳細資訊視房況而定，建議提前詢問。"
+  },
+  {
+    "keywords": ["停車", "停車場", "停車位", "車輛", "車"],
+    "answer": "住宿客人可免費使用本飯店停車場，但車位有限，不接受預約，先到先得。對於巴士或卡車等大型車輛（視尺寸及長度而定），如提前聯繫可能安排預約，請直接致電飯店。"
+  },
+  {
+    "keywords": ["Wi-Fi", "無線網路", "網路", "上網", "WLAN"],
+    "answer": "飯店全館提供免費Wi-Fi。SSID及密碼請查看各房間書桌前鏡子右下角，請連接訊號最強的網路。如需在前台使用，請告知工作人員。"
+  },
+  {
+    "keywords": ["早餐", "早飯", "自助餐"],
+    "answer": "早餐時間為上午6:30至9:00，請至2樓櫃台領取後帶回房間享用。用餐後請將容器置於走廊。（早餐免費提供，但可能因故提前結束，敬請諒解。）"
+  },
+  {
+    "keywords": ["晚餐", "晚飯", "晚餐服務"],
+    "answer": "本飯店不提供晚餐服務。請使用2樓櫃台提供的附近餐廳地圖。"
+  },
+  {
+    "keywords": ["房間電話", "內線", "櫃台", "電話"],
+    "answer": "房間內電話無法撥打外線。撥打其他房間請直接輸入4位房號；聯繫櫃台人員請撥打「9」。"
+  },
+  {
+    "keywords": ["叫早", "晨叫", "起床", "鬧鐘"],
+    "answer": "請拿起房間電話，撥打「80」，然後輸入4位鬧鐘時間（例如0815代表上午8:15）。取消晨叫請撥「81」；查詢請撥「82」。"
+  },
+  {
+    "keywords": ["房卡", "鑰匙"],
+    "answer": "房間採用自動鎖，請隨身攜帶房卡，外出時確認房門已鎖。外出時請將房卡寄存在2樓櫃台。"
+  },
+  {
+    "keywords": ["貴重物品", "寄存", "保管"],
+    "answer": "貴重物品可寄存於2樓櫃台，請務必領取寄存憑證，無憑證可能無法立即返還。"
+  },
+  {
+    "keywords": ["空調", "冷氣", "暖氣", "溫度"],
+    "answer": "本飯店採用中央空調（冷暖統一）。溫度不可自行調節，可透過枕邊圓形旋鈕調節風量。"
+  },
+  {
+    "keywords": ["疏散路線", "逃生", "消防", "地震"],
+    "answer": "疏散路線圖張貼於房門內側，請務必確認。"
+  },
+  {
+    "keywords": ["清潔", "洗衣", "洗衣服"],
+    "answer": "目前暫不提供洗衣服務。帶來不便，敬請諒解，可使用附近洗衣店。"
+  },
+  {
+    "keywords": ["連續住宿", "房間清潔", "打掃", "清掃"],
+    "answer": "客房清潔從上午10:00開始。每3日進行一次清潔，感謝您的理解。如無需清潔或希望變更時間，請於下午1:00前撥打「9」聯繫櫃台。您也可使用門內紅/白牌示意。剩餘飲料及垃圾將被處理，請在便條上注明勿丟棄物品。"
+  },
+  {
+    "keywords": ["熱水", "飲用水", "自來水", "歡迎飲品", "大麥茶"],
+    "answer": "房間自來水可直接飲用。燒水請使用提供的熱水壺或茶具。2樓另設有免費歡迎飲品角供您享用。（歡迎飲品角可能因故提前結束，敬請諒解。）"
+  },
+  {
+    "keywords": ["快遞", "包裹", "行李", "寄件"],
+    "answer": "包裹可由2樓櫃台代收。只接受宅急便。如提前寄送行李至飯店，請注明姓名及入住日期，並提前致電。本飯店不接受到付包裹。"
+  },
+  {
+    "keywords": ["借用", "租借", "物品借用", "用品"],
+    "answer": "我們備有檯燈、加濕器、毛毯、行動充電器、熨斗、熨衣板、褲子熨燙機、指甲剪、鑷子、縫紉套組、體溫計、文具、枕頭、冰枕、冰桶、開酒器、開瓶器、湯匙、叉子、盤子等。如有需要，請聯繫2樓櫃台。"
+  },
+  {
+    "keywords": ["女士用品", "女性", "提供"],
+    "answer": "我們為女性客人提供一套女士用品（梳子、髮刷、沐浴海綿、各種凝膠、棉簽、浴鹽、面膜等）。另備有列車時刻表（取手出發）及附近餐廳地圖。"
+  },
+  {
+    "keywords": ["咖啡", "紅茶", "茶"],
+    "answer": "2樓設有免費歡迎飲品角供您享用。（歡迎飲品角可能因故提前結束，敬請諒解。）"
+  },
+  {
+    "keywords": ["禮金袋", "襪子", "絲襪", "雨傘", "列印紙"],
+    "answer": "禮金袋、襪子、絲襪、雨傘、皮帶、列印紙等物品可在2樓櫃台有償提供。"
+  },
+  {
+    "keywords": ["客房送餐", "外送"],
+    "answer": "本飯店不提供客房送餐服務。外部購買的食品飲料（披薩、便當等）無法送至客房，請於2樓櫃台領取。"
+  },
+  {
+    "keywords": ["烹飪", "煮飯", "電器", "廚房"],
+    "answer": "為防火災等危險，嚴禁在設施內進行烹飪行為（如煮飯、泡麵、烤零食等）。一經發現，將請您退房，敬請注意。"
+  },
+  {
+    "keywords": ["浴衣", "睡衣", "拖鞋", "室內"],
+    "answer": "房間提供的浴衣及拖鞋請勿用於在大堂徘徊、逗留或外出。"
+  },
+  {
+    "keywords": ["吹風機", "電吹風"],
+    "answer": "吹風機位於入口門附近的衣櫥區域。另有除臭劑、拖鞋、鞋拔等物品。"
+  },
+  {
+    "keywords": ["冰箱", "冷藏"],
+    "answer": "單人房及雙人房冰箱位於書桌下方；豪華單人房位於電視櫃下方；日式房位於衣櫥旁。（不可冷凍。）"
+  },
+  {
+    "keywords": ["自動販賣機", "飲料", "微波爐", "酒"],
+    "answer": "自動販賣機角位於2樓、4樓、8樓。冰塊請使用4樓製冰機。微波爐同樣設於2樓、4樓、8樓。"
+  },
+  {
+    "keywords": ["投幣洗衣", "洗衣機", "洗衣"],
+    "answer": "投幣洗衣角及自動販賣機位於4樓及8樓。洗衣機投幣後自動投放洗劑。如需兌換零錢，請至2樓櫃台。"
+  },
+  {
+    "keywords": ["報紙", "新聞", "讀賣"],
+    "answer": "報紙（日經、朝日、體育報）可在2樓櫃台閱覽。晨報讀賣新聞可帶回房間。（晨報可能因故停供，敬請諒解。）"
+  },
+  {
+    "keywords": ["按摩", "推拿"],
+    "answer": "目前暫不提供按摩服務。附近有取手站東口「泰式按摩Anjera」、昭和堂軟按摩，或西口「ほぐし屋翔」等，敬請利用。"
+  },
+  {
+    "keywords": ["影印", "傳真"],
+    "answer": "影印及傳真可在2樓櫃台有償辦理。"
+  },
+  {
+    "keywords": ["支付", "信用卡", "現金"],
+    "answer": "支付方式包括現金、信用卡（VISA、Master）、QR支付（Merpay、d支付）等。"
+  },
+  {
+    "keywords": ["自行車停車", "機車", "自行車", "停車"],
+    "answer": "住宿期間可使用地下停車場後方的自行車/機車停車區。從地下停車場有電梯直達2樓櫃台。"
+  },
+  {
+    "keywords": ["吸菸", "煙", "香菸", "抽菸"],
+    "answer": "飯店內無香菸販賣機及吸菸區。吸菸區建議使用取手站（步行約3分鐘）。飯店有48間吸菸房（含雙人及豪華單人）、72間禁菸房（含雙人及豪華單人）。如在禁菸房吸菸，可能收取特殊清潔費及空房補償金。"
+  },
+  {
+    "keywords": ["禁菸", "無菸", "氣味", "房間數"],
+    "answer": "飯店有72間禁菸房（含雙人及豪華單人）、48間吸菸房（含雙人及豪華單人）。除指定吸菸房外全面禁菸，但電梯及販賣室等共用區域可能有菸味。如在禁菸房吸菸，可能收取特殊清潔費及空房補償金。"
+  },
+  {
+    "keywords": ["床", "尺寸", "房間類型", "房型"],
+    "answer": "房間面積：日式房及雙人房24㎡，豪華單人房15.4㎡，單人房12㎡。床尺寸：雙人房兩張單人床（1030mm×1970mm），豪華單人房一張雙人床（1400mm×1970mm），單人房一張半雙人床（1230mm×1970mm）。如有疑問，歡迎提前詢問。"
+  },
+  {
+    "keywords": ["電梯", "樓梯", "宵禁", "凌晨"],
+    "answer": "出於安全考量，凌晨0:00至5:30電梯不停靠2樓以下。凌晨0:00後入住請使用樓梯至2樓櫃台。"
+  },
+  {
+    "keywords": ["觀光", "旅遊", "景點", "活動", "祭典"],
+    "answer": "附近景點有飯店後方的長禪寺、夏季取手煙火大會。取手市民會館常舉辦音樂會、喜劇、戲劇、電影等活動。稍遠有牛久大佛、牛久大濕地、筑波博覽中心等。"
+  },
+  {
+    "keywords": ["地址", "位置", "所在地", "飯店位置"],
+    "answer": "本飯店地址：〒302-0004 茨城縣取手市取手2-4-3，電話：+81-297-72-1123。"
+  },
+  {
+    "keywords": ["取消", "取消費", "取消政策"],
+    "answer": "個人預約取消政策：入住前一天收取20%房費；當日15:00前收取80%；15:00後或未到店收取100%。"
+  },
+  {
+    "keywords": ["便利商店", "Lawson", "7-11", "超商"],
+    "answer": "取手站東口Lawson步行約3分鐘。Seven-Eleven約5分鐘。"
+  },
+  {
+    "keywords": ["車站", "交通", "最近車站", "交通方式"],
+    "answer": "最近車站為JR取手站。從東口出站，右轉經過Lawson，過號誌燈再右行約3分鐘。從上野/品川方向請坐前幾節車廂；從土浦/水戶方向請坐後幾節車廂以靠近東口。如迷路，請致電飯店。"
+  },
+  {
+    "keywords": ["開車", "導航", "路線", "自駕"],
+    "answer": "導航請設定「取手中央飯店」或「茨城縣取手市取手2-4-3」。從常磐道谷和原IC約30分鐘。從東京經6號國道過大利根橋後右轉縣道11號；從水戶/土浦方向在大利根橋前轉入利根（縣道11號），過常磐線地下道，在取手站東口方向號誌左轉，飯店即在右側。"
+  },
+  {
+    "keywords": ["加油", "輪胎", "汽油"],
+    "answer": "附近約5分鐘車程有加油站。請向前台工作人員詢問。"
+  },
+  {
+    "keywords": ["醫院", "牙醫", "感冒", "生病", "診所"],
+    "answer": "感冒、牙痛等可引導至附近醫院。較大設施有JA取手綜合醫療中心等。請向前台工作人員詢問。"
+  },
+  {
+    "keywords": ["書店", "手機店", "購物", "docomo"],
+    "answer": "取手站西口有成城石井（Atre）、西友（Ribbon取手）、T Marche取手（Atre）、大創（Ribbon取手）、熊澤書店（Atre）等。Docomo、Softbank、au門市位於294號線稍遠處。"
+  },
+  {
+    "keywords": ["謝謝", "感謝", "明白了", "了解"],
+    "answer": "非常感謝您的詢問，能為您服務我們深感榮幸。如有其他問題，隨時歡迎詢問。需向工作人員提出的請求，請從房間撥打分機9，前台工作人員將竭誠為您服務。"
   }
   ],
   'zh-HK': [
@@ -274,6 +1044,190 @@ const faq = {
   {
     "keywords": ["退房", "離開", "退房時間"],
     "answer": "退房時間為上午10:00之前。視房況可提供付費延遲退房服務，請提前告知2樓前台。"
+  },
+  {
+    "keywords": ["提前", "早", "提前入住"],
+    "answer": "可提供付費提前入住服務，費用及詳情視房況而定，建議提前查詢。"
+  },
+  {
+    "keywords": ["延遲", "晚", "延遲退房"],
+    "answer": "可提供付費延遲退房服務，費用及詳情視房況而定，建議提前查詢。"
+  },
+  {
+    "keywords": ["泊車", "停車場", "停車位", "車輛", "車"],
+    "answer": "住宿客人可免費使用本酒店泊車場，但車位有限，不接受預約，先到先得。對於巴士或貨車等大型車輛（視尺寸及長度而定），如提前聯絡可能安排預約，請直接致電酒店。"
+  },
+  {
+    "keywords": ["Wi-Fi", "無線上網", "上網", "WLAN"],
+    "answer": "酒店全館提供免費Wi-Fi。SSID及密碼請查看各房間書枱前鏡子右下角，請連接訊號最強的網絡。如需在前台使用，請告知職員。"
+  },
+  {
+    "keywords": ["早餐", "早飯", "自助早餐"],
+    "answer": "早餐時間為上午6:30至9:00，請到2樓前台領取後帶返房間享用。用餐後請將容器放於走廊。（早餐免費提供，但可能因故提早結束，敬請諒解。）"
+  },
+  {
+    "keywords": ["晚餐", "晚飯", "晚餐服務"],
+    "answer": "本酒店不提供晚餐服務。請使用2樓前台提供的附近食肆地圖。"
+  },
+  {
+    "keywords": ["房間電話", "內線", "前台", "電話"],
+    "answer": "房間內電話不可打外線。打其他房間請直接輸入4位房號；聯絡前台職員請撥「9」。"
+  },
+  {
+    "keywords": ["叫早", "晨早叫醒", "起床", "鬧鐘"],
+    "answer": "請拿起房間電話，撥打「80」，然後輸入4位鬧鐘時間（例如0815代表上午8:15）。取消晨叫請撥「81」；查詢請撥「82」。"
+  },
+  {
+    "keywords": ["房卡", "鑰匙"],
+    "answer": "房間採用自動鎖，請隨身攜帶房卡，外出時確認房門已鎖。外出時請將房卡寄存在2樓前台。"
+  },
+  {
+    "keywords": ["貴重物品", "寄存", "保管"],
+    "answer": "貴重物品可寄存於2樓前台，請務必領取寄存單，無單可能無法即時取回。"
+  },
+  {
+    "keywords": ["冷氣", "空調", "暖氣", "溫度"],
+    "answer": "本酒店採用中央冷氣（冷暖統一）。溫度不可自行調校，可透過枕邊圓形掣調節風量。"
+  },
+  {
+    "keywords": ["疏散路線", "逃生", "消防", "地震"],
+    "answer": "疏散路線圖張貼於房門內側，請務必查看。"
+  },
+  {
+    "keywords": ["清潔", "洗衫", "洗衣"],
+    "answer": "目前暫不提供洗衣服務。帶來不便，敬請諒解，可使用附近洗衣舖。"
+  },
+  {
+    "keywords": ["連續住宿", "房間清潔", "打掃", "清潔"],
+    "answer": "客房清潔由上午10:00開始。每3日進行一次清潔，感謝理解。如無需清潔或想更改時間，請於下午1:00前撥「9」聯絡前台。您亦可使用門內紅/白牌示意。剩餘飲品及垃圾將被處理，請在便條上註明勿丟棄物品。"
+  },
+  {
+    "keywords": ["熱水", "飲用水", "自來水", "歡迎飲品", "大麥茶"],
+    "answer": "房間自來水可直接飲用。煲水請使用提供的熱水壺或茶具。2樓另設有免費歡迎飲品角供您享用。（歡迎飲品角可能因故提早結束，敬請諒解。）"
+  },
+  {
+    "keywords": ["快遞", "包裹", "行李", "寄件"],
+    "answer": "包裹可由2樓前台代收。只接受宅急便。如提前寄送行李至酒店，請註明姓名及入住日期，並提前致電。本酒店不接受到付包裹。"
+  },
+  {
+    "keywords": ["借用", "租借", "借用品", "用品"],
+    "answer": "我們備有枱燈、加濕器、毛毯、行動充電器、熨斗、熨衣板、褲子熨燙機、指甲剪、鑷子、針線包、體溫計、文具、枕頭、冰枕、冰桶、開酒器、開瓶器、湯匙、叉子、碟等。如有需要，請聯絡2樓前台。"
+  },
+  {
+    "keywords": ["女士用品", "女性", "提供"],
+    "answer": "我們為女士客人提供一套女士用品（梳子、髮刷、沐浴海綿、各種凝膠、棉花棒、浴鹽、面膜等）。另備有列車時間表（取手出發）及附近食肆地圖。"
+  },
+  {
+    "keywords": ["咖啡", "紅茶", "茶"],
+    "answer": "2樓設有免費歡迎飲品角供您享用。（歡迎飲品角可能因故提早結束，敬請諒解。）"
+  },
+  {
+    "keywords": ["利是封", "襪子", "絲襪", "雨傘", "列印紙"],
+    "answer": "利是封、襪子、絲襪、雨傘、皮帶、列印紙等物品可在2樓前台有償提供。"
+  },
+  {
+    "keywords": ["客房送餐", "外賣"],
+    "answer": "本酒店不提供客房送餐服務。外部購買的食物飲品（披薩、便當等）無法送至房間，請於2樓前台領取。"
+  },
+  {
+    "keywords": ["煮食", "煮飯", "電器", "廚房"],
+    "answer": "為防火災等危險，嚴禁在酒店內進行煮食行為（如煮飯、泡麵、烤零食等）。一經發現，將請您離開，敬請注意。"
+  },
+  {
+    "keywords": ["浴衣", "睡衣", "拖鞋", "室內"],
+    "answer": "房間提供的浴衣及拖鞋請勿用於在大堂徘徊、逗留或外出。"
+  },
+  {
+    "keywords": ["吹風筒", "電吹風"],
+    "answer": "吹風筒位於入口門附近的衣櫃區域。另有除臭劑、拖鞋、鞋拔等物品。"
+  },
+  {
+    "keywords": ["雪櫃", "冷藏"],
+    "answer": "單人房及雙人房雪櫃位於書枱下方；豪華單人房位於電視櫃下方；日式房位於衣櫃旁。（不可冷凍。）"
+  },
+  {
+    "keywords": ["自動售賣機", "飲品", "微波爐", "酒"],
+    "answer": "自動售賣機角位於2樓、4樓、8樓。冰塊請使用4樓製冰機。微波爐同樣設於2樓、4樓、8樓。"
+  },
+  {
+    "keywords": ["投幣洗衣", "洗衣機", "洗衫"],
+    "answer": "投幣洗衣角及自動售賣機位於4樓及8樓。洗衣機投幣後自動投放洗劑。如需換零錢，請到2樓前台。"
+  },
+  {
+    "keywords": ["報紙", "新聞", "讀賣"],
+    "answer": "報紙（日經、朝日、體育報）可在2樓前台閱覽。晨報讀賣新聞可帶返房間。（晨報可能因故停供，敬請諒解。）"
+  },
+  {
+    "keywords": ["按摩", "推拿"],
+    "answer": "目前暫不提供按摩服務。附近有取手站東口「泰式按摩Anjera」、昭和堂軟按摩，或西口「ほぐし屋翔」等，歡迎使用。"
+  },
+  {
+    "keywords": ["影印", "傳真"],
+    "answer": "影印及傳真可在2樓前台有償辦理。"
+  },
+  {
+    "keywords": ["付款", "信用卡", "現金"],
+    "answer": "付款方式包括現金、信用卡（VISA、Master）、QR支付（Merpay、d支付）等。"
+  },
+  {
+    "keywords": ["單車泊車", "電單車", "單車", "泊車"],
+    "answer": "住宿期間可使用地下泊車場後方的單車/電單車泊車區。從地下泊車場有升降機直達2樓前台。"
+  },
+  {
+    "keywords": ["吸煙", "煙", "香煙", "抽煙"],
+    "answer": "酒店內無香煙售賣機及吸煙區。吸煙區建議使用取手站（步行約3分鐘）。酒店有48間吸煙房（包括雙人及豪華單人）、72間禁煙房（包括雙人及豪華單人）。如在禁煙房吸煙，可能收取特殊清潔費及空房補償金。"
+  },
+  {
+    "keywords": ["禁煙", "無煙", "氣味", "房間數"],
+    "answer": "酒店有72間禁煙房（包括雙人及豪華單人）、48間吸煙房（包括雙人及豪華單人）。除指定吸煙房外全面禁煙，但升降機及售賣室等公用區域可能有煙味。如在禁煙房吸煙，可能收取特殊清潔費及空房補償金。"
+  },
+  {
+    "keywords": ["床", "尺寸", "房間類型", "房型"],
+    "answer": "房間面積：日式房及雙人房24㎡，豪華單人房15.4㎡，單人房12㎡。床尺寸：雙人房兩張單人床（1030mm×1970mm），豪華單人房一張雙人床（1400mm×1970mm），單人房一張半雙人床（1230mm×1970mm）。如有疑問，歡迎提前查詢。"
+  },
+  {
+    "keywords": ["升降機", "樓梯", "宵禁", "凌晨"],
+    "answer": "出於安全考慮，凌晨0:00至5:30升降機不停靠2樓以下。凌晨0:00後入住請使用樓梯至2樓前台。"
+  },
+  {
+    "keywords": ["觀光", "旅遊", "景點", "活動", "煙花"],
+    "answer": "附近景點有酒店後方的長禪寺、夏季取手煙花大會。取手市民會館常舉辦音樂會、喜劇、戲劇、電影等活動。稍遠有牛久大佛、牛久大濕地、筑波博覽中心等。"
+  },
+  {
+    "keywords": ["地址", "位置", "所在地", "酒店位置"],
+    "answer": "本酒店地址：〒302-0004 茨城縣取手市取手2-4-3，電話：+81-297-72-1123。"
+  },
+  {
+    "keywords": ["取消", "取消費", "取消政策"],
+    "answer": "個人預約取消政策：入住前一天收取20%房費；當日15:00前收取80%；15:00後或未到店收取100%。"
+  },
+  {
+    "keywords": ["便利店", "Lawson", "7-11", "超巿"],
+    "answer": "取手站東口Lawson步行約3分鐘。Seven-Eleven約5分鐘。"
+  },
+  {
+    "keywords": ["車站", "交通", "最近車站", "交通方式"],
+    "answer": "最近車站為JR取手站。從東口出站，右轉經過Lawson，過燈號再右行約3分鐘。從上野/品川方向請坐前幾卡車廂；從土浦/水戶方向請坐後幾卡車廂以靠近東口。如迷路，請致電酒店。"
+  },
+  {  
+ "keywords": ["開車", "導航", "路線", "自駕"],
+    "answer": "導航請設定「取手中央酒店」或「茨城縣取手市取手2-4-3」。從常磐道谷和原IC約30分鐘。從東京經6號國道過大利根橋後右轉縣道11號；從水戶/土浦方向在大利根橋前轉入利根（縣道11號），過常磐線地下道，在取手站東口方向燈號左轉，酒店即在右側。"
+  },
+  {
+    "keywords": ["加油", "輪胎", "汽油"],
+    "answer": "附近約5分鐘車程有加油站。請向前台職員查詢。"
+  },
+  {
+    "keywords": ["醫院", "牙醫", "感冒", "生病", "診所"],
+    "answer": "感冒、牙痛等可引導至附近醫院。較大設施有JA取手綜合醫療中心等。請向前台職員查詢。"
+  },
+  {
+    "keywords": ["書局", "手機店", "購物", "docomo"],
+    "answer": "取手站西口有成城石井（Atre）、西友（Ribbon取手）、T Marche取手（Atre）、大創（Ribbon取手）、熊澤書局（Atre）等。Docomo、Softbank、au門市位於294號線稍遠處。"
+  },
+  {
+    "keywords": ["多謝", "感謝", "明白", "了解"],
+    "answer": "多謝您的查詢，能為您服務我們深感榮幸。如有其他問題，隨時歡迎查詢。需向職員提出的請求，請從房間撥打分機9，前台職員將竭誠為您服務。"
   }
   ],
   vi: [
@@ -284,6 +1238,190 @@ const faq = {
 {
 "keywords": ["trả phòng", "trả phòng", "ra ngoài", "quá hạn lưu trú"],
 "answer": "Trả phòng được yêu cầu trước 10:00 AM. Gia hạn lưu trú có thể với phí tùy theo tình trạng phòng trống. Vui lòng thông báo cho quầy lễ tân ở tầng 2."
+},
+{
+"keywords": ["sớm", "sớm hơn", "vào sớm", "nhận phòng sớm"],
+"answer": "Nhận phòng sớm có sẵn với phí tùy theo tình trạng phòng trống. Vui lòng hỏi trước về phí và chi tiết."
+},
+{
+"keywords": ["muộn", "muộn hơn", "rời đi muộn", "trả phòng muộn", "phụ phí"],
+"answer": "Trả phòng muộn có sẵn với phí tùy theo tình trạng phòng trống. Vui lòng hỏi trước về phí và chi tiết."
+},
+{
+"keywords": ["đỗ xe", "bãi đỗ xe", "bãi đỗ xe", "xe cộ"],
+"answer": "Khách lưu trú tại khách sạn có thể sử dụng bãi đỗ xe miễn phí, nhưng không chấp nhận đặt chỗ do số lượng chỗ hạn chế. Đỗ xe theo nguyên tắc ai đến trước được phục vụ trước. Đối với xe lớn như xe buýt hoặc xe tải (xem xét kích thước và chiều dài), có thể đặt chỗ nếu liên hệ trước. Vui lòng gọi trực tiếp cho khách sạn."
+},
+{
+"keywords": ["Wi-Fi", "wifi", "WiFi", "internet", "mạng", "không dây", "có dây", "LAN"],
+"answer": "Wi-Fi miễn phí có sẵn khắp khách sạn. SSID và mật khẩu được dán ở góc dưới bên phải của gương trước bàn làm việc trong mỗi phòng. Vui lòng kết nối với tín hiệu mạnh nhất. Nếu bạn cần sử dụng Wi-Fi miễn phí tại quầy lễ tân, vui lòng hỏi nhân viên."
+},
+{
+"keywords": ["bữa sáng", "bữa ăn sáng", "tiệc buffet"],
+"answer": "Bữa sáng được cung cấp từ 6:30 AM đến 9:00 AM tại quầy lễ tân ở tầng 2. Vui lòng mang về phòng để thưởng thức. Sau khi ăn, vui lòng đặt hộp đựng ở hành lang. (Bữa sáng miễn phí, nhưng có thể kết thúc mà không báo trước. Chúng tôi đánh giá cao sự thông cảm của bạn.)"
+},
+{
+"keywords": ["bữa tối", "bữa ăn tối", "bữa ăn tối"],
+"answer": "Chúng tôi không cung cấp dịch vụ bữa tối. Vui lòng sử dụng bản đồ nhà hàng gần đó có sẵn tại quầy lễ tân ở tầng 2."
+},
+{
+"keywords": ["điện thoại phòng", "điện thoại nội bộ", "nhân viên"],
+"answer": "Điện thoại trong phòng không thể gọi ra ngoài. Để gọi nội bộ đến các phòng khác, quay số phòng 4 chữ số. Để liên hệ với nhân viên quầy lễ tân, quay '9'."
+},
+{
+"keywords": ["gọi đánh thức", "gọi đánh thức", "đánh thức", "đồng hồ"],
+"answer": "Nhấc máy trong phòng, quay '80', sau đó nhập thời gian báo thức bằng 4 chữ số (ví dụ: 0815 cho 8:15 AM). Để hủy gọi đánh thức, quay '81'; để kiểm tra, quay '82'."
+},
+{
+"keywords": ["chìa khóa", "chìa khóa phòng"],
+"answer": "Các phòng có khóa tự động, vì vậy vui lòng mang theo chìa khóa phòng và xác nhận cửa đã khóa khi rời đi. Khi ra ngoài, vui lòng gửi chìa khóa phòng tại quầy lễ tân."
+},
+{
+"keywords": ["đồ quý giá", "đồ gửi"],
+"answer": "Đồ quý giá có thể gửi tại quầy lễ tân ở tầng 2. Vui lòng chắc chắn nhận biên nhận gửi. Không có biên nhận, chúng tôi có thể không trả lại ngay lập tức."
+},
+{
+"keywords": ["điều hòa", "điều hòa", "làm mát", "sưởi ấm", "AC"],
+"answer": "Khách sạn sử dụng điều hòa trung tâm (làm mát hoặc sưởi ấm). Không thể điều chỉnh nhiệt độ. Bạn có thể điều chỉnh luồng gió bằng cách xoay núm tròn cạnh gối."
+},
+{
+"keywords": ["lối thoát hiểm", "thoát hiểm", "thoát hiểm", "lửa", "động đất"],
+"answer": "Bản đồ lối thoát hiểm được dán ở mặt trong cửa phòng. Vui lòng chắc chắn kiểm tra."
+},
+{
+"keywords": ["dọn dẹp", "giặt là"],
+"answer": "Hiện tại chúng tôi không chấp nhận dịch vụ giặt là. Chúng tôi xin lỗi vì sự bất tiện, nhưng vui lòng sử dụng cửa hàng giặt là gần đó."
+},
+{
+"keywords": ["lưu trú liên tục", "dọn phòng", "dọn phòng", "dọn phòng", "dọn phòng"],
+"answer": "Dọn dẹp bắt đầu lúc 10:00 AM. Chúng tôi dọn dẹp mỗi ba ngày, vì vậy chúng tôi đánh giá cao sự thông cảm của bạn. Nếu bạn không cần dọn dẹp hoặc muốn thay đổi thời gian, vui lòng liên hệ quầy lễ tân tại '9' trước 1:00 PM. Bạn cũng có thể chỉ định bằng biển đỏ hoặc trắng bên trong cửa. Đồ uống thừa và rác sẽ bị vứt bỏ, vì vậy vui lòng ghi chú bất kỳ món đồ nào không vứt trên sổ tay."
+},
+{
+"keywords": ["nước nóng", "nước uống", "nước máy", "đồ uống miễn phí", "đồ uống chào mừng", "trà lúa mạch"],
+"answer": "Nước trong phòng (nước máy) an toàn để uống. Để đun nước, sử dụng ấm đun hoặc máy pha trà được cung cấp. Cũng có góc đồ uống chào mừng miễn phí ở tầng 2 để bạn thưởng thức. (Góc đồ uống chào mừng có thể kết thúc mà không báo trước. Chúng tôi đánh giá cao sự thông cảm của bạn.)"
+},
+{
+"keywords": ["giao hàng", "bưu kiện", "hành lý", "vận chuyển"],
+"answer": "Chúng tôi có thể xử lý bưu kiện tại quầy lễ tân ở tầng 2. Đối với giao hàng, chúng tôi chỉ xử lý Yamato Express. Nếu gửi hành lý đến khách sạn trước, vui lòng ghi tên và ngày lưu trú, và gọi cho chúng tôi trước. Chúng tôi không chấp nhận lô hàng thu tiền khi giao."
+},
+{
+"keywords": ["cho mượn", "đồ cho mượn", "cho thuê"],
+"answer": "Chúng tôi có đèn bàn, máy tạo ẩm, chăn, sạc di động, bàn là, bàn ủi, máy ép quần, kéo cắt móng, nhíp, bộ may, nhiệt kế, dụng cụ viết, gối, gối đá, thùng đá, dụng cụ mở rượu vang, mở chai, thìa, nĩa, đĩa, v.v. Vui lòng liên hệ quầy lễ tân ở tầng 2 nếu cần."
+},
+{
+"keywords": ["cung cấp", "phụ nữ", "phụ nữ"],
+"answer": "Chúng tôi cung cấp bộ tiện nghi cho phụ nữ (lược, bàn chải tóc, bọt biển tắm, các loại gel, tăm bông, muối tắm, mặt nạ dưỡng da, v.v.). Chúng tôi cũng có lịch tàu (từ Toride) và bản đồ nhà hàng gần đó có sẵn."
+},
+{
+"keywords": ["cà phê", "trà đen", "trà"],
+"answer": "Có góc đồ uống chào mừng miễn phí ở tầng 2 để bạn thưởng thức. (Góc đồ uống chào mừng có thể kết thúc mà không báo trước. Chúng tôi đánh giá cao sự thông cảm của bạn.)"
+},
+{
+"keywords": ["phong bì quà", "tất", "quần tất", "máy in"],
+"answer": "Phong bì quà, tất, quần tất, ô, thắt lưng, giấy in, v.v., có sẵn với phí tại quầy lễ tân ở tầng 2."
+},
+{
+"keywords": ["dịch vụ phòng", "dịch vụ phòng", "uber", "pizza"],
+"answer": "Chúng tôi không cung cấp dịch vụ phòng. Thực phẩm và đồ uống mua bên ngoài (pizza, bát, v.v.) không thể giao đến phòng. Vui lòng nhận tại quầy lễ tân ở tầng 2."
+},
+{
+"keywords": ["nấu ăn", "thiết bị", "ẩm thực"],
+"answer": "Hoạt động nấu ăn bên trong cơ sở (như nấu cơm, làm ramen, nướng đồ ăn nhẹ, v.v.) bị cấm nghiêm ngặt do nguy cơ hỏa hoạn và các rủi ro khác. Vui lòng lưu ý rằng nếu phát hiện, bạn sẽ bị yêu cầu rời đi."
+},
+{
+"keywords": ["yukata", "đồ ngủ", "trong nhà", "dép"],
+"answer": "Vui lòng lưu ý rằng yukata và dép được cung cấp trong phòng không thể sử dụng để lang thang trong sảnh, lưu trú hoặc ra ngoài."
+},
+{
+"keywords": ["máy sấy tóc", "máy sấy tóc"],
+"answer": "Máy sấy tóc nằm gần cửa vào trong khu vực tủ quần áo. Chất khử mùi, dép, sừng giày, v.v., cũng có sẵn ở đó."
+},
+{
+"keywords": ["tủ lạnh", "tủ lạnh", "tủ đông"],
+"answer": "Trong phòng đơn và phòng đôi, nó ở dưới bàn; trong phòng đơn cao cấp, dưới giá đỡ TV; trong phòng kiểu Nhật, cạnh tủ quần áo. (Không thể đông lạnh.)"
+},
+{
+"keywords": ["máy bán hàng tự động", "nước trái cây", "ấm", "lò vi sóng", "rượu"],
+"answer": "Góc máy bán hàng tự động ở tầng 2, 4 và 8. Đối với đá, sử dụng máy làm đá ở tầng 4. Lò vi sóng cũng được lắp đặt ở tầng 2, 4 và 8."
+},
+{
+"keywords": ["giặt là xu", "giặt là xu", "máy giặt", "máy giặt"],
+"answer": "Góc giặt là và máy bán hàng tự động ở tầng 4 và 8. Chất tẩy rửa được phân phối tự động khi bỏ xu vào máy giặt. Để đổi tiền, vui lòng đến quầy lễ tân ở tầng 2."
+},
+{
+"keywords": ["báo chí", "tin tức"],
+"answer": "Báo chí (Nikkei, Asahi, Thể thao) có sẵn để xem tại quầy lễ tân ở tầng 2. Bạn có thể mang báo Yomiuri buổi sáng về phòng. (Báo buổi sáng có thể bị ngừng mà không báo trước, vì vậy vui lòng thông cảm.)"
+},
+{
+"keywords": ["massage"],
+"answer": "Hiện tại chúng tôi không cung cấp dịch vụ massage. Vui lòng sử dụng các dịch vụ gần đó như Thai Massage Anjera hoặc Showa-do Soft Massage tại Lối ra Đông Ga Toride, hoặc Hogushi-ya Sho tại Lối ra Tây."
+},
+{
+"keywords": ["sao chép", "FAX", "fax"],
+"answer": "Sao chép và fax có sẵn với phí tại quầy lễ tân ở tầng 2."
+},
+{
+"keywords": ["thanh toán", "thẻ", "tín dụng", "visa", "master", "tiền mặt"],
+"answer": "Phương thức thanh toán bao gồm tiền mặt, thẻ tín dụng (VISA, Master), thanh toán QR (Merpay, d Payment), v.v."
+},
+{
+"keywords": ["đỗ xe đạp", "đỗ xe đạp", "xe đạp", "xe đạp", "xe máy", "xe hai bánh"],
+"answer": "Trong thời gian lưu trú, bạn có thể sử dụng bãi đỗ xe đạp/xe máy ở phía sau bãi đỗ xe ngầm. Thang máy có sẵn từ bãi đỗ xe ngầm đến quầy lễ tân tầng 2."
+},
+{
+"keywords": ["hút thuốc", "thuốc lá", "hút"],
+"answer": "Không có máy bán thuốc lá hoặc khu vực hút thuốc trong khách sạn. Đối với khu vực hút thuốc, chúng tôi khuyến nghị khu vực tại Ga Toride (khoảng 3 phút đi bộ). Khách sạn có 48 phòng hút thuốc (bao gồm phòng đôi và phòng đơn cao cấp) và 72 phòng không hút thuốc (bao gồm phòng đôi và phòng đơn cao cấp). Nếu phát hiện hút thuốc trong phòng không hút thuốc, chúng tôi có thể tính phí làm sạch đặc biệt và bồi thường cho những ngày không bán được."
+},
+{
+"keywords": ["không hút thuốc", "mùi", "mùi", "số lượng phòng"],
+"answer": "Khách sạn có 72 phòng không hút thuốc (bao gồm phòng đôi và phòng đơn cao cấp) và 48 phòng hút thuốc (bao gồm phòng đôi và phòng đơn cao cấp). Hút thuốc bị cấm ở mọi nơi trừ phòng hút thuốc được chỉ định, nhưng mùi có thể tồn tại ở các khu vực chung như thang máy và phòng máy bán hàng. Nếu phát hiện hút thuốc trong phòng không hút thuốc, chúng tôi có thể tính phí làm sạch đặc biệt và bồi thường cho những ngày không bán được."
+},
+{
+"keywords": ["giường", "kích thước", "chiều rộng", "loại phòng", "loại phòng", "loại phòng", "loại phòng"],
+"answer": "Kích thước phòng: Phòng kiểu Nhật và phòng đôi là 24㎡, phòng đơn cao cấp 15.4㎡, phòng đơn 12㎡. Kích thước giường: Phòng đôi có hai giường đơn (1030mm × 1970mm), phòng đơn cao cấp có một giường đôi (1400mm × 1970mm), phòng đơn có một giường bán đôi (1230mm × 1970mm). Vui lòng hỏi trước nếu bạn có bất kỳ câu hỏi nào."
+},
+{
+"keywords": ["thang máy", "cầu thang", "giờ giới nghiêm"],
+"answer": "Vì lý do an ninh, thang máy không đi xuống dưới tầng 2 từ 0:00 AM đến 5:30 AM. Nếu nhận phòng sau 0:00 AM, vui lòng sử dụng cầu thang để đến quầy lễ tân tầng 2."
+},
+{
+"keywords": ["du lịch", "chơi", "xem", "sự kiện", "lễ hội"],
+"answer": "Các điểm tham quan gần đó bao gồm Chùa Chozenji phía sau khách sạn, Lễ hội Pháo hoa Toride vào mùa hè. Hội trường Dân sự Toride tổ chức các sự kiện khác nhau (hòa nhạc, hài kịch, kịch, phim, v.v.). Xa hơn, có Ushiku Daibutsu, Đầm Ushiku, Trung tâm Triển lãm Tsukuba, v.v."
+},
+{
+"keywords": ["địa chỉ", "vị trí"],
+"answer": "Khách sạn của chúng tôi nằm tại 〒302-0004, 2-4-3 Toride, Thành phố Toride, Tỉnh Ibaraki, TEL: +81-297-72-1123."
+},
+{
+"keywords": ["hủy", "phí hủy", "phí hủy", "đến khi nào", "đến khi nào", "bao nhiêu ngày trước"],
+"answer": "Đối với đặt chỗ cá nhân, hủy vào ngày trước khi đến tính 20% phí lưu trú; vào ngày đến trước 3:00 PM, 80%; sau 3:00 PM hoặc không đến, 100%."
+},
+{
+"keywords": ["cửa hàng tiện lợi", "cửa hàng tiện lợi", "Lawson", "Seven-Eleven"],
+"answer": "Lawson tại Lối ra Đông Ga Toride cách 3 phút đi bộ. Seven-Eleven cách khoảng 5 phút."
+},
+{
+"keywords": ["ga", "đường đi", "tàu", "ga gần nhất", "ga gần nhất", "lối ra"],
+"answer": "Ga gần nhất là Ga JR Toride. Ra khỏi Cổng Đông, rẽ phải qua Lawson, qua đèn tín hiệu, và đi phải khoảng 3 phút. Đối với tàu từ Ueno/Shinagawa, lên toa trước; từ Tsuchiura/Mito, toa sau để gần Lối ra Đông hơn. Nếu lạc, vui lòng gọi +81-297-72-1123."
+},
+{
+"keywords": ["xe hơi", "ô tô", "hướng dẫn", "tuyến đường"],
+"answer": "Đặt định vị của bạn đến 'Central Hotel Toride' hoặc '2-4-3 Toride, Thành phố Toride, Tỉnh Ibaraki'. Từ IC Yawara Đường cao tốc Joban, khoảng 30 phút. Từ Tokyo, sau khi qua Cầu Otone trên Quốc lộ 6, rẽ phải vào Tỉnh lộ 11; từ Mito/Tsuchiura, trước Cầu Otone, rẽ đến Tone (Tỉnh lộ 11), đi dưới Đường Joban, rẽ trái tại đèn tín hiệu hướng đến Lối ra Đông Ga Toride, và khách sạn ngay bên phải."
+},
+{
+"keywords": ["lốp xì hơi", "lốp xì hơi", "xăng", "nhiên liệu", "nạp nhiên liệu"],
+"answer": "Có trạm xăng cách khoảng 5 phút bằng xe hơi. Vui lòng hỏi nhân viên quầy lễ tân."
+},
+{
+"keywords": ["bệnh viện", "nha sĩ", "sốt", "cảm lạnh", "cúm", "corona", "bệnh tật", "đau"],
+"answer": "Đối với cảm lạnh, đau răng, v.v., chúng tôi có thể hướng dẫn đến bệnh viện gần đó. Các cơ sở lớn hơn như Trung tâm Y tế Tổng hợp JA Toride có sẵn. Vui lòng hỏi nhân viên quầy lễ tân."
+},
+{
+"keywords": ["hiệu sách", "cửa hàng di động", "docomo", "softbank", "au", "điện thoại thông minh", "mua sắm", "lối ra tây", "cửa hàng 100 yên"],
+"answer": "Tại Lối ra Tây Ga Toride: Seijo Ishii (Atre), Seiyu (Ribbon Toride), T Marche Toride (Atre), Daiso (Ribbon Toride), Hiệu sách Kumazawa (Atre), v.v. Các cửa hàng Docomo, Softbank, AU cách xa hơn dọc Quốc lộ 294."
+},
+{
+"keywords": ["cảm ơn", "cảm ơn", "cảm ơn", "hiểu rồi", "đã hiểu"],
+"answer": "Tôi rất vui vì đã giúp đỡ được. Nếu bạn có bất kỳ câu hỏi nào khác, vui lòng hỏi bất cứ lúc nào. Đối với bất kỳ yêu cầu nào đến nhân viên, vui lòng quay số nội bộ 9 từ phòng của bạn. Nhân viên quầy lễ tân sẽ rất vui lòng hỗ trợ bạn."
 }
   ],
   th: [
@@ -294,9 +1432,194 @@ const faq = {
 {
 "keywords": ["เช็คเอาท์", "เช็คเอาท์", "ออก", "เกินกำหนด"],
 "answer": "ขอเช็คเอาท์ก่อน 10:00 น. สามารถขยายเวลาพักได้โดยมีค่าธรรมเนียมขึ้นอยู่กับความพร้อมของห้องพัก กรุณาแจ้งแผนกต้อนรับชั้น 2"
+},
+{
+"keywords": ["ก่อนเวลา", "ก่อนหน้านี้", "เข้า早く", "เช็คอินก่อนเวลา"],
+"answer": "การเช็คอินก่อนเวลามีให้บริการโดยมีค่าธรรมเนียมขึ้นอยู่กับความพร้อมของห้องพัก กรุณาสอบถามล่วงหน้าเกี่ยวกับค่าธรรมเนียมและรายละเอียด"
+},
+{
+"keywords": ["หลังเวลา", "หลังจากนั้น", "ออกช้า", "เช็คเอาท์ช้า", "ค่าธรรมเนียมเกิน"],
+"answer": "การเช็คเอาท์ช้ามีให้บริการโดยมีค่าธรรมเนียมขึ้นอยู่กับความพร้อมของห้องพัก กรุณาสอบถามล่วงหน้าเกี่ยวกับค่าธรรมเนียมและรายละเอียด"
+},
+{
+"keywords": ["ที่จอดรถ", "ลานจอดรถ", "ลานจอดรถ", "ยานพาหนะ"],
+"answer": "แขกที่พักในโรงแรมสามารถใช้ลานจอดรถฟรี แต่ไม่รับจองเนื่องจากจำนวนที่จำกัด จอดรถตามหลักมาก่อนได้ก่อน สำหรับยานพาหนะขนาดใหญ่เช่นรถบัสหรือรถบรรทุก (พิจารณาขนาดและความยาว) อาจจองได้หากติดต่อล่วงหน้า กรุณาโทรตรงถึงโรงแรม"
+},
+{
+"keywords": ["Wi-Fi", "wifi", "WiFi", "อินเทอร์เน็ต", "เน็ต", "ไร้สาย", "มีสาย", "LAN"],
+"answer": "มี Wi-Fi ฟรีทั่วโรงแรม SSID และรหัสผ่านติดตั้งที่มุมล่างขวาของกระจกหน้โต๊ะในแต่ละห้อง กรุณาเชื่อมต่อกับสัญญาณที่แรงที่สุด หากต้องการใช้ Wi-Fi ฟรีที่แผนกต้อนรับ กรุณาถามพนักงาน"
+},
+{
+"keywords": ["อาหารเช้า", "อาหารเช้า", "บุฟเฟ่ต์"],
+"answer": "อาหารเช้าให้บริการตั้งแต่ 6:30 น. ถึง 9:00 น. ที่แผนกต้อนรับชั้น 2 กรุณานำกลับห้องเพื่อรับประทาน หลังรับประทานแล้วกรุณาวางภาชนะในทางเดิน (อาหารเช้าฟรี แต่บริการอาจสิ้นสุดโดยไม่แจ้งล่วงหน้า ขอขอบคุณสำหรับความเข้าใจ)"
+},
+{
+"keywords": ["อาหารเย็น", "อาหารเย็น", "อาหารเย็น"],
+"answer": "เราไม่ให้บริการอาหารเย็น กรุณาใช้แผนที่ร้านอาหารใกล้เคียงที่มีอยู่ที่แผนกต้อนรับชั้น 2"
+},
+{
+"keywords": ["โทรศัพท์ในห้อง", "โทรศัพท์ภายใน", "พนักงาน"],
+"answer": "โทรศัพท์ในห้องไม่สามารถโทรออกภายนอกได้ สำหรับการโทรภายในถึงห้องอื่น กดหมายเลขห้อง 4 หลัก เพื่อติดต่อพนักงานแผนกต้อนรับ กด '9'"
+},
+{
+"keywords": ["โทรปลุก", "โทรปลุก", "ปลุก", "นาฬิกา"],
+"answer": "ยกหูในห้อง กด '80' แล้วป้อนเวลาปลุกด้วยตัวเลข 4 หลัก (เช่น 0815 สำหรับ 8:15 น.) เพื่อยกเลิกโทรปลุก กด '81'; เพื่อตรวจสอบ กด '82'"
+},
+{
+"keywords": ["กุญแจ", "กุญแจห้อง"],
+"answer": "ห้องมีระบบล็อกอัตโนมัติ ดังนั้นกรุณาพกกุญแจห้องและยืนยันว่าประตูถูกล็อกเมื่อออกไป เมื่อออกไปข้างนอก กรุณาฝากกุญแจห้องที่แผนกต้อนรับ"
+},
+{
+"keywords": ["ของมีค่า", "ของฝาก"],
+"answer": "ของมีค่าฝากได้ที่แผนกต้อนรับชั้น 2 กรุณารับใบเสร็จฝาก หากไม่มีใบเสร็จ เราอาจไม่สามารถคืนของได้ทันที"
+},
+{
+"keywords": ["เครื่องปรับอากาศ", "เครื่องปรับอากาศ", "ทำความเย็น", "ทำความร้อน", "AC"],
+"answer": "โรงแรมใช้เครื่องปรับอากาศส่วนกลาง (ทำความเย็นหรือทำความร้อน) ไม่สามารถปรับอุณหภูมิได้ คุณสามารถปรับการไหลของอากาศโดยหมุนปุ่มกลมข้างหมอน"
+},
+{
+"keywords": ["ทางอพยพ", "อพยพ", "หลบหนี", "ไฟไหม้", "แผ่นดินไหว"],
+"answer": "แผนที่ทางอพยพติดตั้งที่ด้านในประตูห้อง กรุณาตรวจสอบให้แน่ใจ"
+},
+{
+"keywords": ["ทำความสะอาด", "ซักรีด"],
+"answer": "ปัจจุบันเราไม่รับบริการซักรีด ขออภัยในความไม่สะดวก แต่กรุณาใช้ร้านซักรีดใกล้เคียง"
+},
+{
+"keywords": ["พักต่อเนื่อง", "ทำความสะอาดห้อง", "ทำความสะอาดห้อง", "แม่บ้าน", "แม่บ้าน"],
+"answer": "การทำความสะอาดเริ่มเวลา 10:00 น. เราทำความสะอาดทุกสามวัน ดังนั้นขอขอบคุณสำหรับความเข้าใจ หากไม่ต้องการทำความสะอาดหรือต้องการเปลี่ยนเวลา กรุณาติดต่อแผนกต้อนรับที่ '9' ก่อน 13:00 น. คุณสามารถระบุด้วยป้ายสีแดงหรือสีขาวด้านในประตู เครื่องดื่มเหลือและขยะจะถูกทิ้ง ดังนั้นกรุณาเขียนบันทึกของที่ไม่ทิ้งบนสมุดโน้ต"
+},
+{
+"keywords": ["น้ำร้อน", "น้ำดื่ม", "น้ำประปา", "เครื่องดื่มฟรี", "เครื่องดื่มต้อนรับ", "ชาบาร์เลย์"],
+"answer": "น้ำในห้อง (น้ำประปา) ปลอดภัยสำหรับดื่ม เพื่อต้มน้ำ ใช้กาน้ำร้อนหรือเครื่องชงชาที่ให้มา นอกจากนี้ยังมีมุมเครื่องดื่มต้อนรับฟรีชั้น 2 สำหรับความเพลิดเพลินของคุณ (มุมเครื่องดื่มต้อนรับอาจสิ้นสุดโดยไม่แจ้งล่วงหน้า ขอขอบคุณสำหรับความเข้าใจ)"
+},
+{
+"keywords": ["การจัดส่ง", "พัสดุ", "กระเป๋าเดินทาง", "การขนส่ง"],
+"answer": "เราสามารถจัดการพัสดุที่แผนกต้อนรับชั้น 2 สำหรับการจัดส่ง เราจัดการเฉพาะ Yamato Express หากส่งกระเป๋าเดินทางมาที่โรงแรมล่วงหน้า กรุณาระบุชื่อและวันที่พัก และโทรหาเราก่อน เราไม่รับพัสดุชำระเงินปลายทาง"
+},
+{
+"keywords": ["ยืม", "ของยืม", "เช่า"],
+"answer": "เรามีโคมไฟตั้งโต๊ะ เครื่องทำความชื้น ผ้าห่ม ที่ชาร์จมือถือ เตารีด ที่รีดผ้า เครื่องรีดกางเกง กรรไกรตัดเล็บ แหนบ ชุดเย็บผ้า เทอร์โมมิเตอร์ อุปกรณ์เขียน หมอน หมอนน้ำแข็ง ถังน้ำแข็ง ที่เปิดไวน์ ที่เปิดขวด ช้อน ส้อม จาน ฯลฯ กรุณาติดต่อแผนกต้อนรับชั้น 2 หากต้องการ"
+},
+{
+"keywords": ["ให้บริการ", "สุภาพสตรี", "ผู้หญิง"],
+"answer": "เราให้บริการชุดอุปกรณ์สำหรับสุภาพสตรี (หวี แปรงผม ฟองน้ำอาบน้ำ เจลต่างๆ ตุ้มหูสำลี เกลืออาบน้ำ แผ่นมาส์กหน้า ฯลฯ) เรายังมีตารางเวลารถไฟ (จาก Toride) และแผนที่ร้านอาหารใกล้เคียงที่มีให้บริการ"
+},
+{
+"keywords": ["กาแฟ", "ชาดำ", "ชา"],
+"answer": "มีมุมเครื่องดื่มต้อนรับฟรีชั้น 2 สำหรับความเพลิดเพลินของคุณ (มุมเครื่องดื่มต้อนรับอาจสิ้นสุดโดยไม่แจ้งล่วงหน้า ขอขอบคุณสำหรับความเข้าใจ)"
+},
+{
+"keywords": ["ซองของขวัญ", "ถุงเท้า", "ถุงน่อง", "เครื่องพิมพ์"],
+"answer": "ซองของขวัญ ถุงเท้า ถุงน่อง ร่ม เข็มขัด กระดาษพิมพ์ ฯลฯ มีให้บริการโดยมีค่าธรรมเนียมที่แผนกต้อนรับชั้น 2"
+},
+{
+"keywords": ["รูมเซอร์วิส", "รูมเซอร์วิส", "uber", "พิซซ่า"],
+"answer": "เราไม่ให้บริการรูมเซอร์วิส อาหารและเครื่องดื่มที่ซื้อจากภายนอก (พิซซ่า ชาม ฯลฯ) ไม่สามารถส่งถึงห้องได้ กรุณารับที่แผนกต้อนรับชั้น 2"
+},
+{
+"keywords": ["ทำอาหาร", "เครื่องใช้ไฟฟ้า", "อาหาร"],
+"answer": "กิจกรรมทำอาหารภายในสถานที่ (เช่น หุงข้าว ทำราเม็ง ย่างขนม ฯลฯ) ห้ามอย่างเคร่งครัดเนื่องจากความเสี่ยงไฟไหม้และอันตรายอื่นๆ กรุณาทราบว่าหากพบ คุณจะถูกขอให้ออกไป"
+},
+{
+"keywords": ["ยูกาตะ", "ชุดนอน", "ในร่ม", "รองเท้าแตะ"],
+"answer": "กรุณาทราบว่ายูกาตะและรองเท้าแตะที่ให้มาในห้องไม่สามารถใช้เดินเล่นในล็อบบี้ พัก หรือออกไปข้างนอกได้"
+},
+{
+"keywords": ["ไดร์เป่าผม", "ไดร์เป่าผม"],
+"answer": "ไดร์เป่าผมอยู่ใกล้ประตูทางเข้าในพื้นที่ตู้เสื้อผ้า สเปรย์ดับกลิ่น รองเท้าแตะ เขาสำหรับรองเท้า ฯลฯ ก็มีให้บริการที่นั่น"
+},
+{
+"keywords": ["ตู้เย็น", "ตู้เย็น", "ช่องแช่แข็ง"],
+"answer": "ในห้องเดี่ยวและห้องเตียงคู่ อยู่ใต้โต๊ะ; ในห้องเดี่ยวดีลักซ์ ใต้ที่วางทีวี; ในห้องสไตล์ญี่ปุ่น ข้างตู้เสื้อผ้า (ไม่สามารถแช่แข็งได้)"
+},
+{
+"keywords": ["ตู้หยอดเหรียญ", "น้ำผลไม้", "อุ่น", "ไมโครเวฟ", "แอลกอฮอล์"],
+"answer": "มุมตู้หยอดเหรียญอยู่ชั้น 2, 4 และ 8 สำหรับน้ำแข็ง ใช้เครื่องทำน้ำแข็งชั้น 4 ไมโครเวฟก็ติดตั้งชั้น 2, 4 และ 8"
+},
+{
+"keywords": ["ซักผ้าหยอดเหรียญ", "ซักผ้าหยอดเหรียญ", "เครื่องซักผ้า", "เครื่องซักผ้า"],
+"answer": "มุมซักผ้าและตู้หยอดเหรียญอยู่ชั้น 4 และ 8 น้ำยาซักผ้าจะถูกจ่ายอัตโนมัติเมื่อใส่เหรียญในเครื่องซักผ้า สำหรับแลกเงิน กรุณามาที่แผนกต้อนรับชั้น 2"
+},
+{
+"keywords": ["หนังสือพิมพ์", "ข่าว"],
+"answer": "หนังสือพิมพ์ (Nikkei, Asahi, Sports) มีให้ชมที่แผนกต้อนรับชั้น 2 คุณสามารถนำหนังสือพิมพ์ Yomiuri เช้าไปห้องได้ (หนังสือพิมพ์เช้าอาจถูกยกเลิกโดยไม่แจ้งล่วงหน้า ดังนั้นขอขอบคุณสำหรับความเข้าใจ)"
+},
+{
+"keywords": ["นวด"],
+"answer": "ปัจจุบันเราไม่ให้บริการนวด กรุณาใช้บริการใกล้เคียงเช่น Thai Massage Anjera หรือ Showa-do Soft Massage ที่ทางออกตะวันออกสถานี Toride หรือ Hogushi-ya Sho ที่ทางออกตะวันตก"
+},
+{
+"keywords": ["ถ่ายเอกสาร", "FAX", "fax"],
+"answer": "ถ่ายเอกสารและแฟกซ์มีให้บริการโดยมีค่าธรรมเนียมที่แผนกต้อนรับชั้น 2"
+},
+{
+"keywords": ["ชำระเงิน", "บัตร", "เครดิต", "visa", "master", "เงินสด"],
+"answer": "วิธีชำระเงินรวมถึงเงินสด บัตรเครดิต (VISA, Master) การชำระเงิน QR (Merpay, d Payment) ฯลฯ"
+},
+{
+"keywords": ["ที่จอดจักรยาน", "ที่จอดจักรยาน", "จักรยาน", "จักรยาน", "รถจักรยานยนต์", "สองล้อ"],
+"answer": "ระหว่างการพัก คุณสามารถใช้ที่จอดจักรยาน/รถจักรยานยนต์ที่ด้านหลังลานจอดรถใต้ดิน ลิฟต์มีให้บริการจากลานจอดรถใต้ดินถึงแผนกต้อนรับชั้น 2"
+},
+{
+"keywords": ["สูบบุหรี่", "บุหรี่", "สูบ"],
+"answer": "ไม่มีตู้ขายบุหรี่หรือพื้นที่สูบบุหรี่ในโรงแรม สำหรับพื้นที่สูบบุหรี่ เราขอแนะนำที่สถานี Toride (เดินประมาณ 3 นาที) โรงแรมมีห้องสูบบุหรี่ 48 ห้อง (รวมห้องเตียงคู่และเดี่ยวดีลักซ์) และห้องไม่สูบบุหรี่ 72 ห้อง (รวมห้องเตียงคู่และเดี่ยวดีลักซ์) หากตรวจพบการสูบบุหรี่ในห้องไม่สูบบุหรี่ เราอาจเรียกเก็บค่าทำความสะอาดพิเศษและค่าชดเชยสำหรับวันที่ขายไม่ได้"
+},
+{
+"keywords": ["ไม่สูบบุหรี่", "กลิ่น", "กลิ่น", "จำนวนห้อง"],
+"answer": "โรงแรมมีห้องไม่สูบบุหรี่ 72 ห้อง (รวมห้องเตียงคู่และเดี่ยวดีลักซ์) และห้องสูบบุหรี่ 48 ห้อง (รวมห้องเตียงคู่และเดี่ยวดีลักซ์) ห้ามสูบบุหรี่ทุกที่ยกเว้นห้องสูบบุหรี่ที่กำหนด แต่กลิ่นอาจมีอยู่ในพื้นที่ส่วนกลางเช่นลิฟต์และห้องตู้หยอดเหรียญ หากตรวจพบการสูบบุหรี่ในห้องไม่สูบบุหรี่ เราอาจเรียกเก็บค่าทำความสะอาดพิเศษและค่าชดเชยสำหรับวันที่ขายไม่ได้"
+},
+{
+"keywords": ["เตียง", "ขนาด", "ความกว้าง", "ประเภทห้อง", "ประเภทห้อง", "ประเภทห้อง", "ประเภทห้อง"],
+"answer": "ขนาดห้อง: ห้องสไตล์ญี่ปุ่นและห้องเตียงคู่ 24㎡ ห้องเดี่ยวดีลักซ์ 15.4㎡ ห้องเดี่ยว 12㎡ ขนาดเตียง: ห้องเตียงคู่มีเตียงเดี่ยวสองเตียง (1030mm × 1970mm) ห้องเดี่ยวดีลักซ์มีเตียงคู่หนึ่งเตียง (1400mm × 1970mm) ห้องเดี่ยวมีเตียงเซมิดับเบิลหนึ่งเตียง (1230mm × 1970mm) กรุณาสอบถามล่วงหน้าหากมีคำถาม"
+},
+{
+"keywords": ["ลิฟต์", "บันได", "เคอร์ฟิว"],
+"answer": "ด้วยเหตุผลด้านความปลอดภัย ลิฟต์ไม่ลงต่ำกว่าชั้น 2 ตั้งแต่ 00:00 น. ถึง 05:30 น. หากเช็คอินหลัง 00:00 น. กรุณาใช้บันไดเพื่อไปยังแผนกต้อนรับชั้น 2"
+},
+{
+"keywords": ["เที่ยวชม", "เล่น", "ดู", "เหตุการณ์", "เทศกาล"],
+"answer": "สถานที่ท่องเที่ยวใกล้เคียงรวมถึงวัด Chozenji ด้านหลังโรงแรม เทศกาลดอกไม้ไฟ Toride ในฤดูร้อน หอประชุมพลเมือง Toride จัดกิจกรรมต่างๆ (คอนเสิร์ต ตลก โรงละคร ภาพยนตร์ ฯลฯ) ไกลออกไปมี Ushiku Daibutsu Ushiku Marsh Tsukuba Expo Center ฯลฯ"
+},
+{
+"keywords": ["ที่อยู่", "ตำแหน่ง"],
+"answer": "โรงแรมของเราอยู่ที่ 〒302-0004, 2-4-3 Toride, เมือง Toride, จังหวัด Ibaraki, TEL: +81-297-72-1123"
+},
+{
+"keywords": ["ยกเลิก", "ค่าธรรมเนียมยกเลิก", "ค่าธรรมเนียมยกเลิก", "จนถึงเมื่อไหร่", "จนถึงเมื่อไหร่", "กี่วันก่อน"],
+"answer": "สำหรับการจองส่วนบุคคล การยกเลิกในวันก่อนถึงคิด 20% ของค่าที่พัก; ในวันถึง 15:00 น. 80%; หลัง 15:00 น. หรือไม่มา 100%"
+},
+{
+"keywords": ["ร้านสะดวกซื้อ", "ร้านสะดวกซื้อ", "Lawson", "Seven-Eleven"],
+"answer": "Lawson ที่ทางออกตะวันออกสถานี Toride เดิน 3 นาที Seven-Eleven ประมาณ 5 นาที"
+},
+{
+"keywords": ["สถานี", "การเข้าถึง", "รถไฟ", "สถานีใกล้ที่สุด", "สถานีใกล้ที่สุด", "ทางออก"],
+"answer": "สถานีใกล้ที่สุดคือสถานี JR Toride ออกจากประตูตะวันออก เลี้ยวขวาผ่าน Lawson ข้ามสัญญาณ แล้วเดินขวาประมาณ 3 นาที สำหรับรถไฟจาก Ueno/Shinagawa ขึ้นรถด้านหน้า; จาก Tsuchiura/Mito รถด้านหลังเพื่อใกล้ทางออกตะวันออกมากขึ้น หากหลงทาง กรุณาโทร {TEL}"
+},
+{
+"keywords": ["รถยนต์", "รถยนต์", "เส้นทาง", "เส้นทาง"],
+"answer": "ตั้งระบบนำทางไป 'Central Hotel Toride' หรือ '2-4-3 Toride, เมือง Toride, จังหวัด Ibaraki' จาก IC Yawara ทางด่วน Joban ประมาณ 30 นาที จากโตเกียว หลังข้ามสะพาน Otone บนเส้นทาง 6 เลี้ยวขวาเข้าถนนจังหวัด 11; จาก Mito/Tsuchiura ก่อนสะพาน Otone เลี้ยวไป Tone (ถนนจังหวัด 11) ผ่านใต้สาย Joban เลี้ยวซ้ายที่สัญญาณไปทางออกตะวันออกสถานี Toride และโรงแรมอยู่ทางขวาทันที"
+},
+{
+"keywords": ["ยางแบน", "ยางแบน", "น้ำมัน", "เชื้อเพลิง", "เติมน้ำมัน"],
+"answer": "มีปั๊มน้ำมันประมาณ 5 นาทีโดยรถยนต์ กรุณาถามพนักงานแผนกต้อนรับ"
+},
+{
+"keywords": ["โรงพยาบาล", "ทันตแพทย์", "ไข้", "หวัด", "ไข้หวัดใหญ่", "โคโรนา", "เจ็บป่วย", "ปวด"],
+"answer": "สำหรับหวัด ปวดฟัน ฯลฯ เราสามารถแนะนำโรงพยาบาลใกล้เคียง สถานที่ใหญ่กว่าอย่าง JA Toride General Medical Center มีให้บริการ กรุณาถามพนักงานแผนกต้อนรับ"
+},
+{
+"keywords": ["ร้านหนังสือ", "ร้านมือถือ", "docomo", "softbank", "au", "สมาร์ทโฟน", "ช้อปปิ้ง", "ทางออกตะวันตก", "ร้าน 100 เยน"],
+"answer": "ที่ทางออกตะวันตกสถานี Toride: Seijo Ishii (Atre), Seiyu (Ribbon Toride), T Marche Toride (Atre), Daiso (Ribbon Toride), ร้านหนังสือ Kumazawa (Atre) ฯลฯ ร้าน Docomo, Softbank, AU อยู่ไกลออกไปตามเส้นทาง 294"
+},
+{
+"keywords": ["ขอบคุณ", "ขอบคุณ", "ขอบคุณ", "เข้าใจแล้ว", "เข้าใจแล้ว"],
+"answer": "ฉันดีใจมากที่ได้ช่วยเหลือ หากคุณมีคำถามอื่นๆ กรุณาถามได้ตลอดเวลา สำหรับคำขอใดๆ ถึงพนักงาน กรุณากดเบอร์ภายใน 9 จากห้องของคุณ พนักงานแผนกต้อนรับยินดีช่วยเหลือคุณ"
 }
   ]
 };
+
 function findAnswer(query){
   query = query.toLowerCase();
   const detectedLang = i18next.language || 'ja';
@@ -612,3 +1935,4 @@ i18next
 </script>
 </body>
 </html>
+
