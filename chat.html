@@ -68,7 +68,7 @@
       <p>
         現在テスト版はお休み中です。<br>
         機能チェックは終了しました。<br>
-        
+        よろしくお願いいたします。
       </p>
     </div>
   </div>
@@ -88,12 +88,14 @@
         e.preventDefault();
       }
     });
-    
+    // --- URLマスキングをページロード後に実行 ---
     window.addEventListener('load', function() {
       if (history && history.replaceState) {
-        history.replaceState(null, '', '/セントラルホテルグループテストsite');
+        history.replaceState(null, '', '/セントラルホテルグループQAチャット');
       }
     });
   </script>
 </body>
 </html>
+</html>
+
