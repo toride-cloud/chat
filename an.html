@@ -155,7 +155,7 @@
   </div>
 
   <script>
-    // ---------- 既存の制御（時間帯・清掃内容・日数計算） ----------
+    
     const timeSelect = document.getElementById('timeSelect');
     const normalClean = document.getElementById('normalClean');
     const towel = document.getElementById('towel');
@@ -207,7 +207,7 @@
       totalDaysDisplay.textContent = `【合計、${diffDays}日間】`;
     }
 
-    // ---------- 新規：送信処理（formsubmit.coへメール送信） ----------
+    
     const form = document.getElementById('cleaningForm');
     const successMessage = document.getElementById('successMessage');
 
@@ -228,10 +228,10 @@
         });
 
         if (response.ok) {
-          form.reset();                    // フォームをクリア
-          calculateTotalDays();            // 日数表示もクリア
+          form.reset();                    
+          calculateTotalDays();            
           successMessage.style.display = 'block';
-          window.scrollTo({ top: 0, behavior: 'smooth' }); // 上にスクロール
+          window.scrollTo({ top: 0, behavior: 'smooth' }); 
         } else {
           alert('送信に失敗しました。もう一度お試しください。');
         }
@@ -243,7 +243,7 @@
       }
     });
 
-    // ---------- イベントリスナー ----------
+    
     timeSelect.addEventListener('change', () => {
       updateByTime();
       if (normalClean.disabled) updateByNormalClean();
