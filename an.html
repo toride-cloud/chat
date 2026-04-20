@@ -63,6 +63,7 @@
       font-weight: bold;
     }
     button:hover { background: #0069d9; }
+    button:disabled { background: #999; cursor: not-allowed; }
     .checkbox-group input[type="checkbox"]:disabled + span {
       color: #999;
       cursor: not-allowed;
@@ -75,15 +76,25 @@
       min-height: 28px;
       text-align: left;
     }
+    #successMessage {
+      display: none;
+      background: #d4edda;
+      color: #155724;
+      padding: 25px;
+      border-radius: 8px;
+      text-align: center;
+      margin: 30px 0;
+      font-size: 18px;
+      border: 1px solid #c3e6cb;
+    }
   </style>
 </head>
 <body>
   <h1>客室清掃のご依頼</h1>
   <p class="note">土・日・祝日／平日も清掃希望を受け付けています</p>
   <p class="note">希望時間帯が混み合う場合は順次対応となります</p>
- 
-  <!-- Formspreeを使ったメール送信フォーム（d4hrc5842@gmail.com宛） -->
-  <form action="https://formspree.io/f/xdkozjqa" method="POST">
+
+  <form id="cleaningForm">
     <label>部屋番号</label>
     <input type="text" name="room" required placeholder="例: 1205">
 
@@ -99,8 +110,9 @@
       </div>
     </div>
     <div id="totalDays"></div>
+
     <p style="font-size:14px; color:#666; margin-top:5px;">※連続した期間を指定できます（1日のみの場合は開始日＝終了日で入力ください）</p>
-    <p style="font-size:14px; color:#666; margin-top:5px;">1日毎に清掃依頼が異なる場合は期間設定後「追加のご要望」へ記入ください</p>
+    <p style="font-size:14px; color:#666; margin-top:5px;">1日毎に清掃依頼が異なる場合は期間設定後<追加のご要望>へ記入ください</p>
 
     <label>希望時間帯</label>
     <select name="time" id="timeSelect" required>
@@ -116,65 +128,68 @@
 
     <label>希望清掃内容（複数選択可）</label>
     <div class="checkbox-group">
-      <label>
-        <input type="checkbox" name="type[]" value="通常清掃">
-        <span>通常清掃（全て行います）</span>
-      </label>
-      <label>
-        <input type="checkbox" name="type[]" value="タオル交換">
-        <span>タオル交換（アメニティ＋浴衣）のみ</span>
-      </label>
-      <label>
-        <input type="checkbox" name="type[]" value="ベッドメイク">
-        <span>ベッドメイクのみ</span>
-      </label>
-      <label>
-        <input type="checkbox" name="type[]" value="バスルーム">
-        <span>バスルーム内清掃のみ</span>
-      </label>
-      <label>
-        <input type="checkbox" name="type[]" value="ゴミ回収">
-        <span>ゴミ回収のみ</span>
-      </label>
-      <label>
-        <input type="checkbox" name="type[]" value="その他">
-        <span>その他（追加要望に記入ください）</span>
-      </label>
+      <label><input type="checkbox" name="type[]" id="normalClean" value="通常清掃"><span>通常清掃（全て行います）</span></label>
+      <label><input type="checkbox" name="type[]" id="towel" value="タオル交換"><span>タオル交換（アメニティ＋浴衣）のみ</span></label>
+      <label><input type="checkbox" name="type[]" id="bed" value="ベッドメイク"><span>ベッドメイクのみ</span></label>
+      <label><input type="checkbox" name="type[]" id="bath" value="バスルーム"><span>バスルーム内清掃のみ</span></label>
+      <label><input type="checkbox" name="type[]" id="garbage" value="ゴミ回収"><span>ゴミ回収のみ</span></label>
+      <label><input type="checkbox" name="type[]" id="other" value="その他"><span>その他（追加要望に記入ください）</span></label>
     </div>
 
     <label>追加のご要望</label>
     <textarea name="request" rows="5" placeholder="例: テーブル上は触らないでお願いします
 例: 20日は11時に帰館、21日は12時帰館です"></textarea>
 
-    <!-- 隠しフィールド（メール送信先を固定） -->
-    <input type="hidden" name="_subject" value="客室清掃依頼が届きました">
-    <input type="hidden" name="_next" value="https://あなたのGitHubページURL/thanks.html"> <!-- 送信後表示するお礼ページ（任意） -->
+    <!-- 送信先設定（formsubmit.co） -->
+    <input type="hidden" name="_subject" value="【客室清掃依頼】新規ご依頼がありました">
     <input type="hidden" name="_captcha" value="false">
 
     <button type="submit">送信する</button>
   </form>
 
+  <!-- 送信完了メッセージ -->
+  <div id="successMessage">
+    ✅ <strong>送信完了しました！</strong><br>
+    ご依頼ありがとうございます。<br>
+    清掃スタッフが確認次第、対応いたします。
+  </div>
+
   <script>
-    // ---------- 既存の制御（時間帯・清掃内容） ----------
+    // ---------- 既存の制御（時間帯・清掃内容・日数計算） ----------
     const timeSelect = document.getElementById('timeSelect');
-    const normalClean = document.getElementById('normalClean'); // IDがないので後で追加推奨
-    // 他のチェックボックスも同様にIDを追加したい場合は教えてください
+    const normalClean = document.getElementById('normalClean');
+    const towel = document.getElementById('towel');
+    const bed = document.getElementById('bed');
+    const bath = document.getElementById('bath');
+    const garbage = document.getElementById('garbage');
+    const other = document.getElementById('other');
+    const dateFrom = document.getElementById('date_from');
+    const dateTo = document.getElementById('date_to');
+    const totalDaysDisplay = document.getElementById('totalDays');
 
     function updateByTime() {
       const selected = timeSelect.value;
       const isNoClean = (selected === '清掃なし詳細' || selected === '清掃なし全く');
-      // 通常清掃の制御（IDがないため簡易版）
-      const normalCheck = document.querySelector('input[value="通常清掃"]');
-      if (normalCheck) {
-        normalCheck.disabled = isNoClean;
-        if (isNoClean) normalCheck.checked = false;
+      if (isNoClean) {
+        normalClean.disabled = true;
+        normalClean.checked = false;
+      } else {
+        normalClean.disabled = false;
       }
     }
 
-    // ---------- 日数計算 ----------
-    const dateFrom = document.getElementById('date_from');
-    const dateTo = document.getElementById('date_to');
-    const totalDaysDisplay = document.getElementById('totalDays');
+    function updateByNormalClean() {
+      const isNormalChecked = normalClean.checked;
+      const partials = [towel, bed, bath, garbage];
+      partials.forEach(item => {
+        if (isNormalChecked) {
+          item.disabled = true;
+          item.checked = false;
+        } else {
+          item.disabled = false;
+        }
+      });
+    }
 
     function calculateTotalDays() {
       if (!dateFrom.value || !dateTo.value) {
@@ -192,13 +207,54 @@
       totalDaysDisplay.textContent = `【合計、${diffDays}日間】`;
     }
 
-    // イベントリスナー
-    timeSelect.addEventListener('change', updateByTime);
+    // ---------- 新規：送信処理（formsubmit.coへメール送信） ----------
+    const form = document.getElementById('cleaningForm');
+    const successMessage = document.getElementById('successMessage');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const button = form.querySelector('button');
+      const originalText = button.textContent;
+      button.textContent = '送信中...';
+      button.disabled = true;
+
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch('https://formsubmit.co/d4hrc5842@gmail.com', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (response.ok) {
+          form.reset();                    // フォームをクリア
+          calculateTotalDays();            // 日数表示もクリア
+          successMessage.style.display = 'block';
+          window.scrollTo({ top: 0, behavior: 'smooth' }); // 上にスクロール
+        } else {
+          alert('送信に失敗しました。もう一度お試しください。');
+        }
+      } catch (error) {
+        alert('ネットワークエラーが発生しました。もう一度お試しください。');
+      } finally {
+        button.textContent = originalText;
+        button.disabled = false;
+      }
+    });
+
+    // ---------- イベントリスナー ----------
+    timeSelect.addEventListener('change', () => {
+      updateByTime();
+      if (normalClean.disabled) updateByNormalClean();
+    });
+    normalClean.addEventListener('change', updateByNormalClean);
     dateFrom.addEventListener('change', calculateTotalDays);
     dateTo.addEventListener('change', calculateTotalDays);
 
     window.addEventListener('load', () => {
       updateByTime();
+      updateByNormalClean();
       calculateTotalDays();
     });
   </script>
