@@ -110,8 +110,9 @@
       </div>
     </div>
     <div id="totalDays"></div>
+
     <p style="font-size:14px; color:#666; margin-top:5px;">※連続した期間を指定できます（1日のみの場合は開始日＝終了日で入力ください）</p>
-    <p style="font-size:14px; color:#666; margin-top:5px;">1日毎に清掃依頼が異なる場合は期間設定後「追加のご要望」へ記入ください</p>
+    <p style="font-size:14px; color:#666; margin-top:5px;">1日毎に清掃依頼が異なる場合は期間設定後<追加のご要望>へ記入ください</p>
 
     <label>希望時間帯</label>
     <select name="time" id="timeSelect" required>
@@ -139,13 +140,14 @@
     <textarea name="request" rows="5" placeholder="例: テーブル上は触らないでお願いします
 例: 20日は11時に帰館、21日は12時帰館です"></textarea>
 
+    
     <input type="hidden" name="_subject" value="【客室清掃依頼】新規ご依頼がありました">
     <input type="hidden" name="_captcha" value="false">
 
     <button type="submit">送信する</button>
   </form>
 
-  <!-- 送信完了メッセージ -->
+  
   <div id="successMessage">
     ✅ <strong>送信完了しました！</strong><br>
     ご依頼ありがとうございます。<br>
@@ -153,7 +155,7 @@
   </div>
 
   <script>
-    // ---------- 制御（時間帯・清掃内容・日数計算） ----------
+    
     const timeSelect = document.getElementById('timeSelect');
     const normalClean = document.getElementById('normalClean');
     const towel = document.getElementById('towel');
@@ -205,7 +207,7 @@
       totalDaysDisplay.textContent = `【合計、${diffDays}日間】`;
     }
 
-    // ---------- 送信処理（メール + スプレッドシート両方） ----------
+    
     const form = document.getElementById('cleaningForm');
     const successMessage = document.getElementById('successMessage');
 
@@ -219,36 +221,21 @@
 
       const formData = new FormData(form);
 
-      // 合計日数をスプレッドシート用に追加
-      const totalDaysText = totalDaysDisplay.textContent;
-      if (totalDaysText) {
-        const days = totalDaysText.replace(/【合計、|日間】/g, '');
-        formData.append('totalDays', days);
-      }
-
       try {
-        // 1. メール送信（formsubmit.co）
-        const emailResponse = await fetch('https://formsubmit.co/d4hrc5842@gmail.com', {
+        const response = await fetch('https://formsubmit.co/esprit74221@gmail.com', {
           method: 'POST',
           body: formData
         });
 
-        // 2. Googleスプレッドシート保存
-        const sheetResponse = await fetch('https://script.google.com/macros/s/AKfycbzgaitRgZvu428gW9QVCXYMd-lqMrfS_IDgObfWbZdFhOTwe2kWZ4y50ma2Bi7qWcn_/exec', {
-          method: 'POST',
-          body: formData
-        });
-
-        if (emailResponse.ok && sheetResponse.ok) {
-          form.reset();
-          calculateTotalDays();        // 日数表示をクリア
+        if (response.ok) {
+          form.reset();                    
+          calculateTotalDays();            
           successMessage.style.display = 'block';
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          window.scrollTo({ top: 0, behavior: 'smooth' }); 
         } else {
           alert('送信に失敗しました。もう一度お試しください。');
         }
       } catch (error) {
-        console.error(error);
         alert('ネットワークエラーが発生しました。もう一度お試しください。');
       } finally {
         button.textContent = originalText;
@@ -256,7 +243,7 @@
       }
     });
 
-    // ---------- イベントリスナー ----------
+    
     timeSelect.addEventListener('change', () => {
       updateByTime();
       if (normalClean.disabled) updateByNormalClean();
