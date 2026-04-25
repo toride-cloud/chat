@@ -226,10 +226,9 @@
   method: 'POST',
   body: formData
 });
-          method: 'POST',
-          body: formData
-        });
 
+const result = await response.text();
+alert(result);
         if (response.ok) {
           form.reset();                    
           calculateTotalDays();            
